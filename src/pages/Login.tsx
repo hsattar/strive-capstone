@@ -1,7 +1,9 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function Login() {
+
+    const navigate = useNavigate()
 
     const [loginError, setLoginError] = useState(false)
     const [userError, setUserError] = useState(false)
@@ -20,11 +22,14 @@ export default function Login() {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
+
+        if (!userDetails.email || !userDetails.password) return setUserError(true)
+        navigate('/')
     }
 
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
-            <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
+            <div className="p-10 xs:p-0 mx-auto md:w-full md:min-w-xl md:max-w-2xl">
                 <div className="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
                 <div className="px-5 py-7">
                 <h1 className="font-bold text-center text-2xl mb-5">Coding Buddy</h1>  
