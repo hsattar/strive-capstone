@@ -1,9 +1,12 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { userLogsInAction } from '../redux/actions/actionCreators'
 
 export default function Register() {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const [registrationError, setRegistrationError] = useState(false)
     const [userError, setUserError] = useState(false)
@@ -26,6 +29,7 @@ export default function Register() {
         e.preventDefault()
 
         if (!userDetails.firstName || !userDetails.lastName || !userDetails.email || !userDetails.password) return setUserError(true)
+        dispatch(userLogsInAction())
         navigate('/')
     }
 

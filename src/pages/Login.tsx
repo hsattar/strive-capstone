@@ -1,9 +1,12 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { userLogsInAction } from '../redux/actions/actionCreators'
 
 export default function Login() {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const [loginError, setLoginError] = useState(false)
     const [userError, setUserError] = useState(false)
@@ -24,6 +27,7 @@ export default function Login() {
         e.preventDefault()
 
         if (!userDetails.email || !userDetails.password) return setUserError(true)
+        dispatch(userLogsInAction())
         navigate('/')
     }
 

@@ -1,20 +1,24 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { userLogsOutAction } from '../redux/actions/actionCreators'
 
 export default function Navbar() {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const [showUserMenu, setShowUserMenu] = useState(false)
 
     const handleLogout = () => {
+        dispatch(userLogsOutAction())
         navigate('/login')
     }
 
     return (
         <>
         <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded shadow-md">
-            <div className="container flex flex-wrap justify-between items-center mx-auto">
+            <div className="flex flex-wrap justify-between items-center mx-auto">
             <Link to="/" className="flex"><span className="self-center text-lg font-semibold whitespace-nowrap">Coding Buddy</span></Link>
             <div className="flex items-center">
                 <button onClick={() => setShowUserMenu(prev => !prev)} className="flex mr-3 text-sm rounded-full md:mr-0">
