@@ -38,7 +38,7 @@ export default function Register() {
             <div className="p-10 xs:p-0 mx-auto sm:w-full sm:min-w-xl sm:max-w-4xl">
                 <div className="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
                 <div className="px-5 py-7">
-                <h1 className="font-bold text-center text-2xl mb-5">Coding Buddy</h1>  
+                <h1 className="font-bold text-center text-2xl mb-5">Code Buddy</h1>  
                     <form onSubmit={handleSubmit} autoComplete="off" noValidate>
                     <div className="grid grid-cols-2 gap-x-10">
                         <div>

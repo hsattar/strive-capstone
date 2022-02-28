@@ -19,7 +19,7 @@ export default function Navbar() {
         <div className="relative">
         <nav className="bg-white border-gray-200 px-2 sm:px-4 py-3 rounded shadow-md">
             <div className="flex flex-wrap justify-between items-center mx-auto">
-            <Link to="/" className="flex"><span className="self-center text-lg font-semibold whitespace-nowrap">Coding Buddy</span></Link>
+            <Link to="/" className="flex"><span className="self-center text-lg font-semibold whitespace-nowrap">Code Buddy</span></Link>
             <div className="flex items-center">
                 <button onClick={() => setShowUserMenu(prev => !prev)} className="flex mr-3 text-sm rounded-full md:mr-0">
                 {/* <button onClick={() => setShowUserMenu(prev => !prev)} onBlur={() => setShowUserMenu(false)} className="flex mr-3 text-sm rounded-full md:mr-0"> */}

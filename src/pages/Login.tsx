@@ -36,7 +36,7 @@ export default function Login() {
             <div className="p-10 xs:p-0 mx-auto md:w-full md:min-w-xl md:max-w-2xl">
                 <div className="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
                 <div className="px-5 py-7">
-                <h1 className="font-bold text-center text-2xl mb-5">Coding Buddy</h1>  
+                <h1 className="font-bold text-center text-2xl mb-5">Code Buddy</h1>  
                     <form onSubmit={handleSubmit} autoComplete="off" noValidate>
                     <label className="font-semibold text-sm text-gray-600 pb-1 block">E-mail</label>
                     <input

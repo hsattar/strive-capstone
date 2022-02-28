@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from 'react-router-dom'
 
-export default function EditWebsiteSidebar() {
+export default function EditWebsiteSidebarGeneral() {
 
     const navigate = useNavigate()
     const { websiteId, pageSelected } = useParams()
