@@ -18,7 +18,7 @@ export default function App() {
         <Route path="/" element={ <Home /> } />
         <Route path="/login" element={ <Login /> } />
         <Route path="/register" element={ <Register /> } />
-        <Route path="/ws-edit/:websiteId" element={ <EditWebsite /> } />
+        <Route path="/ws-edit/:websiteId/:pageSelected" element={ <EditWebsite /> } />
         <Route path="*" element={ <NotFound /> } />
       </Routes>
     </Router>

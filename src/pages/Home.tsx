@@ -6,7 +6,7 @@ export default function Home() {
 
     const handleNewWebsite = () => {
         const id = new Date().getTime()
-        navigate(`/ws-edit/${id}`)
+        navigate(`/ws-edit/${id}/home`)
     }
 
     return (

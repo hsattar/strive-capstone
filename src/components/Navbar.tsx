@@ -21,7 +21,8 @@ export default function Navbar() {
             <div className="flex flex-wrap justify-between items-center mx-auto">
             <Link to="/" className="flex"><span className="self-center text-lg font-semibold whitespace-nowrap">Coding Buddy</span></Link>
             <div className="flex items-center">
-                <button onClick={() => setShowUserMenu(prev => !prev)} onBlur={() => setShowUserMenu(false)} className="flex mr-3 text-sm rounded-full md:mr-0">
+                <button onClick={() => setShowUserMenu(prev => !prev)} className="flex mr-3 text-sm rounded-full md:mr-0">
+                {/* <button onClick={() => setShowUserMenu(prev => !prev)} onBlur={() => setShowUserMenu(false)} className="flex mr-3 text-sm rounded-full md:mr-0"> */}
                     <img className="w-8 h-8 rounded-full" src="https://ui-avatars.com/api/?name=Hasan+Sattar" alt="" />
                 </button>
             </div>
