@@ -18,6 +18,14 @@
         z-50
         text-xs font-bold 
         transition-all duration-100 scale-0 origin-left;
-      }
+    }
+
+    .topbar-tooltip {
+        @apply absolute w-auto p-2 mt-2 min-w-max right-0 rounded-sm shadow-md
+        text-gray-900 bg-white
+        z-50
+        text-xs font-bold 
+        transition-all duration-100 scale-0 origin-left;
+    }
 
 }
