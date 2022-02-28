@@ -1,9 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import { useSelector } from 'react-redux'
+import EditWebsite from './pages/EditWebsite'
+import NotFound from './pages/NotFound'
 
 export default function App() {
 
@@ -16,6 +18,8 @@ export default function App() {
         <Route path="/" element={ <Home /> } />
         <Route path="/login" element={ <Login /> } />
         <Route path="/register" element={ <Register /> } />
+        <Route path="/ws/:websiteId" element={ <EditWebsite /> } />
+        <Route path="*" element={ <NotFound /> } />
       </Routes>
     </Router>
   )
