@@ -30,7 +30,7 @@ export default function EditWebsiteSidebar() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 9l-7 7-7-7" />
                 </svg>
             </button>
-            <div className={`${!showPageToEdit && 'hidden'} absolute z-50 my-0 text-base list-none bg-white rounded divide-y divide-gray-100 shadow w-full`}>
+            <div className={`${!showPageToEdit && 'hidden'} absolute z-20 my-0 text-base list-none bg-white rounded divide-y divide-gray-100 shadow w-full`}>
                 <ul className="py-1">
                     { pages.map(page => (
                         <li key={page}>
