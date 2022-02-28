@@ -16,18 +16,18 @@ export default function Navbar() {
     }
 
     return (
-        <>
+        <div className="relative">
         <nav className="bg-white border-gray-200 px-2 sm:px-4 py-3 rounded shadow-md">
             <div className="flex flex-wrap justify-between items-center mx-auto">
             <Link to="/" className="flex"><span className="self-center text-lg font-semibold whitespace-nowrap">Coding Buddy</span></Link>
             <div className="flex items-center">
-                <button onClick={() => setShowUserMenu(prev => !prev)} className="flex mr-3 text-sm rounded-full md:mr-0">
+                <button onClick={() => setShowUserMenu(prev => !prev)} onBlur={() => setShowUserMenu(false)} className="flex mr-3 text-sm rounded-full md:mr-0">
                     <img className="w-8 h-8 rounded-full" src="https://ui-avatars.com/api/?name=Hasan+Sattar" alt="" />
                 </button>
             </div>
             </div>
         </nav>
-        <div className="flex justify-end mr-4">
+        <div className="absolute right-3">
             <div className={`${!showUserMenu && 'hidden'} z-50 my-1 text-base list-none bg-white rounded divide-y divide-gray-100 shadow-md w-40`}>
                 <div className="py-3 px-4">
                 <span className="block text-sm text-gray-900">Hasan Sattar</span>
@@ -40,6 +40,6 @@ export default function Navbar() {
                 </ul>
             </div>
         </div>
-        </>
+        </div>
     )
 }
