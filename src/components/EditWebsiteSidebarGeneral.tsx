@@ -22,7 +22,7 @@ export default function EditWebsiteSidebarGeneral() {
     }, [])
 
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center max-w-[250px]">
             <div className="w-5/6 relative">
             <button onClick={() => setShowPageToEdit(prev => !prev)} className="flex justify-between items-center transition duration-200 border capitalize mx-0 px-3 py-1 my-2 cursor-pointer font-normal text-md rounded-md w-full text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
                 <span>{`Page - ${pageToEdit}`}</span>

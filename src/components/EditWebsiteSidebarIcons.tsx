@@ -20,6 +20,12 @@ export default function EditWebsiteSidebarIcons({ sidebarTab, setSidebarTab }: I
             </svg>
             <span className="sidebar-tooltip group-hover:scale-100">General</span>
         </div>
+        <div className="sidebar-icon group" onClick={() => handleChangeSidebarTab('styles')}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={sidebarTab === 'styles' ? 2 : 1} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+            <span className="sidebar-tooltip group-hover:scale-100">Styles</span>
+        </div>
         <div className="sidebar-icon group" onClick={() => handleChangeSidebarTab('layout')}>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={sidebarTab === 'layout' ? 2 : 1} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
