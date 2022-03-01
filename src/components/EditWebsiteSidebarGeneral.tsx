@@ -55,16 +55,16 @@ export default function EditWebsiteSidebarGeneral() {
             </EditWebsiteSidebarDropdowns>
 
             <EditWebsiteSidebarDropdowns name="sections">
-                <div className="ml-8">
-                    <p>Navbar</p>
-                    <p>Hero</p>
-                    <p>Pricing</p>
+                <div>
+                    <p className="capitalize pl-8 py-1">Navbar</p>
+                    <p className="capitalize pl-8 py-1">Hero</p>
+                    <p className="capitalize pl-8 py-1">Pricing</p>
                 </div>
             </EditWebsiteSidebarDropdowns>
             <EditWebsiteSidebarDropdowns name="Website Settings">
-                <div className="ml-8">
-                    <p>Website Name</p>
-                    <p>Load All Pages At Once / only on request</p>
+                <div>
+                    <p className="capitalize pl-8 py-1">Website Name</p>
+                    <p className="capitalize pl-8 py-1">Load All Pages At Once / only on request</p>
                 </div>
             </EditWebsiteSidebarDropdowns>
         </div>

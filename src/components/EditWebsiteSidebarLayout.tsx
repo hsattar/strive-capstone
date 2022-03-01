@@ -27,10 +27,10 @@ export default function EditWebsiteSidebarLayout() {
                 </div>
             </EditWebsiteSidebarDropdowns>
             <EditWebsiteSidebarDropdowns name="Grid - Custom">
-                <div className="ml-8">
-                    <p>Number Of Rows</p>
-                    <p>Number Of Columns</p>
-                    <p>Generate</p>
+                <div>
+                    <p className="capitalize pl-8 py-1">Number Of Rows</p>
+                    <p className="capitalize pl-8 py-1">Number Of Columns</p>
+                    <p className="capitalize pl-8 py-1">Generate</p>
                 </div>
             </EditWebsiteSidebarDropdowns>
         </div>

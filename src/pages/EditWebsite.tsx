@@ -19,10 +19,10 @@ export default function EditWebsite() {
     return (
         <div className="overflow-hidden">
         <Navbar />
-        <div className="divide-y divide-gray-200 p-0">
+        <div className="divide-y divide-gray-200">
         <EditWebsiteTopBar deviceView={deviceView} setDeviceView={setDeviceView} />
-        <div className={sidebarTab === '' ? 'grid grid-cols-[50px_1fr] min-h-[90.5vh]' : 'grid grid-cols-[300px_1fr] min-h-[90.5vh]'}>
-            <div className="grid grid-cols-[50px_250px] divide-x min-h-[90.5vh] max-h-[90.5vh] overflow-y-scroll overflow-x-hidden">
+        <div className={sidebarTab === '' ? 'grid grid-cols-[50px_1fr] gap-0 min-h-[90.5vh]' : 'grid grid-cols-[300px_1fr] gap-0 min-h-[90.5vh]'}>
+            <div className="grid gap-0 grid-cols-[50px_250px] divide-x min-h-[90.5vh] max-h-[90.5vh] overflow-y-scroll overflow-x-hidden">
             <EditWebsiteSidebarIcons sidebarTab={sidebarTab} setSidebarTab={setSidebarTab} />
             { sidebarTab === 'general' && <EditWebsiteSidebarGeneral /> }
             { sidebarTab === 'styles' && <EditWebsiteSidebarStyles /> }
