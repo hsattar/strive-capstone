@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useParams } from "react-router-dom"
 import EditWebsiteTopBar from "../components/EditWebsiteTopBar"
 import EditWebsiteSidebarGeneral from "../components/EditWebsiteSidebarGeneral"
 import EditWebsiteSidebarIcons from "../components/EditWebsiteSidebarIcons"
@@ -8,6 +9,8 @@ import EditWebsiteSidebarComponents from "../components/EditWebsiteSidebarCompon
 import EditWebsiteSidebarStyles from "../components/EditWebsiteSidebarStyles"
 
 export default function EditWebsite() {
+
+    const { pageSelected } = useParams()
 
     const [sidebarTab, setSidebarTab] = useState('general')
     const [deviceView, setDeviceView] = useState('desktop')
@@ -26,7 +29,7 @@ export default function EditWebsite() {
             </div>
             <div className="bg-gray-100 flex justify-center">
                 <div className={deviceView === 'desktop' ? 'min-w-[95%] bg-white my-2' : deviceView === 'tablet' ? 'min-w-[65%] bg-white my-2' : 'min-w-[35%] bg-white my-2'}>
-                    Website
+                    {`Website - ${pageSelected} page`}
                 </div>
             </div>
         </div>

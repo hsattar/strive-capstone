@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react"
+import { Fragment, MouseEvent, useEffect, useState } from "react"
 import { useNavigate, useParams } from 'react-router-dom'
 import EditWebsiteSidebarDropdowns from "./EditWebsiteSidebarDropdowns"
+import SVGIcon from "./SVGIcon"
 
 export default function EditWebsiteSidebarGeneral() {
 
@@ -11,10 +12,18 @@ export default function EditWebsiteSidebarGeneral() {
     const [showPageToEdit, setShowPageToEdit] = useState(false)
     const [pages, setPages] = useState<string[]>([])
 
-    const handlePageToEditChange = (page: string) => {
+    const handlePageToEditChange = (page: string, e: MouseEvent) => {
         setShowPageToEdit(false)
         setPageToEdit(page)
         navigate(`/ws-edit/${websiteId}/${page}`)
+    }
+
+    const handleDeletePage = (pageToDelete: string, e: MouseEvent) => {
+        e.stopPropagation()
+        setPages(prev => prev.filter(page => page !== pageToDelete))
+        if (pageToDelete === pageSelected) {
+            navigate(`/ws-edit/${websiteId}/${pages[0]}`)
+        }
     }
 
     useEffect(() => {
@@ -25,12 +34,23 @@ export default function EditWebsiteSidebarGeneral() {
     return (
         <div className="flex flex-col">
             <EditWebsiteSidebarDropdowns name={`pages - ${pageSelected}`}>
-                <div>
+                <>
                     { pages.map(page => (
-                    <div>
-                        <p key={page} className="capitalize cursor-pointer hover:bg-gray-100 pb-2 pl-8" onClick={() => handlePageToEditChange(page)}>{page}</p>
-                    </div>)) }
-                </div>
+                    <Fragment key={page}> 
+                    { page === pageSelected ? (
+                        <div className="flex justify-between items-center bg-gray-100 py-1">
+                            <p className="capitalize ml-8 cursor-default">{page}</p>
+                            <button onClick={e => handleDeletePage(page, e)}><SVGIcon svgClassName="h-4 w-4 mr-8 text-red-500 cursor-pointer" pathD="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></button>
+                        </div>
+                    ) : (
+                        <div className="flex justify-between items-center hover:bg-gray-100 py-1" onClick={e => handlePageToEditChange(page, e)}>
+                            <p className="capitalize ml-8 cursor-default">{page}</p>
+                            <button onClick={e => handleDeletePage(page, e)}><SVGIcon svgClassName="h-4 w-4 mr-8 text-red-500 cursor-pointer" pathD="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></button>
+                        </div>
+                    )}
+                    </Fragment>
+                    )) }
+                </>
             </EditWebsiteSidebarDropdowns>
 
             <EditWebsiteSidebarDropdowns name="sections">
