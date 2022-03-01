@@ -4,22 +4,22 @@ export default function EditWebsiteSidebarComponents() {
     return (
         <div className="select-none">
             <EditWebsiteSidebarDropdowns name="Top">
-                <div className="ml-8">
-                    <p>Navbar</p>
-                    <p>Hero Section</p>
+                <div>
+                    <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Navbar</p>
+                    <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Hero Section</p>
                 </div>
             </EditWebsiteSidebarDropdowns>
             <EditWebsiteSidebarDropdowns name="Media">
-                <div className="ml-8">
-                    <p>Carousel</p>
+                <div>
+                    <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Carousel</p>
                 </div>
             </EditWebsiteSidebarDropdowns>
             <EditWebsiteSidebarDropdowns name="Specific">
-                <div className="ml-8">
-                    <p>Accordian</p>
-                    <p>Form</p>
-                    <p>Cards</p>
-                    <p>Modal</p>
+                <div>
+                    <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Accordian</p>
+                    <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Form</p>
+                    <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Cards</p>
+                    <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Modal</p>
                 </div>
             </EditWebsiteSidebarDropdowns>
         </div>

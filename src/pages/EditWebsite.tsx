@@ -17,12 +17,12 @@ export default function EditWebsite() {
     const [deviceView, setDeviceView] = useState('desktop')
 
     return (
-        <>
+        <div className="overflow-hidden">
         <Navbar />
-        <div className="divide-y divide-gray-200">
+        <div className="divide-y divide-gray-200 p-0">
         <EditWebsiteTopBar deviceView={deviceView} setDeviceView={setDeviceView} />
         <div className={sidebarTab === '' ? 'grid grid-cols-[50px_1fr] min-h-[90.5vh]' : 'grid grid-cols-[300px_1fr] min-h-[90.5vh]'}>
-            <div className="grid grid-cols-[50px_250px] divide-x">
+            <div className="grid grid-cols-[50px_250px] divide-x min-h-[90.5vh] max-h-[90.5vh] overflow-y-scroll overflow-x-hidden">
             <EditWebsiteSidebarIcons sidebarTab={sidebarTab} setSidebarTab={setSidebarTab} />
             { sidebarTab === 'general' && <EditWebsiteSidebarGeneral /> }
             { sidebarTab === 'styles' && <EditWebsiteSidebarStyles /> }
@@ -37,6 +37,6 @@ export default function EditWebsite() {
             </div>
         </div>
         </div>
-        </>
+        </div>
     )
 }
