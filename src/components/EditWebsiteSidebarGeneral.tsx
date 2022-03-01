@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from 'react-router-dom'
+import EditWebsiteSidebarDropdowns from "./EditWebsiteSidebarDropdowns"
 
 export default function EditWebsiteSidebarGeneral() {
 
@@ -22,26 +23,23 @@ export default function EditWebsiteSidebarGeneral() {
     }, [])
 
     return (
-        <div className="flex flex-col items-center max-w-[250px]">
-            <div className="w-5/6 relative">
-            <button onClick={() => setShowPageToEdit(prev => !prev)} className="flex justify-between items-center transition duration-200 border capitalize mx-0 px-3 py-1 my-2 cursor-pointer font-normal text-md rounded-md w-full text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
-                <span>{`Page - ${pageToEdit}`}</span>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 9l-7 7-7-7" />
-                </svg>
-            </button>
-            <div className={`${!showPageToEdit && 'hidden'} absolute z-20 my-0 text-base list-none bg-white rounded divide-y divide-gray-100 shadow w-full`}>
-                <ul className="py-1">
+        <div className="flex flex-col">
+            <EditWebsiteSidebarDropdowns name={`pages - ${pageSelected}`}>
+                <div>
                     { pages.map(page => (
-                        <li key={page}>
-                            <button onClick={() => handlePageToEditChange(page)} className="block w-full py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 capitalize">{page}</button>
-                        </li>
-                    )) }
-                    <li><button className="block w-full py-2 px-4 text-sm text-blue-500 hover:bg-gray-100 capitalize">New Page</button></li>
-                </ul>
-            </div>
-            </div>
-            <button className="transition duration-200 w-5/6 text-center border-red-500 hover:bg-red-100 py-1 px-3 mr-1 rounded-md text-red-500">Delete Page</button>
+                    <div>
+                        <p key={page} className="capitalize cursor-pointer hover:bg-gray-100 pb-2 pl-8" onClick={() => handlePageToEditChange(page)}>{page}</p>
+                    </div>)) }
+                </div>
+            </EditWebsiteSidebarDropdowns>
+
+            <EditWebsiteSidebarDropdowns name="sections">
+                <div className="ml-8">
+                    <p>Navbar</p>
+                    <p>Hero</p>
+                    <p>Pricing</p>
+                </div>
+            </EditWebsiteSidebarDropdowns>
         </div>
     )
 }
