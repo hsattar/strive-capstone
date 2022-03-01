@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import Navbar from '../components/Navbar'
 
 export default function Home() {
 
@@ -10,6 +11,8 @@ export default function Home() {
     }
 
     return (
+        <>
+        <Navbar />
         <div className="container mx-auto">
         <div className="divide-y divide-gray-200">
             <div className="flex justify-between my-6">
@@ -19,5 +22,6 @@ export default function Home() {
                 <p className="text-center py-12 text-xl">You Have No Websites</p>
             </div>
         </div>
+        </>
     )
 }

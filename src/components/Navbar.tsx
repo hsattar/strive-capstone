@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { userLogsOutAction } from '../redux/actions/actionCreators'
 import SVGIcon from './SVGIcon'
@@ -8,6 +8,8 @@ export default function Navbar() {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const { pathname } = useLocation()
+    const isHome = pathname === '/'
 
     const [showUserMenu, setShowUserMenu] = useState(false)
 
@@ -18,13 +20,13 @@ export default function Navbar() {
 
     return (
         <div className="relative">
-        <nav className="bg-white border-gray-200 px-2 sm:px-4 py-3 rounded shadow-md">
+        <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2 rounded shadow-md">
             <div className="flex flex-wrap justify-between items-center mx-auto">
-            <Link to="/" className="flex"><span className="self-center text-lg font-semibold whitespace-nowrap">Code Buddy</span></Link>
+            <Link to="/" className="flex"><span className={isHome ? "self-center text-lg font-semibold whitespace-nowrap" : "self-center whitespace-nowrap"}>Code Buddy</span></Link>
             <div className="flex items-center">
                 <button onClick={() => setShowUserMenu(prev => !prev)} className="flex mr-3 text-sm rounded-full md:mr-0">
                 {/* <button onClick={() => setShowUserMenu(prev => !prev)} onBlur={() => setShowUserMenu(false)} className="flex mr-3 text-sm rounded-full md:mr-0"> */}
-                    <img className="w-8 h-8 rounded-full" src="https://ui-avatars.com/api/?name=Hasan+Sattar" alt="" />
+                    <img className={isHome ? "w-8 h-8 rounded-full" : "w-6 h-6 rounded-full" } src="https://ui-avatars.com/api/?name=Hasan+Sattar" alt="" />
                 </button>
             </div>
             </div>

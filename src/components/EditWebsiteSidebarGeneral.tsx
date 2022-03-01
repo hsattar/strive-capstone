@@ -6,7 +6,7 @@ import SVGIcon from "./SVGIcon"
 export default function EditWebsiteSidebarGeneral() {
 
     const navigate = useNavigate()
-    const { websiteId, pageSelected } = useParams()
+    const { websiteName, pageSelected } = useParams()
 
     const [pageToEdit, setPageToEdit] = useState<string | undefined>('')
     const [showPageToEdit, setShowPageToEdit] = useState(false)
@@ -15,14 +15,14 @@ export default function EditWebsiteSidebarGeneral() {
     const handlePageToEditChange = (page: string, e: MouseEvent) => {
         setShowPageToEdit(false)
         setPageToEdit(page)
-        navigate(`/ws-edit/${websiteId}/${page}`)
+        navigate(`/ws-edit/${websiteName}/${page}`)
     }
 
     const handleDeletePage = (pageToDelete: string, e: MouseEvent) => {
         e.stopPropagation()
         setPages(prev => prev.filter(page => page !== pageToDelete))
         if (pageToDelete === pageSelected) {
-            navigate(`/ws-edit/${websiteId}/${pages[0]}`)
+            navigate(`/ws-edit/${websiteName}/${pages[0]}`)
         }
     }
 

@@ -1,5 +1,6 @@
-import { Dispatch, SetStateAction } from "react";
-import SVGIcon from "./SVGIcon";
+import { Dispatch, SetStateAction } from "react"
+import { useParams } from 'react-router-dom'
+import SVGIcon from "./SVGIcon"
 
 interface IProps {
     deviceView: string
@@ -7,6 +8,10 @@ interface IProps {
 }
 
 export default function EditWebsiteTopBar({ deviceView, setDeviceView }: IProps) {
+
+    const { websiteName, pageSelected } = useParams()
+    const { REACT_APP_FE_URL: FE_URL } = process.env
+
     return (
         <nav className="bg-white px-2 sm:px-4 py-1">
             <div className="flex flex-wrap justify-between items-center mx-auto">
@@ -47,7 +52,9 @@ export default function EditWebsiteTopBar({ deviceView, setDeviceView }: IProps)
                     </div>
 
                     <div className="group relative">
-                        <SVGIcon svgClassName="h-6 w-6 mr-4 text-gray-900 cursor-pointer" pathD="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                        <a href={`${FE_URL}/ws-preview/${websiteName}/${pageSelected}`} target="_blank" rel="noopener">
+                            <SVGIcon svgClassName="h-6 w-6 mr-4 text-gray-900 cursor-pointer" pathD="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                        </a>
                         <span className="topbar-tooltip group-hover:scale-100">Preview</span>
                     </div>
 

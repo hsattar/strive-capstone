@@ -7,6 +7,7 @@ import EditWebsiteSidebarLayout from "../components/EditWebsiteSidebarLayout"
 import EditWebsiteSidebarElements from "../components/EditWebsiteSidebarElements"
 import EditWebsiteSidebarComponents from "../components/EditWebsiteSidebarComponents"
 import EditWebsiteSidebarStyles from "../components/EditWebsiteSidebarStyles"
+import Navbar from "../components/Navbar"
 
 export default function EditWebsite() {
 
@@ -16,9 +17,11 @@ export default function EditWebsite() {
     const [deviceView, setDeviceView] = useState('desktop')
 
     return (
+        <>
+        <Navbar />
         <div className="divide-y divide-gray-200">
         <EditWebsiteTopBar deviceView={deviceView} setDeviceView={setDeviceView} />
-        <div className={sidebarTab === '' ? 'grid grid-cols-[50px_1fr] min-h-[88.5vh]' : 'grid grid-cols-[300px_1fr] min-h-[88.5vh]'}>
+        <div className={sidebarTab === '' ? 'grid grid-cols-[50px_1fr] min-h-[90.5vh]' : 'grid grid-cols-[300px_1fr] min-h-[90.5vh]'}>
             <div className="grid grid-cols-[50px_250px] divide-x">
             <EditWebsiteSidebarIcons sidebarTab={sidebarTab} setSidebarTab={setSidebarTab} />
             { sidebarTab === 'general' && <EditWebsiteSidebarGeneral /> }
@@ -34,5 +37,6 @@ export default function EditWebsite() {
             </div>
         </div>
         </div>
+        </>
     )
 }
