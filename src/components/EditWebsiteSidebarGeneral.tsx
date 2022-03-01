@@ -20,9 +20,10 @@ export default function EditWebsiteSidebarGeneral() {
 
     const handleDeletePage = (pageToDelete: string, e: MouseEvent) => {
         e.stopPropagation()
-        setPages(prev => prev.filter(page => page !== pageToDelete))
+        const remainingPages = pages.filter(page => page !== pageToDelete) 
+        setPages(remainingPages)
         if (pageToDelete === pageSelected) {
-            navigate(`/ws-edit/${websiteName}/${pages[0]}`)
+            navigate(`/ws-edit/${websiteName}/${remainingPages[0]}`)
         }
     }
 
@@ -32,7 +33,7 @@ export default function EditWebsiteSidebarGeneral() {
     }, [])
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col select-none">
             <EditWebsiteSidebarDropdowns name={`pages - ${pageSelected}`}>
                 <>
                     { pages.map(page => (
@@ -58,6 +59,12 @@ export default function EditWebsiteSidebarGeneral() {
                     <p>Navbar</p>
                     <p>Hero</p>
                     <p>Pricing</p>
+                </div>
+            </EditWebsiteSidebarDropdowns>
+            <EditWebsiteSidebarDropdowns name="Website Settings">
+                <div className="ml-8">
+                    <p>Website Name</p>
+                    <p>Load All Pages At Once / only on request</p>
                 </div>
             </EditWebsiteSidebarDropdowns>
         </div>

@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useEffect, useState, useRef } from 'react'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { userLogsOutAction } from '../redux/actions/actionCreators'
 import SVGIcon from './SVGIcon'
@@ -9,35 +9,49 @@ export default function Navbar() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { pathname } = useLocation()
-    const isHome = pathname === '/'
-
+    const { websiteName } = useParams()
+    const userMenuRef = useRef<HTMLDivElement>(null)
+    
     const [showUserMenu, setShowUserMenu] = useState(false)
-
+    
+    const isHome = pathname === '/'
+    
     const handleLogout = () => {
         dispatch(userLogsOutAction())
         navigate('/login')
     }
 
+    useEffect(() => {
+        const checkIfMouseClickedOutsideUserMenu = (e: MouseEvent) => {
+            if (showUserMenu && userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
+                setShowUserMenu(false)
+            }
+        }
+
+        document.addEventListener('mousedown', checkIfMouseClickedOutsideUserMenu)
+
+        return () => document.removeEventListener('mousedown', checkIfMouseClickedOutsideUserMenu)
+    }, [showUserMenu])
+
     return (
-        <div className="relative">
+        <div className="relative select-none">
         <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2 rounded shadow-md">
             <div className="flex flex-wrap justify-between items-center mx-auto">
-            <Link to="/" className="flex"><span className={isHome ? "self-center text-lg font-semibold whitespace-nowrap" : "self-center whitespace-nowrap"}>Code Buddy</span></Link>
+            <Link to="/" className="flex"><span className={isHome ? "self-center text-lg font-semibold whitespace-nowrap" : "self-center whitespace-nowrap"}>{websiteName ? `Code Buddy - ${websiteName}` : 'Code Buddy'}</span></Link>
             <div className="flex items-center">
                 <button onClick={() => setShowUserMenu(prev => !prev)} className="flex mr-3 text-sm rounded-full md:mr-0">
-                {/* <button onClick={() => setShowUserMenu(prev => !prev)} onBlur={() => setShowUserMenu(false)} className="flex mr-3 text-sm rounded-full md:mr-0"> */}
                     <img className={isHome ? "w-8 h-8 rounded-full" : "w-6 h-6 rounded-full" } src="https://ui-avatars.com/api/?name=Hasan+Sattar" alt="" />
                 </button>
             </div>
             </div>
         </nav>
-        <div className="absolute right-3">
+        <div className="absolute right-3 z-50" ref={userMenuRef}>
             <div className={`${!showUserMenu && 'hidden'} z-50 my-1 text-base list-none bg-white rounded divide-y divide-gray-100 shadow-md w-40`}>
                 <div className="py-3 px-4">
                 <span className="block text-sm text-gray-900">Hasan Sattar</span>
                 <span className="block text-sm font-medium text-gray-500 truncate mt-1">hasan@sattar.com</span>
                 </div>
-                <ul className="py-1">
+                <ul className="my-1">
                 <li>
                     <Link to="/" className="flex py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">
                         <SVGIcon pathD="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />

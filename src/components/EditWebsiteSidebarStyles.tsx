@@ -1,9 +1,15 @@
+import EditWebsiteSidebarDropdowns from "./EditWebsiteSidebarDropdowns"
+
 export default function EditWebsiteSidebarStyles() {
     return (
-        <div className="flex flex-col items-center">
-            <div className="w-5/6">
-                <p>Styles</p>
-            </div>
+        <div className="select-none">
+            <EditWebsiteSidebarDropdowns name="Text">
+                <div className="ml-8">
+                    <p>Size</p>
+                    <p>Color</p>
+                    <p>Styles</p>
+                </div>
+            </EditWebsiteSidebarDropdowns>
         </div>
     )
 }
