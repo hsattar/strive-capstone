@@ -8,6 +8,10 @@ const websiteReducer = (state = initialState.website, action: AnyAction) => {
             ...state,
             code: `<div className="default"></div>`
         }
+        case ACTIONS.EDIT_WEBSITE_CODE: return {
+            ...state,
+            code: action.payload
+        }
         default: return state
     }
 }
