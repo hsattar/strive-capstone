@@ -1,9 +1,12 @@
 import { FormEvent, useState } from "react"
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { createNewWebsitesAction } from "../redux/actions/actionCreators"
 
 export default function NewWebsiteForm() {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const [userError, setUserError] = useState(false)
     const [websiteDetails, setWebsiteDetails] = useState<IWebsiteDetails>({
@@ -23,6 +26,7 @@ export default function NewWebsiteForm() {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
         if (!websiteDetails.name || !websiteDetails.page1) return setUserError(true)
+        dispatch(createNewWebsitesAction())
         navigate(`/ws-edit/${websiteDetails.name}/${websiteDetails.page1}`)
     }
 

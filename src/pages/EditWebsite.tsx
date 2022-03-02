@@ -1,5 +1,7 @@
 import { useState } from "react"
 import { useParams } from "react-router-dom"
+import { useSelector } from 'react-redux'
+import parse from 'html-react-parser'
 import EditWebsiteTopBar from "../components/EditWebsiteTopBar"
 import EditWebsiteSidebarGeneral from "../components/EditWebsiteSidebarGeneral"
 import EditWebsiteSidebarIcons from "../components/EditWebsiteSidebarIcons"
@@ -12,6 +14,7 @@ import Navbar from "../components/Navbar"
 export default function EditWebsite() {
 
     const { pageSelected } = useParams()
+    const code = useSelector((state: IReduxStore) => state.website.code)
 
     const [sidebarTab, setSidebarTab] = useState('general')
     const [deviceView, setDeviceView] = useState('desktop')
@@ -32,7 +35,7 @@ export default function EditWebsite() {
             </div>
             <div className="bg-gray-100 flex justify-center">
                 <div className={deviceView === 'desktop' ? 'min-w-[95%] bg-white my-2' : deviceView === 'tablet' ? 'min-w-[65%] bg-white my-2' : 'min-w-[35%] bg-white my-2'}>
-                    {`Website - ${pageSelected} page`}
+                    {parse(code)}
                 </div>
             </div>
         </div>

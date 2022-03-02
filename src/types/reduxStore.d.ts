@@ -3,4 +3,7 @@ interface IReduxStore {
         isLoggedIn: boolean
         currentUser: null
     }
+    website: {
+        code: string
+    }
 }
