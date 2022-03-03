@@ -4,6 +4,8 @@ interface IReduxStore {
         currentUser: null
     }
     website: {
-        code: string
+        code: string, 
+        structure: string[]
+        elementToEdit: string
     }
 }

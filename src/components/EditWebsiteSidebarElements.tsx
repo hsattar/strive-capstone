@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { editWebsiteCodeAction } from '../redux/actions/actionCreators'
+import { editWebsiteCodeAction, editWebsiteStructureAction } from '../redux/actions/actionCreators'
 import EditWebsiteSidebarDropdowns from "./EditWebsiteSidebarDropdowns"
+import { v4 as uuid } from 'uuid'
 
 export default function EditWebsiteSidebarElements() {
 
@@ -13,14 +14,16 @@ export default function EditWebsiteSidebarElements() {
         splitCode.push('</div>')
         const newCode = splitCode.join('')
         dispatch(editWebsiteCodeAction(newCode))
+        dispatch(editWebsiteStructureAction(codeToAdd))
     }
+
 
     return (
         <div className="select-none">
             <EditWebsiteSidebarDropdowns name="Text">
                 <div>
-                    <p onClick={() => handleAddCode(`<h1>Hello World</h1>`)} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Heading</p>
-                    <p onClick={() => handleAddCode(`<p>Lorem Ipsum</p>`)} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Paragraph</p>
+                    <p onClick={() => handleAddCode(`<h1 class="${uuid()}">Hello World</h1>`)} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Heading</p>
+                    <p onClick={() => handleAddCode(`<p class="${uuid()}">Lorem Ipsum</p>`)} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Paragraph</p>
                     <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100"> Ordered List</p>
                     <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100"> Unordered List</p>
                 </div>

@@ -64,7 +64,6 @@ export default function EditWebsiteSidebarGeneral() {
             <EditWebsiteSidebarDropdowns name="Website Settings">
                 <div>
                     <p className="capitalize pl-8 py-1">Website Name</p>
-                    <p className="capitalize pl-8 py-1">Load All Pages At Once / only on request</p>
                 </div>
             </EditWebsiteSidebarDropdowns>
         </div>

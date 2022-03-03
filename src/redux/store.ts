@@ -11,7 +11,9 @@ export const initialState: IReduxStore = {
         currentUser: null
     },
     website: {
-        code: ``
+        code: `<div class="default"></div>`,
+        structure: [`<div class="default"></div>`],
+        elementToEdit: `<div class="default"></div>`
     }
 }
 

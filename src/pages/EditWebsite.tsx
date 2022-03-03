@@ -10,6 +10,7 @@ import EditWebsiteSidebarElements from "../components/EditWebsiteSidebarElements
 import EditWebsiteSidebarComponents from "../components/EditWebsiteSidebarComponents"
 import EditWebsiteSidebarStyles from "../components/EditWebsiteSidebarStyles"
 import Navbar from "../components/Navbar"
+import EditWebsiteSidebarStructure from "../components/EditWebsiteSidebarStructure"
 
 export default function EditWebsite() {
 
@@ -28,6 +29,7 @@ export default function EditWebsite() {
             <div className="grid gap-0 grid-cols-[50px_250px] divide-x min-h-[90.5vh] max-h-[90.5vh] overflow-y-scroll overflow-x-hidden">
             <EditWebsiteSidebarIcons sidebarTab={sidebarTab} setSidebarTab={setSidebarTab} />
             { sidebarTab === 'general' && <EditWebsiteSidebarGeneral /> }
+            { sidebarTab === 'structure' && <EditWebsiteSidebarStructure /> }
             { sidebarTab === 'styles' && <EditWebsiteSidebarStyles /> }
             { sidebarTab === 'layout' && <EditWebsiteSidebarLayout /> }
             { sidebarTab === 'elements' && <EditWebsiteSidebarElements /> }

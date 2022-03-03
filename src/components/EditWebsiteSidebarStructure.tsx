@@ -1,14 +1,15 @@
-import EditWebsiteSidebarDropdowns from "./EditWebsiteSidebarDropdowns"
+import { useDispatch, useSelector } from "react-redux"
+import { setElementToEditAction } from "../redux/actions/actionCreators"
 
 export default function EditWebsiteSidebarStructure() {
+
+    const dispatch = useDispatch()
+    const structure = useSelector((state: IReduxStore) => state.website.structure)
+    const elementToEdit = useSelector((state: IReduxStore) => state.website.elementToEdit)
+
     return (
-        <div className="select-none">
-            <EditWebsiteSidebarDropdowns name="Top">
-                <div>
-                    <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Navbar</p>
-                    <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Hero Section</p>
-                </div>
-            </EditWebsiteSidebarDropdowns>
+        <div className="select-none flex flex-col items-center">
+            { structure.map(element => <p key={element} onClick={() => dispatch(setElementToEditAction(element))}className="pt-2">{element}</p>) }
         </div>
     )
 }

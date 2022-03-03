@@ -12,6 +12,14 @@ const websiteReducer = (state = initialState.website, action: AnyAction) => {
             ...state,
             code: action.payload
         }
+        case ACTIONS.EDIT_WEBSITE_STRUCTURE: return {
+            ...state,
+            structure: [...state.structure, action.payload]
+        }
+        case ACTIONS.SET_ELEMENT_TO_EDIT: return {
+            ...state,
+            elementToEdit: action.payload
+        }
         default: return state
     }
 }
