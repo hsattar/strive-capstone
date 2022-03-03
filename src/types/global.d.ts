@@ -4,3 +4,8 @@ interface IWebsiteDetails {
     page2: string
     page3: string
 }
+
+interface IWebSafeFonts {
+    name: string
+    value: string
+}
