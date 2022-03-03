@@ -29,7 +29,7 @@ export default function EditWebsite() {
             <div className="grid gap-0 grid-cols-[50px_250px] divide-x min-h-[90.5vh] max-h-[90.5vh] overflow-y-scroll overflow-x-hidden">
             <EditWebsiteSidebarIcons sidebarTab={sidebarTab} setSidebarTab={setSidebarTab} />
             { sidebarTab === 'general' && <EditWebsiteSidebarGeneral /> }
-            { sidebarTab === 'structure' && <EditWebsiteSidebarStructure /> }
+            { sidebarTab === 'structure' && <EditWebsiteSidebarStructure setSidebarTab={setSidebarTab} /> }
             { sidebarTab === 'styles' && <EditWebsiteSidebarStyles /> }
             { sidebarTab === 'layout' && <EditWebsiteSidebarLayout /> }
             { sidebarTab === 'elements' && <EditWebsiteSidebarElements /> }
