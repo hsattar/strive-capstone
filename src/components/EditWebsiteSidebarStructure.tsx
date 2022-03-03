@@ -9,7 +9,8 @@ export default function EditWebsiteSidebarStructure() {
 
     return (
         <div className="select-none flex flex-col items-center">
-            { structure.map(element => <p key={element} onClick={() => dispatch(setElementToEditAction(element))}className="pt-2">{element}</p>) }
+            <p className="pt-2 text-center font-semibold">{`Selected - ${elementToEdit?.openingTag}`}</p>
+            { structure.map(element => <p key={element.id} onDoubleClick={() => dispatch(setElementToEditAction(element))}className="pt-2 text-center">{element.openingTag}</p>) }
         </div>
     )
 }

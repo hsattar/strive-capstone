@@ -20,6 +20,11 @@ const websiteReducer = (state = initialState.website, action: AnyAction) => {
             ...state,
             elementToEdit: action.payload
         }
+        case ACTIONS.CHANGE_ELEMENT_CLASS: return {
+            ...state,
+            structure: action.payload.structure,
+            elementToEdit: action.payload.element
+        }
         default: return state
     }
 }
