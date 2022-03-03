@@ -22,6 +22,7 @@ const websiteReducer = (state = initialState.website, action: AnyAction) => {
         }
         case ACTIONS.CHANGE_ELEMENT_CLASS: return {
             ...state,
+            code: action.payload.newCode,
             structure: action.payload.structure,
             elementToEdit: action.payload.element
         }

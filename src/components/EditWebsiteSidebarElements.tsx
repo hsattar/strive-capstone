@@ -25,20 +25,24 @@ export default function EditWebsiteSidebarElements() {
         <div className="select-none">
             <EditWebsiteSidebarDropdowns name="Text">
                 <div>
-                    <p onClick={() => handleAddCode({
-                        id: uuid(),
+                    <p onClick={() => {
+                        const id = uuid()
+                        handleAddCode({
+                        id,
                         openingTag: `<h1 class="`,
-                        class: ``,
+                        class: id,
                         text: `">Hello World`,
                         closingTag: `</h1>`
-                    })} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Heading</p>
-                    <p onClick={() => handleAddCode({
-                        id: uuid(),
+                    }) }} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Heading</p>
+                    <p onClick={() => {
+                        const id = uuid()
+                        handleAddCode({
+                        id,
                         openingTag: `<p class="`,
-                        class: ``,
+                        class: id,
                         text: `">Lorem Ipsum `,
                         closingTag: `</p>`
-                    })} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Paragraph</p>
+                    }) }} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Paragraph</p>
                     <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100"> Ordered List</p>
                     <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100"> Unordered List</p>
                 </div>

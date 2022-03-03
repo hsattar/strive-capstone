@@ -12,12 +12,16 @@ export const setElementToEditAction = (element: IElement) => ({ type: ACTIONS.SE
 
 export const changeElementClassAction = (elementId: string, className: string) => 
 (dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {   
+    const code = getState().website.code
     const structure = getState().website.structure
     const element = structure.find(obj => obj.id === elementId)
     if (!element) return
     element.class = element.class.concat(` ${className}`)
+    const splitCode = code.split(elementId)
+    const addClassNamesToCode = [splitCode[0], element.class, splitCode[1]]
+    const newCode = addClassNamesToCode.join('')
     dispatch({
         type: ACTIONS.CHANGE_ELEMENT_CLASS,
-        payload: { element, structure }
+        payload: { element, structure, newCode }
     })
 }
