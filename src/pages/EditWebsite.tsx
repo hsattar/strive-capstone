@@ -34,9 +34,22 @@ export default function EditWebsite() {
             { sidebarTab === 'components' && <EditWebsiteSidebarComponents /> }
             </div>
             <div className="bg-gray-100 flex justify-center">
-                <div className={deviceView === 'desktop' ? 'min-w-[95%] bg-white my-2' : deviceView === 'tablet' ? 'min-w-[65%] bg-white my-2' : 'min-w-[35%] bg-white my-2'}>
-                    {parse(code)}
-                </div>
+                <iframe 
+                srcDoc={`
+                <!doctype html>
+                <html>
+                <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <script src="https://cdn.tailwindcss.com"></script>
+                </head>
+                <body>
+                  ${code}
+                </body>
+                </html>`} 
+                className={deviceView === 'desktop' ? 'min-w-[95%] bg-white my-2' : deviceView === 'tablet' ? 'min-w-[65%] bg-white my-2' : 'min-w-[35%] bg-white my-2'}>
+                    {/* {parse(code)} */}
+                </iframe>
             </div>
         </div>
         </div>

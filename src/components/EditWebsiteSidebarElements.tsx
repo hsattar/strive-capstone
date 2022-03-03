@@ -8,15 +8,10 @@ export default function EditWebsiteSidebarElements() {
     const originalCode = useSelector((state: IReduxStore) => state.website.code)
 
     const handleAddCode = (codeToAdd: string) => {
-        console.log(codeToAdd)
         const splitCode = originalCode.split('</div>')
-        console.log(splitCode)
         splitCode.splice(1, 0, codeToAdd)
-        console.log(splitCode)
         splitCode.push('</div>')
-        console.log(splitCode)
         const newCode = splitCode.join('')
-        console.log(newCode)
         dispatch(editWebsiteCodeAction(newCode))
     }
 

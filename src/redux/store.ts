@@ -11,7 +11,7 @@ export const initialState: IReduxStore = {
         currentUser: null
     },
     website: {
-        code: `<div className="default"></div>`
+        code: ``
     }
 }
 
