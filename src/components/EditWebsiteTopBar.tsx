@@ -16,7 +16,19 @@ export default function EditWebsiteTopBar() {
     const elementToEdit = useSelector((state: IReduxStore) => state.website.elementToEdit)
 
     const [showFontDropdown, setShowFontDropdown] = useState(false)
-    const [fontSelected, setFontSelected] = useState('Arial') 
+    const [fontSelected, setFontSelected] = useState('Open_Sans') 
+    const [showFontSizeDropdown, setShowFontSizeDropdown] = useState(false)
+    const [fontSizeSelected, setFontSizeSelected] = useState('base') 
+
+    const [isBold, setIsBold] = useState(false)
+    const [isItalics, setIsItalics] = useState(false)
+    const [isUnderline, setIsUnderline] = useState(false)
+    const [textAlignment, setTextAlignment] = useState('left')
+
+    const [color, setColor] = useState('#000000')
+    const debouncedColor = useDebounce(color, 600)
+    const [backgroundColor, setBackgroundColor] = useState('#ffffff')
+    const debouncedBackgroundColor = useDebounce(backgroundColor, 600)
 
     const openFontDropdown = () => {
         setShowFontSizeDropdown(false)
@@ -26,10 +38,8 @@ export default function EditWebsiteTopBar() {
     const handleFontChange = (font: string) => {
         setFontSelected(font)
         setShowFontDropdown(false)
+        dispatch(changeElementClassAction(elementToEdit?.id!, `font-['${font}']`))
     }
-
-    const [showFontSizeDropdown, setShowFontSizeDropdown] = useState(false)
-    const [fontSizeSelected, setFontSizeSelected] = useState('12px') 
 
     const openFontSizeDropdown = () => {
         setShowFontDropdown(false)
@@ -39,17 +49,27 @@ export default function EditWebsiteTopBar() {
     const handleFontSizeChange = (size: string) => {
         setFontSizeSelected(size)
         setShowFontSizeDropdown(false)
+        dispatch(changeElementClassAction(elementToEdit?.id!, `text-${size}`))
     }
 
-    const [color, setColor] = useState('#000000')
-    const debouncedColor = useDebounce(color, 600)
+    const handleFontBoldChange = () => {
+        setIsBold(prev => !prev)
+        isBold ? dispatch(changeElementClassAction(elementToEdit?.id!, `font-normal`)) : dispatch(changeElementClassAction(elementToEdit?.id!, `font-bold`))
+    }
+
+    const handleFontItalicsChange = () => {
+        setIsItalics(prev => !prev)
+        isItalics ? dispatch(changeElementClassAction(elementToEdit?.id!, `non-italics`)) : dispatch(changeElementClassAction(elementToEdit?.id!, `italics`))
+    }
+
+    const handleFontUnderlineChange = () => {
+        setIsUnderline(prev => !prev)
+        isUnderline ? dispatch(changeElementClassAction(elementToEdit?.id!, `underline-offset-0`)) : dispatch(changeElementClassAction(elementToEdit?.id!, `underline underline-offset-1`))
+    }
 
     useEffect(() => {
         debouncedColor && dispatch(changeElementClassAction(elementToEdit?.id!, `text-[${debouncedColor}]`))
     }, [debouncedColor])
-
-    const [backgroundColor, setBackgroundColor] = useState('#ffffff')
-    const debouncedBackgroundColor = useDebounce(backgroundColor, 600)
 
     useEffect(() => {
         debouncedBackgroundColor && dispatch(changeElementClassAction(elementToEdit?.id!, `bg-[${debouncedBackgroundColor}]`))
@@ -98,9 +118,9 @@ export default function EditWebsiteTopBar() {
                     </div>
                     <div className="flex justify-between my-1">
                         <div className="mx-2 py-1 border-2 rounded-md">
-                            <span className="px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100 font-bold">B</span>
-                            <span className="px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100 italic">I</span>
-                            <span className="px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100 underline">U</span>
+                            <span onClick={handleFontBoldChange} className="px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100 font-bold">B</span>
+                            <span onClick={handleFontItalicsChange} className="px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100 italic">I</span>
+                            <span onClick={handleFontUnderlineChange} className="px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100 underline">U</span>
                         </div>
                         <div className="mx-2 py-1 border-2 rounded-md">
                             <span className="px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100">L</span>

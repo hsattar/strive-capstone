@@ -19,10 +19,11 @@ export default function EditWebsiteSidebarElements() {
     }
 
     const handleAddCode = (codeToAdd: IElement) => {
+        // TODO: LOOK THROUGH THE VALUES OF THE CODE TO ADD AND ANY THAT ARE NOT EMPTY ADD TO THE CLASS NAME
         console.log(codeToAdd)
         const { id, ...htmlProperties } = codeToAdd
         const htmlValues = Object.values(htmlProperties) 
-        const codeAsString = htmlValues.join('')
+        const codeAsString = htmlValues.join(' ')
         const splitCode = originalCode.split('</div>')
         splitCode.splice(1, 0, codeAsString)
         splitCode.push('</div>')

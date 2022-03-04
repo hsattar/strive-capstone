@@ -1,21 +1,18 @@
 const fontSizes: string[] = [
-    '6px',    
-    '7px',    
-    '8px',    
-    '9px',    
-    '10px',    
-    '11px',    
-    '12px',    
-    '14px',    
-    '16px',    
-    '18px',    
-    '22px',    
-    '24px',    
-    '28px',    
-    '36px',    
-    '44px',    
-    '52px',    
-    '64px'    
+    'xs',    
+    'sm',    
+    'base',    
+    'lg',    
+    'xl',    
+    '2xl',    
+    '3xl',    
+    '4xl',    
+    '5xl',    
+    '6xl',    
+    '7xl',    
+    '8xl',    
+    '9xl',    
+
 ]
 
 export default fontSizes

@@ -16,7 +16,8 @@ const webSafeFonts: IWebSafeFonts[] = [
     { name: 'Bradley Hand', value : 'Bradley_Hand'},
     { name: 'Brush Script MT', value : 'Brush_Script_MT'},
     { name: 'Luminari', value : 'Luminari'},
-    { name: 'Comic Sans MS', value : 'Comic_Sans_MS'}
+    { name: 'Comic Sans MS', value : 'Comic_Sans_MS'},
+    { name: 'Open Sans', value : 'Open_Sans'},
 ]
 
 export default webSafeFonts
