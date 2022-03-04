@@ -2,12 +2,7 @@ import { Dispatch, SetStateAction } from "react"
 import { useParams } from 'react-router-dom'
 import SVGIcon from "./SVGIcon"
 
-interface IProps {
-    deviceView: string
-    setDeviceView: Dispatch<SetStateAction<string>>
-}
-
-export default function EditWebsiteTopBar({ deviceView, setDeviceView }: IProps) {
+export default function EditWebsiteTopBar() {
 
     const { websiteName, pageSelected } = useParams()
     const { REACT_APP_FE_URL: FE_URL } = process.env
@@ -17,35 +12,20 @@ export default function EditWebsiteTopBar({ deviceView, setDeviceView }: IProps)
             <div className="flex flex-wrap justify-between items-center mx-auto">
                 
                 <div className="flex">
+                    
+                </div>
+
+                <div className="flex">
                     <div className="group relative">
                         <SVGIcon svgClassName="h-6 w-6 mr-2 text-gray-400" pathD="M11 17l-5-5m0 0l5-5m-5 5h12" />
                         <span className="topbar-tooltip group-hover:scale-100">Undo</span>
                     </div>
 
                     <div className="group relative">
-                        <SVGIcon svgClassName="h-6 w-6 text-gray-400" pathD="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        <SVGIcon svgClassName="h-6 w-6 mr-4 text-gray-400" pathD="M13 7l5 5m0 0l-5 5m5-5H6" />
                         <span className="topbar-tooltip group-hover:scale-100">Redo</span>
                     </div>
-                </div>
 
-                <div className="flex">
-                    <div className="group relative" onClick={() => setDeviceView('desktop')}>
-                        <SVGIcon svgClassName="h-6 w-6 mr-4 cursor-pointer" pathStrokeWidth={deviceView === 'desktop' ? 2 : 1} pathD="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        <span className="topbar-tooltip group-hover:scale-100">Desktop</span>
-                    </div>
-
-                    <div className="group relative" onClick={() => setDeviceView('tablet')}>
-                        <SVGIcon svgClassName="h-6 w-6 mr-4 cursor-pointer" pathStrokeWidth={deviceView === 'tablet' ? 2 : 1} pathD="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                        <span className="topbar-tooltip group-hover:scale-100">Tablet</span>
-                    </div>
-
-                    <div className="group relative" onClick={() => setDeviceView('mobile')}>
-                        <SVGIcon svgClassName="h-6 w-6 mr-4 cursor-pointer" pathStrokeWidth={deviceView === 'mobile' ? 2 : 1} pathD="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                        <span className="topbar-tooltip group-hover:scale-100">Mobile</span>
-                    </div>
-                </div>
-
-                <div className="flex">
                     <div className="group relative">
                         <SVGIcon svgClassName="h-6 w-6 mr-4 text-gray-400" pathD="M17 16v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-7a2 2 0 012-2h2m3-4H9a2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-1m-1 4l-3 3m0 0l-3-3m3 3V3" />
                         <span className="topbar-tooltip group-hover:scale-100">Save</span>

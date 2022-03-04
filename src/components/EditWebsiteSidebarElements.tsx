@@ -2,13 +2,24 @@ import { useSelector, useDispatch } from 'react-redux'
 import { editWebsiteCodeAction, editWebsiteStructureAction, setElementToEditAction } from '../redux/actions/actionCreators'
 import EditWebsiteSidebarDropdowns from "./EditWebsiteSidebarDropdowns"
 import { v4 as uuid } from 'uuid'
+import elementTemplates from '../data/elementTemplates'
 
 export default function EditWebsiteSidebarElements() {
 
     const dispatch = useDispatch()
     const originalCode = useSelector((state: IReduxStore) => state.website.code)
 
+    const createElementTemplate = (template: elementTemplateOptions) => {
+        const id = uuid()
+        return {
+            id,
+            ...elementTemplates[template],
+            class: id
+        }
+    }
+
     const handleAddCode = (codeToAdd: IElement) => {
+        console.log(codeToAdd)
         const { id, ...htmlProperties } = codeToAdd
         const htmlValues = Object.values(htmlProperties) 
         const codeAsString = htmlValues.join('')
@@ -16,6 +27,7 @@ export default function EditWebsiteSidebarElements() {
         splitCode.splice(1, 0, codeAsString)
         splitCode.push('</div>')
         const newCode = splitCode.join('')
+        console.log(newCode)
         dispatch(editWebsiteCodeAction(newCode))
         dispatch(editWebsiteStructureAction(codeToAdd))
         dispatch(setElementToEditAction(codeToAdd))
@@ -25,24 +37,8 @@ export default function EditWebsiteSidebarElements() {
         <div className="select-none">
             <EditWebsiteSidebarDropdowns name="Text">
                 <div>
-                    <p onClick={() => {
-                        const id = uuid()
-                        handleAddCode({
-                        id,
-                        openingTag: `<h1 class="`,
-                        class: id,
-                        text: `">Hello World`,
-                        closingTag: `</h1>`
-                    }) }} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Heading</p>
-                    <p onClick={() => {
-                        const id = uuid()
-                        handleAddCode({
-                        id,
-                        openingTag: `<p class="`,
-                        class: id,
-                        text: `">Lorem Ipsum `,
-                        closingTag: `</p>`
-                    }) }} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Paragraph</p>
+                    <p onClick={() => handleAddCode(createElementTemplate('heading'))} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Heading</p>
+                    <p onClick={() => handleAddCode(createElementTemplate('paragraph'))} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Paragraph</p>
                     <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100"> Ordered List</p>
                     <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100"> Unordered List</p>
                 </div>

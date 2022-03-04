@@ -9,3 +9,5 @@ interface IWebSafeFonts {
     name: string
     value: string
 }
+
+type elementTemplateOptions = 'heading' | 'paragraph'

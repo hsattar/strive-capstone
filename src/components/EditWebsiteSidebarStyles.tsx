@@ -38,15 +38,15 @@ export default function EditWebsiteSidebarStyles() {
         setShowFontSizeDropdown(false)
     }
 
-    const [color, setColor] = useState('')
-    const debouncedColor = useDebounce(color, 750)
+    const [color, setColor] = useState('#000000')
+    const debouncedColor = useDebounce(color, 600)
 
     useEffect(() => {
         debouncedColor && dispatch(changeElementClassAction(elementToEdit?.id!, `text-[${debouncedColor}]`))
     }, [debouncedColor])
 
-    const [backgroundColor, setBackgroundColor] = useState('')
-    const debouncedBackgroundColor = useDebounce(backgroundColor, 750)
+    const [backgroundColor, setBackgroundColor] = useState('#ffffff')
+    const debouncedBackgroundColor = useDebounce(backgroundColor, 600)
 
     useEffect(() => {
         debouncedBackgroundColor && dispatch(changeElementClassAction(elementToEdit?.id!, `bg-[${debouncedBackgroundColor}]`))
