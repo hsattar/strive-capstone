@@ -1,21 +1,134 @@
-import { Dispatch, SetStateAction } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { useParams } from 'react-router-dom'
+import webSafeFonts from "../data/fonts"
+import fontSizes from "../data/fontSizes"
+import useDebounce from "../hooks/useDebounce"
+import { changeElementClassAction } from "../redux/actions/actionCreators"
 import SVGIcon from "./SVGIcon"
+import { BiAlignLeft, BiAlignMiddle, BiAlignRight } from 'react-icons/bi'
 
 export default function EditWebsiteTopBar() {
 
     const { websiteName, pageSelected } = useParams()
     const { REACT_APP_FE_URL: FE_URL } = process.env
+    const dispatch = useDispatch()
+    const elementToEdit = useSelector((state: IReduxStore) => state.website.elementToEdit)
+
+    const [showFontDropdown, setShowFontDropdown] = useState(false)
+    const [fontSelected, setFontSelected] = useState('Arial') 
+
+    const openFontDropdown = () => {
+        setShowFontSizeDropdown(false)
+        setShowFontDropdown(prev => !prev)
+    }   
+
+    const handleFontChange = (font: string) => {
+        setFontSelected(font)
+        setShowFontDropdown(false)
+    }
+
+    const [showFontSizeDropdown, setShowFontSizeDropdown] = useState(false)
+    const [fontSizeSelected, setFontSizeSelected] = useState('12px') 
+
+    const openFontSizeDropdown = () => {
+        setShowFontDropdown(false)
+        setShowFontSizeDropdown(prev => !prev)
+    }   
+
+    const handleFontSizeChange = (size: string) => {
+        setFontSizeSelected(size)
+        setShowFontSizeDropdown(false)
+    }
+
+    const [color, setColor] = useState('#000000')
+    const debouncedColor = useDebounce(color, 600)
+
+    useEffect(() => {
+        debouncedColor && dispatch(changeElementClassAction(elementToEdit?.id!, `text-[${debouncedColor}]`))
+    }, [debouncedColor])
+
+    const [backgroundColor, setBackgroundColor] = useState('#ffffff')
+    const debouncedBackgroundColor = useDebounce(backgroundColor, 600)
+
+    useEffect(() => {
+        debouncedBackgroundColor && dispatch(changeElementClassAction(elementToEdit?.id!, `bg-[${debouncedBackgroundColor}]`))
+    }, [debouncedBackgroundColor])
 
     return (
-        <nav className="bg-white px-2 sm:px-4 py-1">
+        <nav className="bg-white px-2 sm:px-4 py-1 text-[14px]">
             <div className="flex flex-wrap justify-between items-center mx-auto">
+
+                <div>
+                { elementToEdit && (
+                    <p className="pr-2 mr-2">{elementToEdit.openingTag}</p>
+                ) }
+                </div>
                 
                 <div className="flex">
-                    
+                { elementToEdit && (
+                    <div className="flex items-center">
+                    <div className="w-[175px] relative mr-2">
+                        <button onClick={openFontDropdown} className="transition duration-200 border capitalize mx-0 px-3 py-1 my-1 cursor-pointer font-normal text-md rounded-md w-full text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset text-center">
+                            {fontSelected}
+                        </button>
+                        <div className={`${!showFontDropdown && 'hidden'} absolute z-20 my-0 text-base list-none bg-white rounded divide-y divide-gray-100 shadow w-full`}>
+                            <ul className="py-1">
+                                { webSafeFonts.map(font => (
+                                <li key={font.value}>
+                                    <button onClick={() => handleFontChange(font.value)} className={`block w-full py-1 px-4 text-sm text-gray-700 hover:bg-gray-100 capitalize font-['${font.value}']`}>{font.name}</button>
+                                </li>
+                                )) }
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="w-[60px] relative mr-2">
+                        <button onClick={openFontSizeDropdown} className="transition duration-200 border text-center capitalize mx-0 px-3 py-1 my-1 cursor-pointer font-normal text-md rounded-md w-full text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
+                            {fontSizeSelected}
+                        </button>
+                        <div className={`${!showFontSizeDropdown && 'hidden'} absolute z-20 my-0 text-base list-none bg-white rounded divide-y divide-gray-100 shadow w-full`}>
+                            <ul className="py-1">
+                                { fontSizes.map(size => (
+                                <li key={size}>
+                                    <button onClick={() => handleFontSizeChange(size)} className={`block w-full py-1 px-4 text-sm text-gray-700 hover:bg-gray-100 capitalize`}>{size}</button>
+                                </li>
+                                )) }
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="flex justify-between my-1">
+                        <div className="mx-2 py-1 border-2 rounded-md">
+                            <span className="px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100 font-bold">B</span>
+                            <span className="px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100 italic">I</span>
+                            <span className="px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100 underline">U</span>
+                        </div>
+                        <div className="mx-2 py-1 border-2 rounded-md">
+                            <span className="px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100">L</span>
+                            <span className="px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100">M</span>
+                            <span className="px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100">R</span>
+                        </div>
+                    </div>
+                    <div className="flex justify-between items-center">
+                        <input
+                            type="color"
+                            className="bg-transparent outline-none pr-2 border-0"
+                            value={color}
+                            onChange={e => setColor(e.target.value)}
+                        />
+                    </div>
+                    <div className="flex justify-between items-center">
+                        <input
+                            type="color"
+                            className="bg-transparent outline-none pr-2 border-0"
+                            value={backgroundColor}
+                            onChange={e => setBackgroundColor(e.target.value)}
+                        />
+                    </div>
+                    </div>
+                ) }
                 </div>
 
-                <div className="flex">
+                <div className="flex my-2">
                     <div className="group relative">
                         <SVGIcon svgClassName="h-6 w-6 mr-2 text-gray-400" pathD="M11 17l-5-5m0 0l5-5m-5 5h12" />
                         <span className="topbar-tooltip group-hover:scale-100">Undo</span>

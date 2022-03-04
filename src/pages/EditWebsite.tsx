@@ -24,8 +24,8 @@ export default function EditWebsite() {
         <Navbar />
         <div className="divide-y divide-gray-200">
         <EditWebsiteTopBar />
-        <div className={sidebarTab === '' ? 'grid grid-cols-[50px_1fr] gap-0 min-h-[90.5vh]' : 'grid grid-cols-[300px_1fr] gap-0 min-h-[90.5vh]'}>
-            <div className="grid gap-0 grid-cols-[50px_250px] divide-x min-h-[90.5vh] max-h-[90.5vh] overflow-y-scroll overflow-x-hidden">
+        <div className={sidebarTab === '' ? 'grid grid-cols-[50px_1fr] gap-0 min-h-[88vh]' : 'grid grid-cols-[300px_1fr] gap-0 min-h-[88vh]'}>
+            <div className="grid gap-0 grid-cols-[50px_250px] divide-x min-h-[88vh] max-h-[88vh] overflow-y-scroll overflow-x-hidden">
             <EditWebsiteSidebarIcons sidebarTab={sidebarTab} setSidebarTab={setSidebarTab} />
             { sidebarTab === 'general' && <EditWebsiteSidebarGeneral /> }
             { sidebarTab === 'structure' && <EditWebsiteSidebarStructure setSidebarTab={setSidebarTab} /> }
