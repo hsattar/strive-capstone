@@ -14,6 +14,17 @@ interface IElement {
     id: string
     openingTag: string
     class: string
+    font?: string
+    fontSize?: string
+    bold?: string
+    italics?: string
+    underline?: string
+    alignment?: string
+    color?: string
+    backgroundColor?: string
+    margin?: string
+    padding?: string
+    border?: string 
     text?: string
     closingTag: string
 }

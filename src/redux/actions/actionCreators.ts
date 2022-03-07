@@ -10,15 +10,26 @@ export const editWebsiteCodeAction = (code: string) => ({ type: ACTIONS.EDIT_WEB
 export const editWebsiteStructureAction = (code: IElement) => ({ type: ACTIONS.EDIT_WEBSITE_STRUCTURE, payload: code })
 export const setElementToEditAction = (element: IElement) => ({ type: ACTIONS.SET_ELEMENT_TO_EDIT, payload: element })
 
-export const changeElementClassAction = (elementId: string, className: string) => 
+export const changeElementClassAction = (elementId: string, property: elementToEditOptions,  className: string) => 
 (dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {   
     const code = getState().website.code
     const structure = getState().website.structure
-    const element = structure.find(obj => obj.id === elementId)
+    const elementToEdit = getState().website.elementToEdit
+    if (!elementToEdit) return
+    elementToEdit[property] = className
+    
+    const { id, openingTag, text, closingTag, ...htmlProperties } = elementToEdit
+    const htmlValues = Object.values(htmlProperties) 
+    const classNamesAsString = htmlValues.join(' ')
+    elementToEdit.class = classNamesAsString
+    
+    let element = structure.find(obj => obj.id === elementId)
     if (!element) return
-    element.class = element.class.concat(` ${className}`)
+    element = elementToEdit
+    
     const splitCode = code.split(elementId)
-    const addClassNamesToCode = [splitCode[0], element.class, splitCode[1]]
+    console.log(splitCode)
+    const addClassNamesToCode = [splitCode[0], classNamesAsString, splitCode[1]]
     const newCode = addClassNamesToCode.join('')
     dispatch({
         type: ACTIONS.CHANGE_ELEMENT_CLASS,

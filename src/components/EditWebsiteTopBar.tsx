@@ -38,7 +38,7 @@ export default function EditWebsiteTopBar() {
     const handleFontChange = (font: string) => {
         setFontSelected(font)
         setShowFontDropdown(false)
-        dispatch(changeElementClassAction(elementToEdit?.id!, `font-['${font}']`))
+        dispatch(changeElementClassAction(elementToEdit?.id!, 'font', `font-['${font}']`))
     }
 
     const openFontSizeDropdown = () => {
@@ -49,30 +49,30 @@ export default function EditWebsiteTopBar() {
     const handleFontSizeChange = (size: string) => {
         setFontSizeSelected(size)
         setShowFontSizeDropdown(false)
-        dispatch(changeElementClassAction(elementToEdit?.id!, `text-${size}`))
+        dispatch(changeElementClassAction(elementToEdit?.id!, 'fontSize', `text-${size}`))
     }
 
     const handleFontBoldChange = () => {
         setIsBold(prev => !prev)
-        isBold ? dispatch(changeElementClassAction(elementToEdit?.id!, `font-normal`)) : dispatch(changeElementClassAction(elementToEdit?.id!, `font-bold`))
+        isBold ? dispatch(changeElementClassAction(elementToEdit?.id!, 'bold', `font-normal`)) : dispatch(changeElementClassAction(elementToEdit?.id!, 'bold', `font-bold`))
     }
 
     const handleFontItalicsChange = () => {
         setIsItalics(prev => !prev)
-        isItalics ? dispatch(changeElementClassAction(elementToEdit?.id!, `non-italics`)) : dispatch(changeElementClassAction(elementToEdit?.id!, `italics`))
+        isItalics ? dispatch(changeElementClassAction(elementToEdit?.id!, 'italics', `non-italics`)) : dispatch(changeElementClassAction(elementToEdit?.id!, 'italics', `italics`))
     }
 
     const handleFontUnderlineChange = () => {
         setIsUnderline(prev => !prev)
-        isUnderline ? dispatch(changeElementClassAction(elementToEdit?.id!, `underline-offset-0`)) : dispatch(changeElementClassAction(elementToEdit?.id!, `underline underline-offset-1`))
+        isUnderline ? dispatch(changeElementClassAction(elementToEdit?.id!, 'underline', `underline-offset-0`)) : dispatch(changeElementClassAction(elementToEdit?.id!, 'underline', `underline underline-offset-1`))
     }
 
     useEffect(() => {
-        debouncedColor && dispatch(changeElementClassAction(elementToEdit?.id!, `text-[${debouncedColor}]`))
+        debouncedColor && dispatch(changeElementClassAction(elementToEdit?.id!, 'color', `text-[${debouncedColor}]`))
     }, [debouncedColor])
 
     useEffect(() => {
-        debouncedBackgroundColor && dispatch(changeElementClassAction(elementToEdit?.id!, `bg-[${debouncedBackgroundColor}]`))
+        debouncedBackgroundColor && dispatch(changeElementClassAction(elementToEdit?.id!, 'backgroundColor', `bg-[${debouncedBackgroundColor}]`))
     }, [debouncedBackgroundColor])
 
     return (

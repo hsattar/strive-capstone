@@ -14,13 +14,13 @@ export default function EditWebsiteSidebarElements() {
         return {
             id,
             ...elementTemplates[template],
-            class: id
+            class: id,
         }
     }
 
     const handleAddCode = (codeToAdd: IElement) => {
         // TODO: LOOK THROUGH THE VALUES OF THE CODE TO ADD AND ANY THAT ARE NOT EMPTY ADD TO THE CLASS NAME
-        console.log(codeToAdd)
+        // MOVE THIS INTO ACTION REDUCER?
         const { id, ...htmlProperties } = codeToAdd
         const htmlValues = Object.values(htmlProperties) 
         const codeAsString = htmlValues.join(' ')
@@ -28,7 +28,6 @@ export default function EditWebsiteSidebarElements() {
         splitCode.splice(1, 0, codeAsString)
         splitCode.push('</div>')
         const newCode = splitCode.join('')
-        console.log(newCode)
         dispatch(editWebsiteCodeAction(newCode))
         dispatch(editWebsiteStructureAction(codeToAdd))
         dispatch(setElementToEditAction(codeToAdd))
