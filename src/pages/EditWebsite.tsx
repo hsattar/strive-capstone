@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { FormEvent, useEffect, useRef, useState } from "react"
 import { useParams } from "react-router-dom"
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import parse from 'html-react-parser'
 import EditWebsiteTopBar from "../components/EditWebsiteTopBar"
 import EditWebsiteSidebarGeneral from "../components/EditWebsiteSidebarGeneral"
@@ -11,47 +11,88 @@ import EditWebsiteSidebarComponents from "../components/EditWebsiteSidebarCompon
 import EditWebsiteSidebarStyles from "../components/EditWebsiteSidebarStyles"
 import Navbar from "../components/Navbar"
 import EditWebsiteSidebarStructure from "../components/EditWebsiteSidebarStructure"
+import SVGIcon from "../components/SVGIcon"
+import { changeElementClassAction } from "../redux/actions/actionCreators"
 
 export default function EditWebsite() {
 
     const { pageSelected } = useParams()
+    const dispatch = useDispatch()
+    const textAreaRef = useRef<HTMLTextAreaElement>(null)
     const code = useSelector((state: IReduxStore) => state.website.code)
+    const elementToEdit = useSelector((state: IReduxStore) => state.website.elementToEdit)
 
     const [sidebarTab, setSidebarTab] = useState('general')
+    const [showEditTextModal, setShowEditTextModal] = useState(false)
+    const [elementToEditText, setelementToEditText] = useState<string | undefined>('')
+
+    const handleSubmit = (e: FormEvent) => {
+        e.preventDefault()
+        dispatch(changeElementClassAction(elementToEdit?.id!, 'text', elementToEditText!))
+        setShowEditTextModal(false)
+    }
+
+    useEffect(() => {
+        textAreaRef.current && textAreaRef.current.focus()
+    }, [])
+
+    useEffect(() => {
+        elementToEdit && setelementToEditText(elementToEdit?.text)
+    }, [elementToEdit])
 
     return (
-        <div className="overflow-hidden">
-        <Navbar />
-        <div className="divide-y divide-gray-200">
-        <EditWebsiteTopBar />
-        <div className={sidebarTab === '' ? 'grid grid-cols-[50px_1fr] gap-0 min-h-[88vh]' : 'grid grid-cols-[300px_1fr] gap-0 min-h-[88vh]'}>
-            <div className="grid gap-0 grid-cols-[50px_250px] divide-x min-h-[88vh] max-h-[88vh] overflow-y-scroll overflow-x-hidden">
-            <EditWebsiteSidebarIcons sidebarTab={sidebarTab} setSidebarTab={setSidebarTab} />
-            { sidebarTab === 'general' && <EditWebsiteSidebarGeneral /> }
-            { sidebarTab === 'structure' && <EditWebsiteSidebarStructure setSidebarTab={setSidebarTab} /> }
-            { sidebarTab === 'styles' && <EditWebsiteSidebarStyles /> }
-            { sidebarTab === 'layout' && <EditWebsiteSidebarLayout /> }
-            { sidebarTab === 'elements' && <EditWebsiteSidebarElements /> }
-            { sidebarTab === 'components' && <EditWebsiteSidebarComponents /> }
+        <>
+        { showEditTextModal ? (
+            <div onClick={() => setShowEditTextModal(false)} className="fixed inset-0 bg-gray-300 bg-opacity-50 overflow-y-auto h-full w-full">
+                <div className="relative top-20 mx-auto p-5 border w-[50%] shadow-lg rounded-md bg-white">
+                    <form onSubmit={handleSubmit}className="mt-3 text-center">
+                        <textarea
+                            rows={6}
+                            ref={textAreaRef}
+                            onClick={e => e.stopPropagation()}
+                            value={elementToEditText}
+                            onChange={e => setelementToEditText(e.target.value)}
+                            className="w-full p-2 mb-2 resize-none border-2 rounded outline-none"
+                        />
+                        <button type="submit" onClick={e => e.stopPropagation()} className="bg-blue-500 hover:bg-blue-600 py-1 px-5 mr-3 rounded-md text-white">Save</button>
+                    </form>
+                </div>
             </div>
-            <div className="bg-gray-100 flex justify-center select-none">
-                <iframe 
-                className="min-w-[35%] w-[95%] max-w-[95%] resize-x bg-white my-2"
-                srcDoc={`
-                <!doctype html>
-                <html>
-                <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <script src="https://cdn.tailwindcss.com"></script>
-                </head>
-                <body>
-                ${code}
-                </body>
-                </html>`} />
+        ) : (
+            <div className="overflow-hidden">
+            <Navbar />
+            <div className="divide-y divide-gray-200">
+            <EditWebsiteTopBar />
+            <div className={sidebarTab === '' ? 'grid grid-cols-[50px_1fr] gap-0 min-h-[88vh]' : 'grid grid-cols-[300px_1fr] gap-0 min-h-[88vh]'}>
+                <div className="grid gap-0 grid-cols-[50px_250px] divide-x min-h-[88vh] max-h-[88vh] overflow-y-scroll overflow-x-hidden">
+                <EditWebsiteSidebarIcons sidebarTab={sidebarTab} setSidebarTab={setSidebarTab} />
+                { sidebarTab === 'general' && <EditWebsiteSidebarGeneral /> }
+                { sidebarTab === 'structure' && <EditWebsiteSidebarStructure setSidebarTab={setSidebarTab} /> }
+                { sidebarTab === 'styles' && <EditWebsiteSidebarStyles showEditTextModal={showEditTextModal} setShowEditTextModal={setShowEditTextModal} /> }
+                { sidebarTab === 'layout' && <EditWebsiteSidebarLayout /> }
+                { sidebarTab === 'elements' && <EditWebsiteSidebarElements /> }
+                { sidebarTab === 'components' && <EditWebsiteSidebarComponents /> }
+                </div>
+                <div className="bg-gray-100 flex justify-center select-none">
+                    <iframe 
+                    className="min-w-[35%] w-[95%] max-w-[95%] resize-x bg-white my-2"
+                    srcDoc={`
+                    <!doctype html>
+                    <html>
+                    <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <script src="https://cdn.tailwindcss.com"></script>
+                    </head>
+                    <body>
+                    ${code}
+                    </body>
+                    </html>`} />
+                </div>
             </div>
-        </div>
-        </div>
-        </div>
+            </div>
+            </div>
+        )}
+        </>
     )
 }

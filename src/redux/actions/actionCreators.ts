@@ -36,50 +36,13 @@ export const changeElementClassAction = (elementId: string, property: elementToE
     if (!element) return
     element = elementToEdit
 
-    // const newCode = `${structure[0].openingTag}${structure[0].children?.map(child => 'hello')}${structure[0].closingTag}`
-
     const newCode = `${structure[0].openingTag}${structure[0].children?.map(child => {
         const element = structure.find(element => element.id === child)
         return `${element?.openingTag}${element?.class}${element?.text}${element?.closingTag}`
-    })}${structure[0].closingTag}`
-
-    console.log(newCode)
+    }).join('')}${structure[0].closingTag}`
 
     dispatch({
         type: ACTIONS.CHANGE_ELEMENT_CLASS,
         payload: { element, structure, newCode }
     })
 }
-
-// export const changeElementClassAction = (elementId: string, property: elementToEditOptions,  className: string) => 
-// (dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {   
-//     const code = getState().website.code
-//     const structure = getState().website.structure
-//     const elementToEdit = getState().website.elementToEdit
-//     if (!elementToEdit) return
-//     elementToEdit[property] = className
-    
-//     const { id, openingTag, class: oldClass, text, closingTag, parentId, ...htmlProperties } = elementToEdit
-//     console.log(htmlProperties)
-//     const htmlValues = Object.values(htmlProperties) 
-//     console.log(htmlValues)
-//     htmlValues.unshift(id)
-//     const classNamesAsString = htmlValues.join(' ')
-//     console.log(classNamesAsString)
-//     elementToEdit.class = classNamesAsString
-    
-//     let element = structure.find(obj => obj.id === elementId)
-//     if (!element) return
-//     element = elementToEdit
-    
-//     const splitCode = code.split(elementId)
-//     console.log(splitCode)
-//     const addClassNamesToCode = [splitCode[0], classNamesAsString, splitCode[1]]
-//     console.log(addClassNamesToCode)
-//     const newCode = addClassNamesToCode.join('')
-//     console.log(newCode)
-//     dispatch({
-//         type: ACTIONS.CHANGE_ELEMENT_CLASS,
-//         payload: { element, structure, newCode }
-//     })
-// }

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from 'react-router-dom'
 import webSafeFonts from "../data/fonts"
@@ -6,7 +6,6 @@ import fontSizes from "../data/fontSizes"
 import useDebounce from "../hooks/useDebounce"
 import { changeElementClassAction } from "../redux/actions/actionCreators"
 import SVGIcon from "./SVGIcon"
-import { BiAlignLeft, BiAlignMiddle, BiAlignRight } from 'react-icons/bi'
 
 export default function EditWebsiteTopBar() {
 

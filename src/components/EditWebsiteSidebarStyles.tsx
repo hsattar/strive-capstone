@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react"
+import { Dispatch, SetStateAction } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import useDebounce from "../hooks/useDebounce"
-import { changeElementClassAction } from "../redux/actions/actionCreators"
 import EditWebsiteSidebarDropdowns from "./EditWebsiteSidebarDropdowns"
-import webSafeFonts from '../data/fonts'
-import fontSizes from '../data/fontSizes'
-import SVGIcon from "./SVGIcon"
 
-export default function EditWebsiteSidebarStyles() {
+interface IProps {
+    showEditTextModal: boolean
+    setShowEditTextModal: Dispatch<SetStateAction<boolean>>
+}
+
+export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEditTextModal}: IProps) {
     
     const dispatch = useDispatch()
     const elementToEdit = useSelector((state: IReduxStore) => state.website.elementToEdit)
@@ -16,6 +16,9 @@ export default function EditWebsiteSidebarStyles() {
         <div className="select-none">
             { elementToEdit ? (
                 <>
+                <div className="flex justify-center my-2">
+                    <button onClick={() => setShowEditTextModal(true)} className="py-1 px-5 mr-3 rounded-md text-blue-500 hover:bg-blue-200">Edit Text</button>
+                </div>
                 <EditWebsiteSidebarDropdowns name="positioning">
                     <>
                     <div className="flex justify-between">

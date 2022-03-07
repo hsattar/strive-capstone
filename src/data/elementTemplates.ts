@@ -32,6 +32,11 @@ const elementTemplates = {
         border: ``,
         text: `">Paragraph`,
         closingTag: `</p>`
+    },
+    image: {
+        openingTag: `<img src="" class="`,
+        class: ``,
+        closingTag: `/>`,
     }
 }
 
