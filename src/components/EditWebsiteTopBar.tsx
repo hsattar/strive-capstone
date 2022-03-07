@@ -54,17 +54,27 @@ export default function EditWebsiteTopBar() {
 
     const handleFontBoldChange = () => {
         setIsBold(prev => !prev)
-        isBold ? dispatch(changeElementClassAction(elementToEdit?.id!, 'bold', `font-normal`)) : dispatch(changeElementClassAction(elementToEdit?.id!, 'bold', `font-bold`))
+        isBold ? dispatch(changeElementClassAction(elementToEdit?.id!, 'bold', ``)) : dispatch(changeElementClassAction(elementToEdit?.id!, 'bold', `font-bold`))
     }
 
     const handleFontItalicsChange = () => {
         setIsItalics(prev => !prev)
-        isItalics ? dispatch(changeElementClassAction(elementToEdit?.id!, 'italics', `non-italics`)) : dispatch(changeElementClassAction(elementToEdit?.id!, 'italics', `italics`))
+        isItalics ? dispatch(changeElementClassAction(elementToEdit?.id!, 'italics', ``)) : dispatch(changeElementClassAction(elementToEdit?.id!, 'italics', `italics`))
     }
 
     const handleFontUnderlineChange = () => {
         setIsUnderline(prev => !prev)
-        isUnderline ? dispatch(changeElementClassAction(elementToEdit?.id!, 'underline', `underline-offset-0`)) : dispatch(changeElementClassAction(elementToEdit?.id!, 'underline', `underline underline-offset-1`))
+        isUnderline ? dispatch(changeElementClassAction(elementToEdit?.id!, 'underline', ``)) : dispatch(changeElementClassAction(elementToEdit?.id!, 'underline', `underline underline-offset-1`))
+    }
+
+    const handletextAlignment = (position: string) => {
+        setTextAlignment(position)
+        switch(position) {
+            case 'left': return dispatch(changeElementClassAction(elementToEdit?.id!, 'alignment', 'text-left'))
+            case 'center': return dispatch(changeElementClassAction(elementToEdit?.id!, 'alignment', 'text-center'))
+            case 'right': return dispatch(changeElementClassAction(elementToEdit?.id!, 'alignment', 'text-right'))
+            default: return dispatch(changeElementClassAction(elementToEdit?.id!, 'alignment', 'text-left'))
+        }
     }
 
     useEffect(() => {
@@ -123,9 +133,9 @@ export default function EditWebsiteTopBar() {
                             <span onClick={handleFontUnderlineChange} className="px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100 underline">U</span>
                         </div>
                         <div className="mx-2 py-1 border-2 rounded-md">
-                            <span className="px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100">L</span>
-                            <span className="px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100">M</span>
-                            <span className="px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100">R</span>
+                            <span onClick={() => handletextAlignment('left')} className="px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100">L</span>
+                            <span onClick={() => handletextAlignment('center')} className="px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100">M</span>
+                            <span onClick={() => handletextAlignment('right')} className="px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100">R</span>
                         </div>
                     </div>
                     <div className="flex justify-between items-center">

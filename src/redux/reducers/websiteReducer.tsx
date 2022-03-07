@@ -6,7 +6,7 @@ const websiteReducer = (state = initialState.website, action: AnyAction) => {
     switch(action.type) {
         case ACTIONS.CREATING_NEW_WEBSITE: return {
             ...state,
-            code: `<div className="default"></div>`
+            code: `<div></div>`
         }
         case ACTIONS.EDIT_WEBSITE_CODE: return {
             ...state,
@@ -14,7 +14,7 @@ const websiteReducer = (state = initialState.website, action: AnyAction) => {
         }
         case ACTIONS.EDIT_WEBSITE_STRUCTURE: return {
             ...state,
-            structure: [...state.structure, action.payload]
+            structure: action.payload
         }
         case ACTIONS.SET_ELEMENT_TO_EDIT: return {
             ...state,

@@ -15,13 +15,12 @@ export default function EditWebsiteSidebarElements() {
             id,
             ...elementTemplates[template],
             class: id,
+            parentId: '123456789'
         }
     }
 
     const handleAddCode = (codeToAdd: IElement) => {
-        // TODO: LOOK THROUGH THE VALUES OF THE CODE TO ADD AND ANY THAT ARE NOT EMPTY ADD TO THE CLASS NAME
-        // MOVE THIS INTO ACTION REDUCER?
-        const { id, ...htmlProperties } = codeToAdd
+        const { id, parentId, ...htmlProperties } = codeToAdd
         const htmlValues = Object.values(htmlProperties) 
         const codeAsString = htmlValues.join(' ')
         const splitCode = originalCode.split('</div>')

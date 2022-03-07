@@ -11,11 +11,11 @@ export const initialState: IReduxStore = {
         currentUser: null
     },
     website: {
-        code: `<div class="default"></div>`,
+        code: `<div></div>`,
         structure: [{
             id: '123456789',
-            openingTag: `<div class="`,
-            class: `">default`,
+            openingTag: `<div>`,
+            children: [],
             closingTag: `</div>`
         }],
         elementToEdit: null

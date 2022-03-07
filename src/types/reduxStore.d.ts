@@ -12,8 +12,10 @@ interface IReduxStore {
 
 interface IElement {
     id: string
+    parentId?: string
+    children?: string[]
     openingTag: string
-    class: string
+    class?: string
     font?: string
     fontSize?: string
     bold?: string
