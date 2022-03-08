@@ -10,6 +10,6 @@ interface IWebSafeFonts {
     value: string
 }
 
-type elementTemplateOptions = 'heading' | 'paragraph'
+type elementTemplateOptions = 'heading' | 'paragraph' | 'button' | 'image' | 'youTube'
 
-type elementToEditOptions = 'openingTag' | 'font' | 'fontSize' | 'bold' | 'italics' | 'underline' | 'alignment' | 'color' | 'backgroundColor' | 'margin' | 'padding' | 'border' | 'text' | 'closingTag'
+type elementToEditOptions = 'openingTag' | 'height' | 'width' | 'font' | 'fontSize' | 'bold' | 'italics' | 'underline' | 'alignment' | 'color' | 'backgroundColor' | 'margin' | 'padding' | 'border' | 'borderRadius' | 'text' | 'closingTag'

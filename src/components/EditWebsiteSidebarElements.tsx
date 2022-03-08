@@ -19,6 +19,17 @@ export default function EditWebsiteSidebarElements() {
         }
     }
 
+    const createImageTemplate = (imgSrc: string) => {
+        const id = uuid()
+        return {
+            id,
+            ...elementTemplates.image,
+            class: id,
+            openingTag: `<img src=${imgSrc} class="`,
+            parentId: '123456789'
+        }
+    }
+
     const handleAddCode = (codeToAdd: IElement) => {
         const { id, parentId, ...htmlProperties } = codeToAdd
         const htmlValues = Object.values(htmlProperties) 
@@ -44,15 +55,16 @@ export default function EditWebsiteSidebarElements() {
             </EditWebsiteSidebarDropdowns>
             <EditWebsiteSidebarDropdowns name="Media">
                 <div>
-                    <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Image</p>
+                    <label htmlFor="imageUpload" className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100 w-full">Image</label>
+                    <input type="file" id="imageUpload" hidden onChange={e => handleAddCode(createImageTemplate(URL.createObjectURL(e.target.files![0])))} />
                     <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Video</p>
                     <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">YouTube</p>
                 </div>
             </EditWebsiteSidebarDropdowns>
             <EditWebsiteSidebarDropdowns name="Other">
                 <div>
-                    <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Button</p>
-                    <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Dropdown</p>
+                    <p onClick={() => handleAddCode(createElementTemplate('button'))} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Button</p>
+                    <p onClick={() => handleAddCode(createElementTemplate('youTube'))} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Dropdown</p>
                 </div>
             </EditWebsiteSidebarDropdowns>
         </div>

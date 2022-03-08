@@ -16,6 +16,8 @@ interface IElement {
     children?: string[]
     openingTag: string
     class?: string
+    height?: string
+    width?: string
     font?: string
     fontSize?: string
     bold?: string
@@ -27,6 +29,7 @@ interface IElement {
     margin?: string
     padding?: string
     border?: string 
+    borderRadius?: string 
     text?: string
     closingTag: string
 }
