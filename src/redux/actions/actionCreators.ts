@@ -39,10 +39,11 @@ export const changeElementClassAction = (elementId: string, property: elementToE
     if (!element) return
     element = elementToEdit
 
-    const newCode = `${structure.containers[0].openingTag}${structure.containers[0].children?.map(child => {
+    const newCode = structure.containers.map(struct => `${struct.openingTag}${struct.children.map(child => {
         const element = structure.elements.find(element => element.id === child)
         return `${element?.openingTag}${element?.class}${element?.text}${element?.closingTag}`
-    }).join('')}${structure.containers[0].closingTag}`
+    }).join('')}${struct.closingTag}`).join('')
+        
 
     dispatch({
         type: ACTIONS.CHANGE_ELEMENT_CLASS,
@@ -54,13 +55,35 @@ export const structureDndChangeAction = (structureContainers: IContainer[]) =>
 (dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {   
     const structure = getState().website.structure
 
-    const newCode = `${structure.containers[0].openingTag}${structure.containers[0].children?.map(child => {
+    const newCode = structure.containers.map(struct => `${struct.openingTag}${struct.children.map(child => {
         const element = structure.elements.find(element => element.id === child)
         return `${element?.openingTag}${element?.class}${element?.text}${element?.closingTag}`
-    }).join('')}${structure.containers[0].closingTag}`
+    }).join('')}${struct.closingTag}`).join('')
     
     dispatch({ 
         type: ACTIONS.STRUCTURE_DND_CHANGE,
         payload: { structureContainers, newCode }
+    })
+}
+
+export const containerOrderDndChangeAction = (containerOrder: string[]) =>
+(dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {
+    const structure = getState().website.structure
+    let newStructureContainers: IContainer[] = []
+    
+    containerOrder.map(contain => {
+        const container = structure.containers.find(c => c.id === contain)
+        if (!container) return
+        newStructureContainers.push(container)
+    })
+
+    const newCode = newStructureContainers.map(struct => `${struct.openingTag}${struct.children.map(child => {
+        const element = structure.elements.find(element => element.id === child)
+        return `${element?.openingTag}${element?.class}${element?.text}${element?.closingTag}`
+    }).join('')}${struct.closingTag}`).join('')
+
+    dispatch({
+        type: ACTIONS.CONTAINER_ORDER_DND_CHANGE,
+        payload: { newCode, newStructureContainers, containerOrder }
     })
 }

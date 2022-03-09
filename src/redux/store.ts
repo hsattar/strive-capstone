@@ -18,9 +18,14 @@ export const initialState: IReduxStore = {
                 openingTag: `<div>`,
                 closingTag: `</div>`,
                 children: [],
+            }, {
+                id: '123',
+                openingTag: `<div>`,
+                closingTag: `</div>`,
+                children: [],
             }],
             elements: [],
-            containerOrder: ['123456789']
+            containerOrder: ['123456789', '123']
         },
         elementToEdit: null
     }
