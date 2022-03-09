@@ -4,8 +4,9 @@ export default function EditWebsiteSidebarLayout() {
     return (
         <div className="select-none overflow-y-scroll">
             <EditWebsiteSidebarDropdowns name="Grid - Container">
-                <div className="grid grid-cols-1 justify-items-center p-3">
+                <div className="grid grid-cols-2 justify-items-center p-3">
                     <img src="/assets/container.jpg" className="h-16 hover:border-2 hover:cursor-pointer p-2" alt="container" />
+                    <img src="/assets/flex.jpg" className="h-16 hover:border-2 hover:cursor-pointer p-2" alt="flex" />
                 </div>
             </EditWebsiteSidebarDropdowns>
             <EditWebsiteSidebarDropdowns name="Grid - Simple">

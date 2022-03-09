@@ -17,14 +17,13 @@ interface IReduxStore {
 interface IContainer {
     id: string
     openingTag: string
-    class?: string
+    class: string
     closingTag: string
     children: string[]
 }
 
 interface IElement {
     id: string
-    parentId?: string
     children?: string[]
     openingTag: string
     class?: string

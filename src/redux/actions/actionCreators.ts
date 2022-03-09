@@ -12,7 +12,7 @@ export const setElementToEditAction = (element: IElement) => ({ type: ACTIONS.SE
 export const editWebsiteStructureAction = (code: IElement) => 
 (dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {   
     const structure = getState().website.structure
-    const findParentIndex = structure.containers.map(container => container.id === code.parentId ? container.children!.push(code.id) : container)
+    structure.containers[structure.containers.length - 1].children.push(code.id)
     dispatch({ 
         type: ACTIONS.EDIT_WEBSITE_STRUCTURE,
         payload: { 
@@ -29,7 +29,7 @@ export const changeElementClassAction = (elementId: string, property: elementToE
     if (!elementToEdit) return
     elementToEdit[property] = className
     
-    const { id, openingTag, class: oldClass, text, closingTag, parentId, ...htmlProperties } = elementToEdit
+    const { id, openingTag, class: oldClass, text, closingTag, ...htmlProperties } = elementToEdit
     const htmlValues = Object.values(htmlProperties) 
     htmlValues.unshift(id)
     const classNamesAsString = htmlValues.join(' ')

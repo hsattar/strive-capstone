@@ -75,6 +75,7 @@ export default function EditWebsiteSidebarStructure({ setSidebarTab }: IProps) {
             <Droppable droppableId="all-containers" type="container">
                 {provided => (
                     <div
+                        className="w-full items-center ml-6"
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                     >

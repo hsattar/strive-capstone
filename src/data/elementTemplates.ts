@@ -1,7 +1,7 @@
 const elementTemplates = {
     heading: { 
         openingTag: `<h1 class="`,
-        class: ``,
+        class: `font-['Open_Sans'] text-6xl font-bold`,
         font: `font-['Open_Sans']`,
         fontSize: `text-6xl`,
         bold: `font-bold`,
@@ -18,7 +18,7 @@ const elementTemplates = {
     },
     paragraph: {
         openingTag: `<p class="`,
-        class: ``,
+        class: `font-['Open_Sans'] text-base`,
         font: `font-['Open_Sans']`,
         fontSize: `text-base`,
         bold: ``,
@@ -42,7 +42,7 @@ const elementTemplates = {
     },
     button: {
         openingTag: `<button class="`,
-        class: ``,
+        class: `font-['Open_Sans'] text-base text-white bg-blue-500 py-1 px-3 rounded-md`,
         font: `font-['Open_Sans']`,
         fontSize: `text-base`,
         bold: ``,

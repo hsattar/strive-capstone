@@ -14,8 +14,7 @@ export default function EditWebsiteSidebarElements() {
         return {
             id,
             ...elementTemplates[template],
-            class: id,
-            parentId: '123456789'
+            class: `${elementTemplates[template].class} ${id}`,
         }
     }
 
@@ -26,12 +25,11 @@ export default function EditWebsiteSidebarElements() {
             ...elementTemplates.image,
             class: id,
             openingTag: `<img src=${imgSrc} class="`,
-            parentId: '123456789'
         }
     }
 
     const handleAddCode = (codeToAdd: IElement) => {
-        const { id, parentId, ...htmlProperties } = codeToAdd
+        const { id, ...htmlProperties } = codeToAdd
         const htmlValues = Object.values(htmlProperties) 
         const codeAsString = htmlValues.join(' ')
         const splitCode = originalCode.split('</div>')
