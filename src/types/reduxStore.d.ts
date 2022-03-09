@@ -5,9 +5,21 @@ interface IReduxStore {
     }
     website: {
         code: string, 
-        structure: IElement[]
+        structure: {
+            containers: IContainer[]
+            elements: IElement[]
+            containerOrder: string[]
+        }
         elementToEdit: IElement | null
     }
+}
+
+interface IContainer {
+    id: string
+    openingTag: string
+    class?: string
+    closingTag: string
+    children: string[]
 }
 
 interface IElement {

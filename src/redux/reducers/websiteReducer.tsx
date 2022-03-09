@@ -26,6 +26,14 @@ const websiteReducer = (state = initialState.website, action: AnyAction) => {
             structure: action.payload.structure,
             elementToEdit: action.payload.element
         }
+        case ACTIONS.STRUCTURE_DND_CHANGE: return {
+            ...state,
+            code: action.payload.newCode,
+            structure: {
+                ...state.structure,
+                containers: action.payload.structureContainers
+            }
+        }
         default: return state
     }
 }

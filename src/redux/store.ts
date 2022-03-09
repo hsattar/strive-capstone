@@ -12,12 +12,16 @@ export const initialState: IReduxStore = {
     },
     website: {
         code: `<div></div>`,
-        structure: [{
-            id: '123456789',
-            openingTag: `<div>`,
-            children: [],
-            closingTag: `</div>`
-        }],
+        structure: {
+            containers: [{
+                id: '123456789',
+                openingTag: `<div>`,
+                closingTag: `</div>`,
+                children: [],
+            }],
+            elements: [],
+            containerOrder: ['123456789']
+        },
         elementToEdit: null
     }
 }

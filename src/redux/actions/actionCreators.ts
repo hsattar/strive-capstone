@@ -12,10 +12,13 @@ export const setElementToEditAction = (element: IElement) => ({ type: ACTIONS.SE
 export const editWebsiteStructureAction = (code: IElement) => 
 (dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {   
     const structure = getState().website.structure
-    const findParentIndex = structure.map(element => element.id === code.parentId ? element.children!.push(code.id) : element)
+    const findParentIndex = structure.containers.map(container => container.id === code.parentId ? container.children!.push(code.id) : container)
     dispatch({ 
         type: ACTIONS.EDIT_WEBSITE_STRUCTURE,
-        payload: [...structure, code]
+        payload: { 
+            ...structure,
+            elements: [...structure.elements, code]
+        }
     })
 }
 
@@ -32,17 +35,32 @@ export const changeElementClassAction = (elementId: string, property: elementToE
     const classNamesAsString = htmlValues.join(' ')
     elementToEdit.class = classNamesAsString
     
-    let element = structure.find(obj => obj.id === elementId)
+    let element = structure.elements.find(obj => obj.id === elementId)
     if (!element) return
     element = elementToEdit
 
-    const newCode = `${structure[0].openingTag}${structure[0].children?.map(child => {
-        const element = structure.find(element => element.id === child)
+    const newCode = `${structure.containers[0].openingTag}${structure.containers[0].children?.map(child => {
+        const element = structure.elements.find(element => element.id === child)
         return `${element?.openingTag}${element?.class}${element?.text}${element?.closingTag}`
-    }).join('')}${structure[0].closingTag}`
+    }).join('')}${structure.containers[0].closingTag}`
 
     dispatch({
         type: ACTIONS.CHANGE_ELEMENT_CLASS,
         payload: { element, structure, newCode }
+    })
+}
+
+export const structureDndChangeAction = (structureContainers: IContainer[]) => 
+(dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {   
+    const structure = getState().website.structure
+
+    const newCode = `${structure.containers[0].openingTag}${structure.containers[0].children?.map(child => {
+        const element = structure.elements.find(element => element.id === child)
+        return `${element?.openingTag}${element?.class}${element?.text}${element?.closingTag}`
+    }).join('')}${structure.containers[0].closingTag}`
+    
+    dispatch({ 
+        type: ACTIONS.STRUCTURE_DND_CHANGE,
+        payload: { structureContainers, newCode }
     })
 }
