@@ -87,3 +87,8 @@ export const containerOrderDndChangeAction = (containerOrder: string[]) =>
         payload: { newCode, newStructureContainers, containerOrder }
     })
 }
+
+export const addWebsiteContainerAction = (websiteContainer: IContainer) => ({ 
+    type: ACTIONS.ADD_WEBSITE_CONTAINER,
+    payload: websiteContainer
+})

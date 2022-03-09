@@ -1,12 +1,32 @@
+import { v4 as uuid } from 'uuid'
+import { useDispatch } from 'react-redux'
 import EditWebsiteSidebarDropdowns from "./EditWebsiteSidebarDropdowns"
+import containerTemplates from '../data/containerTemplates'
+import { addWebsiteContainerAction } from '../redux/actions/actionCreators'
 
 export default function EditWebsiteSidebarLayout() {
+
+    const dispatch = useDispatch()
+
+    const createContainerTemplate = (template: layoutTemplateOptions) => {
+        const id = uuid()
+        return {
+            id,
+            ...containerTemplates[template],
+            class: `${containerTemplates[template].class} ${id}`,
+        }
+    }
+
+    const handleAddLayout = (container: IContainer) => {
+        dispatch(addWebsiteContainerAction(container))
+    }
+
     return (
         <div className="select-none overflow-y-scroll">
             <EditWebsiteSidebarDropdowns name="Grid - Container">
                 <div className="grid grid-cols-2 justify-items-center p-3">
                     <img src="/assets/container.jpg" className="h-16 hover:border-2 hover:cursor-pointer p-2" alt="container" />
-                    <img src="/assets/flex.jpg" className="h-16 hover:border-2 hover:cursor-pointer p-2" alt="flex" />
+                    <img onClick={() => handleAddLayout(createContainerTemplate('flexContainer'))} src="/assets/flex.jpg" className="h-16 hover:border-2 hover:cursor-pointer p-2" alt="flex" />
                 </div>
             </EditWebsiteSidebarDropdowns>
             <EditWebsiteSidebarDropdowns name="Grid - Simple">
