@@ -1,25 +1,57 @@
+import { useDispatch } from 'react-redux'
+import { v4 as uuid } from 'uuid'
+import componentTemplates from '../data/componentTemplates'
+import { addNewComponentAction } from '../redux/actions/actionCreators'
 import EditWebsiteSidebarDropdowns from "./EditWebsiteSidebarDropdowns"
 
 export default function EditWebsiteSidebarComponents() {
+
+    const dispatch = useDispatch()
+
+    const createComponentTemplate = (templateToAdd: componentTemplateOptions) => {
+        const containerId = uuid()
+        const template = componentTemplates[templateToAdd]
+        const container = template.container = {
+            ...template.container,
+            id: containerId
+        }
+        const elements = template.elements.map(element => {
+            const elementId = uuid()
+            container.children.push(elementId)
+            return {
+                ...element,
+                id: elementId,
+                class: `${element.class} ${elementId}`
+            }
+        })
+
+        return { container, elements }
+    }
+    
+    const handleAddComponent = ({ container, elements }: IComponentSub) => {
+        console.log(container, elements)
+        dispatch(addNewComponentAction(container, elements))
+    }
+
     return (
         <div className="select-none">
             <EditWebsiteSidebarDropdowns name="Top">
                 <div>
-                    <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Navbar</p>
-                    <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Hero Section</p>
+                    <p onClick={() => handleAddComponent(createComponentTemplate('navbar'))} className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Navbar</p>
+                    <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Hero Section</p>
                 </div>
             </EditWebsiteSidebarDropdowns>
             <EditWebsiteSidebarDropdowns name="Media">
                 <div>
-                    <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Carousel</p>
+                    <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Carousel</p>
                 </div>
             </EditWebsiteSidebarDropdowns>
             <EditWebsiteSidebarDropdowns name="Specific">
                 <div>
-                    <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Accordian</p>
-                    <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Form</p>
-                    <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Cards</p>
-                    <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Modal</p>
+                    <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Accordian</p>
+                    <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Form</p>
+                    <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Cards</p>
+                    <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Modal</p>
                 </div>
             </EditWebsiteSidebarDropdowns>
         </div>

@@ -43,16 +43,18 @@ const websiteReducer = (state = initialState.website, action: AnyAction) => {
                 containerOrder: action.payload.containerOrder
             }
         }
-        case ACTIONS.ADD_WEBSITE_CONTAINER: {
-            console.log(action.payload)
-            return {
-                ...state,
-                structure: {
-                    ...state.structure,
-                    containers: [...state.structure.containers, action.payload],
-                    containerOrder: [...state.structure.containerOrder, action.payload.id]
-                }
+        case ACTIONS.ADD_WEBSITE_CONTAINER: return {
+            ...state,
+            structure: {
+                ...state.structure,
+                containers: [...state.structure.containers, action.payload],
+                containerOrder: [...state.structure.containerOrder, action.payload.id]
             }
+        }
+        case ACTIONS.ADD_NEW_COMPONENT: return {
+            ...state,
+            code: action.payload.newCode,
+            structure: action.payload.newStructure
         }
         default: return state
     }

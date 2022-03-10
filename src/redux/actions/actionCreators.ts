@@ -12,7 +12,7 @@ export const setElementToEditAction = (element: IElement) => ({ type: ACTIONS.SE
 export const editWebsiteStructureAction = (code: IElement) => 
 (dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {   
     const structure = getState().website.structure
-    structure.containers[structure.containers.length - 1].children.push(code.id)
+    structure.containers[structure.containers.length - 1].children.push(code.id!)
     dispatch({ 
         type: ACTIONS.EDIT_WEBSITE_STRUCTURE,
         payload: { 
@@ -92,3 +92,28 @@ export const addWebsiteContainerAction = (websiteContainer: IContainer) => ({
     type: ACTIONS.ADD_WEBSITE_CONTAINER,
     payload: websiteContainer
 })
+
+export const addNewComponentAction = (container: IContainer, elements: IElement[]) => 
+(dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {
+    const structure = getState().website.structure
+    const newContainers = [...structure.containers, container]
+    const newElements = [...structure.elements, ...elements]
+    const newContainerOrder = [...structure.containerOrder, container.id]
+
+    const newCode = newContainers.map(struct => `${struct.openingTag}${struct.children.map(child => {
+        const element = newElements.find(element => element.id === child)
+        return `${element?.openingTag}${element?.class}${element?.text}${element?.closingTag}`
+    }).join('')}${struct.closingTag}`).join('')
+
+    const newStructure = {
+        ...structure,
+        containers: newContainers,
+        elements: newElements,
+        containerOrder: newContainerOrder
+    }
+
+    dispatch({
+        type: ACTIONS.ADD_NEW_COMPONENT,
+        payload: { newCode, newStructure }
+    })
+}

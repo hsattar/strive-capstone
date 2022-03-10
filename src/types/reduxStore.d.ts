@@ -14,19 +14,27 @@ interface IReduxStore {
     }
 }
 
-interface IContainer {
-    id: string
+interface IComponentSub {
+    container: IContainer
+    elements: IElement[]
+}
+
+interface IComponent {
+    navbar: IComponentSub
+}
+
+interface IContainerElement {
+    id?: string
     openingTag: string
     class: string
     closingTag: string
+}
+
+interface IContainer extends IContainerElement {
     children: string[]
 }
 
-interface IElement {
-    id: string
-    children?: string[]
-    openingTag: string
-    class?: string
+interface IElement extends IContainerElement {
     height?: string
     width?: string
     font?: string
@@ -42,5 +50,4 @@ interface IElement {
     border?: string 
     borderRadius?: string 
     text?: string
-    closingTag: string
 }
