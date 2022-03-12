@@ -1,7 +1,7 @@
 interface IReduxStore {
     user: {
         isLoggedIn: boolean
-        currentUser: null
+        currentUser: IUser | null
     }
     website: {
         code: string, 

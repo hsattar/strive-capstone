@@ -10,6 +10,19 @@ interface IWebSafeFonts {
     value: string
 }
 
+interface IWesbite {
+    _id: string
+    owner: string
+    name: string
+    page: string
+    stage: string
+    code: string
+    namePageStage: string
+    createdAt: Date
+    updatedAt: Date
+    __v: number
+}
+
 type elementTemplateOptions = 'heading' | 'paragraph' | 'button' | 'image' | 'youTube'
 
 type elementToEditOptions = 'openingTag' | 'height' | 'width' | 'font' | 'fontSize' | 'bold' | 'italics' | 'underline' | 'alignment' | 'color' | 'backgroundColor' | 'margin' | 'padding' | 'border' | 'borderRadius' | 'text' | 'closingTag'

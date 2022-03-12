@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { userLogsOutAction } from '../redux/actions/actionCreators'
 import SVGIcon from './SVGIcon'
 
@@ -11,7 +11,8 @@ export default function Navbar() {
     const { pathname } = useLocation()
     const { websiteName } = useParams()
     const userMenuRef = useRef<HTMLDivElement>(null)
-    
+    const currentUser = useSelector((state: IReduxStore) => state.user.currentUser)
+        
     const [showUserMenu, setShowUserMenu] = useState(false)
     
     const isHome = pathname === '/'
@@ -33,6 +34,10 @@ export default function Navbar() {
         return () => document.removeEventListener('mousedown', checkIfMouseClickedOutsideUserMenu)
     }, [showUserMenu])
 
+    if (!currentUser) return <div>Loading...</div>
+
+    const { firstName, lastName, email, avatar } = currentUser
+
     return (
         <div className="relative select-none">
         <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2 rounded shadow-md">
@@ -40,7 +45,7 @@ export default function Navbar() {
             <Link to="/" className="flex"><span className={isHome ? "self-center text-lg font-semibold whitespace-nowrap" : "self-center whitespace-nowrap"}>{websiteName ? `Code Buddy - ${websiteName}` : 'Code Buddy'}</span></Link>
             <div className="flex items-center">
                 <button onClick={() => setShowUserMenu(prev => !prev)} className="flex mr-3 text-sm rounded-full md:mr-0">
-                    <img className={isHome ? "w-8 h-8 rounded-full" : "w-6 h-6 rounded-full" } src="https://ui-avatars.com/api/?name=Hasan+Sattar" alt="" />
+                    <img className={isHome ? "w-8 h-8 rounded-full" : "w-6 h-6 rounded-full" } src={avatar} alt={`${firstName} ${lastName}`} />
                 </button>
             </div>
             </div>
@@ -48,8 +53,8 @@ export default function Navbar() {
         <div className="absolute right-3 z-50" ref={userMenuRef}>
             <div className={`${!showUserMenu && 'hidden'} z-50 my-1 text-base list-none bg-white rounded divide-y divide-gray-100 shadow-md w-40`}>
                 <div className="py-3 px-4">
-                <span className="block text-sm text-gray-900">Hasan Sattar</span>
-                <span className="block text-sm font-medium text-gray-500 truncate mt-1">hasan@sattar.com</span>
+                <span className="block text-sm text-gray-900">{`${firstName} ${lastName}`}</span>
+                <span className="block text-sm font-medium text-gray-500 truncate mt-1">{email}</span>
                 </div>
                 <ul className="my-1">
                 <li>

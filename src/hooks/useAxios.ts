@@ -16,10 +16,17 @@ export default function useAxios() {
         response => response,
         async error => {
             const failedRequest = error.config
-            if (error.response.status === 401 && (failedRequest.url !== 'users/refreshToken' || failedRequest.url !== 'users/login')) return Promise.reject(error)
-            await axiosRequest('/users/refreshToken', 'POST')
-            const retryRequest = axios(failedRequest)
-            return retryRequest
+            if (failedRequest.url === 'users/login') {
+                return Promise.reject(failedRequest)
+            } else {
+                if (error.response.status === 401 && failedRequest.url !== 'users/refreshToken') {
+                    await axiosRequest('/users/refresh-token', 'POST')
+                    const retryRequest = axios(failedRequest)
+                    return retryRequest
+                } else {
+                    return Promise.reject(error)
+                }
+            }
         }
     )
 

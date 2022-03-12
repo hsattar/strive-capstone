@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import useAxios from '../hooks/useAxios'
@@ -15,6 +16,7 @@ export default function PrivateRoute({ children }: IProps) {
 
     const fetchMyInfo = async () => {
         try {
+            console.log('here')
             const response = await axiosRequest('/users/me', 'GET')
             if (response.status !== 200) throw new Error('COuld Not Fetch Details')
             dispatch(addInfoToCurrentUserAction(response.data))
