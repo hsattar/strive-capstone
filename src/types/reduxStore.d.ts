@@ -14,6 +14,15 @@ interface IReduxStore {
     }
 }
 
+interface IUser {
+    _id: string
+    firstName: string
+    lastName: string
+    email: string
+    website: string[]
+    avatar: string
+}
+
 interface IComponentSub {
     container: IContainer
     elements: IElement[]

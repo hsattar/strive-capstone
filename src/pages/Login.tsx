@@ -3,11 +3,13 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { userLogsInAction } from '../redux/actions/actionCreators'
 import SVGIcon from '../components/SVGIcon'
+import useAxios from '../hooks/useAxios'
 
 export default function Login() {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const axiosRequest = useAxios()
 
     const [loginError, setLoginError] = useState(false)
     const [userError, setUserError] = useState(false)
@@ -24,12 +26,18 @@ export default function Login() {
         }))
     }
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
-
         if (!userDetails.email || !userDetails.password) return setUserError(true)
-        dispatch(userLogsInAction())
-        navigate('/')
+        
+        try {
+            const response = await axiosRequest('users/login', 'POST', userDetails)
+            if (response.status !== 200) throw new Error('Login Failed')
+            dispatch(userLogsInAction())
+            navigate('/')
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (

@@ -7,11 +7,11 @@ const composeSafely = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || co
 
 export const initialState: IReduxStore = {
     user: {
-        isLoggedIn: true,
+        isLoggedIn: false,
         currentUser: null
     },
     website: {
-        code: `<div></div>`,
+        code: `<div class="123456789"></div>`,
         structure: {
             containers: [{
                 id: '123456789',

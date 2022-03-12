@@ -3,11 +3,13 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { userLogsInAction } from '../redux/actions/actionCreators'
 import SVGIcon from '../components/SVGIcon'
+import useAxios from '../hooks/useAxios'
 
 export default function Register() {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const axiosRequest = useAxios()
 
     const [registrationError, setRegistrationError] = useState(false)
     const [userError, setUserError] = useState(false)
@@ -26,12 +28,17 @@ export default function Register() {
         }))
     }
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
-
         if (!userDetails.firstName || !userDetails.lastName || !userDetails.email || !userDetails.password) return setUserError(true)
-        dispatch(userLogsInAction())
-        navigate('/')
+        try {
+            const response = await axiosRequest('users/register', 'POST', userDetails)
+            if (response.status !== 201) throw new Error('Registration Failed') 
+            dispatch(userLogsInAction())
+            navigate('/')
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (

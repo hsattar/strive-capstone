@@ -5,6 +5,8 @@ import ACTIONS from "./actionNames"
 export const userLogsInAction = () => ({ type: ACTIONS.USER_LOGS_IN })
 export const userLogsOutAction = () => ({ type: ACTIONS.USER_LOGS_OUT })
 
+export const addInfoToCurrentUserAction = (user: IUser) => ({ type: ACTIONS.ADD_INFO_TO_CURRENT_USER, payload: user })
+
 export const createNewWebsitesAction = () => ({ type: ACTIONS.CREATING_NEW_WEBSITE })
 export const editWebsiteCodeAction = (code: string) => ({ type: ACTIONS.EDIT_WEBSITE_CODE, payload: code })
 export const setElementToEditAction = (element: IElement) => ({ type: ACTIONS.SET_ELEMENT_TO_EDIT, payload: element })
