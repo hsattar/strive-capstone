@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { userLogsInAction } from '../redux/actions/actionCreators'
 import SVGIcon from '../components/SVGIcon'
 import useAxios from '../hooks/useAxios'
+import { Helmet } from 'react-helmet'
 
 export default function Login() {
 
@@ -32,15 +33,20 @@ export default function Login() {
         
         try {
             const response = await axiosRequest('users/login', 'POST', userDetails)
-            if (response.status !== 200) throw new Error('Login Failed')
-            dispatch(userLogsInAction())
-            navigate('/')
+            if (response.status === 200) {
+                dispatch(userLogsInAction())
+                navigate('/')
+            }
         } catch (error) {
             console.log(error)
         }
     }
 
     return (
+        <>
+        <Helmet>
+            <title>Code Buddy - Login</title>
+        </Helmet>
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
             <div className="p-10 xs:p-0 mx-auto md:w-full md:min-w-xl md:max-w-2xl">
                 <div className="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
@@ -81,5 +87,6 @@ export default function Login() {
                 </div>
             </div>
         </div>
+        </>
     )
 }

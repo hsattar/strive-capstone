@@ -44,7 +44,7 @@ export default function Navbar() {
             <div className="flex flex-wrap justify-between items-center mx-auto">
             <Link to="/" className="flex"><span className={isHome ? "self-center text-lg font-semibold whitespace-nowrap" : "self-center whitespace-nowrap"}>{websiteName ? `Code Buddy - ${websiteName}` : 'Code Buddy'}</span></Link>
             <div className="flex items-center">
-                <button onClick={() => setShowUserMenu(prev => !prev)} className="flex mr-3 text-sm rounded-full md:mr-0">
+                <button  onClick={() => setShowUserMenu(prev => !prev)} className="flex mr-3 text-sm rounded-full md:mr-0">
                     <img className={isHome ? "w-8 h-8 rounded-full" : "w-6 h-6 rounded-full" } src={avatar} alt={`${firstName} ${lastName}`} />
                 </button>
             </div>

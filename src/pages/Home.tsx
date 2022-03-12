@@ -4,6 +4,7 @@ import NewWebsiteForm from '../components/NewWebsiteForm'
 import SingleWebsite from '../components/SingleWebsite'
 import SVGIcon from '../components/SVGIcon'
 import useAxios from '../hooks/useAxios'
+import { Helmet } from 'react-helmet'
 
 export default function Home() {
 
@@ -14,8 +15,9 @@ export default function Home() {
     const fetchMyWebsites = async () => {
         try {
             const response = await axiosRequest('/websites', 'GET')
-            if (response.status !== 200) throw new Error('Could Not Fetch Websites')
-            setMyWebsites(response.data)
+            if (response.status === 200) {
+                setMyWebsites(response.data)
+            }
         } catch (error) {
             console.error(error)
         }
@@ -24,9 +26,10 @@ export default function Home() {
     const handleDeleteWebsite = async (websiteName: string, websiteId: string) => {
         try {
             const response = await axiosRequest(`/websites/${websiteName}`, 'DELETE')
-            if (response.status !== 204) throw new Error('Delete Failed')
-            const newWebsites = myWebsites.filter(website => website._id !== websiteId)
-            setMyWebsites(newWebsites)
+            if (response.status === 204) {
+                const newWebsites = myWebsites.filter(website => website._id !== websiteId)
+                setMyWebsites(newWebsites)
+            }
         } catch (error) {
             console.log(error)
         }
@@ -38,6 +41,9 @@ export default function Home() {
 
     return (
         <>
+        <Helmet>
+            <title>{`Code Buddy - ${showNewWebsiteForm ? 'New Website' : 'Home'}`}</title>
+        </Helmet>
         <Navbar />
         <div className="container mx-auto">
         <div className="divide-y divide-gray-200">

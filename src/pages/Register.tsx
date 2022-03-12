@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { userLogsInAction } from '../redux/actions/actionCreators'
 import SVGIcon from '../components/SVGIcon'
 import useAxios from '../hooks/useAxios'
+import { Helmet } from 'react-helmet'
 
 export default function Register() {
 
@@ -33,15 +34,20 @@ export default function Register() {
         if (!userDetails.firstName || !userDetails.lastName || !userDetails.email || !userDetails.password) return setUserError(true)
         try {
             const response = await axiosRequest('users/register', 'POST', userDetails)
-            if (response.status !== 201) throw new Error('Registration Failed') 
-            dispatch(userLogsInAction())
-            navigate('/')
+            if (response.status === 201) {
+                dispatch(userLogsInAction())
+                navigate('/')
+            } 
         } catch (error) {
             console.log(error)
         }
     }
 
     return (
+        <>
+        <Helmet>
+            <title>Code Buddy - Register</title>
+        </Helmet>
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
             <div className="p-10 xs:p-0 mx-auto sm:w-full sm:min-w-xl sm:max-w-4xl">
                 <div className="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
@@ -102,5 +108,6 @@ export default function Register() {
                 </div>
             </div>
         </div>
+        </>
     )
 }

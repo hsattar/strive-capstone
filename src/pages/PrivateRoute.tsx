@@ -13,19 +13,20 @@ export default function PrivateRoute({ children }: IProps) {
     const axiosRequest = useAxios()
     const dispatch = useDispatch()
     const isLoggedIn = useSelector((state: IReduxStore) => state.user.isLoggedIn)
+    const currentUser = useSelector((state: IReduxStore) => state.user.currentUser)
 
     const fetchMyInfo = async () => {
         try {
-            console.log('here')
             const response = await axiosRequest('/users/me', 'GET')
-            if (response.status !== 200) throw new Error('COuld Not Fetch Details')
-            dispatch(addInfoToCurrentUserAction(response.data))
+            if (response.status === 200) {
+                dispatch(addInfoToCurrentUserAction(response.data))
+            }
         } catch (error) {
             console.log(error)
         }
     }
 
-    if (isLoggedIn) fetchMyInfo()
+    if (isLoggedIn && !currentUser) fetchMyInfo()
 
     return isLoggedIn ? children : <Navigate to="/login" />
 }

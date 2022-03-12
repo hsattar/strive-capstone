@@ -13,10 +13,11 @@ import Navbar from "../components/Navbar"
 import EditWebsiteSidebarStructure from "../components/EditWebsiteSidebarStructure"
 import SVGIcon from "../components/SVGIcon"
 import { changeElementClassAction } from "../redux/actions/actionCreators"
+import { Helmet } from "react-helmet"
 
 export default function EditWebsite() {
 
-    const { pageSelected } = useParams()
+    const { websiteName, pageSelected } = useParams()
     const dispatch = useDispatch()
     const textAreaRef = useRef<HTMLTextAreaElement>(null)
     const code = useSelector((state: IReduxStore) => state.website.code)
@@ -42,6 +43,9 @@ export default function EditWebsite() {
 
     return (
         <>
+        <Helmet>
+            <title>{`Code Buddy - Edit ${websiteName}`}</title>
+        </Helmet>
         { showEditTextModal ? (
             <div onClick={() => setShowEditTextModal(false)} className="fixed inset-0 bg-gray-300 bg-opacity-50 overflow-y-auto h-full w-full">
                 <div className="relative top-20 mx-auto p-5 border w-[50%] shadow-lg rounded-md bg-white">
