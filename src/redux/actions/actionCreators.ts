@@ -119,3 +119,8 @@ export const addNewComponentAction = (container: IContainer, elements: IElement[
         payload: { newCode, newStructure }
     })
 }
+
+export const updateAllWebsiteInformationAction = (code: string, structure: IStructure) => ({
+    type: ACTIONS.UPDATE_ALL_WEBSITE_INFORMATION,
+    payload: { code, structure }
+})

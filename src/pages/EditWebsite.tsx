@@ -11,14 +11,15 @@ import EditWebsiteSidebarComponents from "../components/EditWebsiteSidebarCompon
 import EditWebsiteSidebarStyles from "../components/EditWebsiteSidebarStyles"
 import Navbar from "../components/Navbar"
 import EditWebsiteSidebarStructure from "../components/EditWebsiteSidebarStructure"
-import SVGIcon from "../components/SVGIcon"
-import { changeElementClassAction } from "../redux/actions/actionCreators"
+import { changeElementClassAction, updateAllWebsiteInformationAction } from "../redux/actions/actionCreators"
 import { Helmet } from "react-helmet"
+import useAxios from '../hooks/useAxios'
 
 export default function EditWebsite() {
 
-    const { websiteName, pageSelected } = useParams()
     const dispatch = useDispatch()
+    const axiosRequest = useAxios()
+    const { websiteName, pageSelected } = useParams()
     const textAreaRef = useRef<HTMLTextAreaElement>(null)
     const code = useSelector((state: IReduxStore) => state.website.code)
     const elementToEdit = useSelector((state: IReduxStore) => state.website.elementToEdit)
@@ -27,6 +28,28 @@ export default function EditWebsite() {
     const [showEditTextModal, setShowEditTextModal] = useState(false)
     const [elementToEditText, setelementToEditText] = useState<string | undefined>('')
 
+    const fetchWebsiteDetails = async () => {
+        try {
+            const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'GET')
+            if (response.status === 200) {
+                const defaultWebsiteStructure = {
+                    containers: [{
+                        id: '123456789',
+                        openingTag: `<div class="">`,
+                        class: `123456789`,
+                        closingTag: `</div>`,
+                        children: [],
+                    }],
+                    elements: [],
+                    containerOrder: ['123456789']
+                }
+                dispatch(updateAllWebsiteInformationAction(response.data.code, response.data.structure || defaultWebsiteStructure ))
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
         dispatch(changeElementClassAction(elementToEdit?.id!, 'text', elementToEditText!))
@@ -34,36 +57,19 @@ export default function EditWebsite() {
     }
 
     useEffect(() => {
-        textAreaRef.current && textAreaRef.current.focus()
-    }, [])
-
-    useEffect(() => {
         elementToEdit && setelementToEditText(elementToEdit?.text)
     }, [elementToEdit])
+
+    useEffect(() => {
+        fetchWebsiteDetails()
+    }, [pageSelected])
 
     return (
         <>
         <Helmet>
             <title>{`Code Buddy - Edit ${websiteName}`}</title>
         </Helmet>
-        { showEditTextModal ? (
-            <div onClick={() => setShowEditTextModal(false)} className="fixed inset-0 bg-gray-300 bg-opacity-50 overflow-y-auto h-full w-full">
-                <div className="relative top-20 mx-auto p-5 border w-[50%] shadow-lg rounded-md bg-white">
-                    <form onSubmit={handleSubmit}className="mt-3 text-center">
-                        <textarea
-                            rows={6}
-                            ref={textAreaRef}
-                            onClick={e => e.stopPropagation()}
-                            value={elementToEditText}
-                            onChange={e => setelementToEditText(e.target.value)}
-                            className="w-full p-2 mb-2 resize-none border-2 rounded outline-none"
-                        />
-                        <button type="submit" onClick={e => e.stopPropagation()} className="bg-blue-500 hover:bg-blue-600 py-1 px-5 mr-3 rounded-md text-white">Save</button>
-                    </form>
-                </div>
-            </div>
-        ) : (
-            <div className="overflow-hidden">
+        <div className="overflow-hidden">
             <Navbar />
             <div className="divide-y divide-gray-200">
             <EditWebsiteTopBar />
@@ -95,8 +101,26 @@ export default function EditWebsite() {
                 </div>
             </div>
             </div>
+        </div>
+        { showEditTextModal && (
+        <div onClick={() => setShowEditTextModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+            <div onClick={e => e.stopPropagation()} className="relative top-20 mx-auto p-5 border w-[50%] shadow-lg rounded-md bg-white">
+                <form onSubmit={handleSubmit} className="mt-3 text-center">
+                    <textarea
+                        autoFocus
+                        rows={6}
+                        ref={textAreaRef}
+                        onClick={e => e.stopPropagation()}
+                        value={elementToEditText}
+                        onChange={e => setelementToEditText(e.target.value)}
+                        className="w-full p-2 mb-2 resize-none border-2 rounded outline-none"
+
+                    />
+                    <button type="submit" onClick={e => e.stopPropagation()} className="bg-blue-500 hover:bg-blue-600 py-1 px-5 mr-3 rounded-md text-white">Save</button>
+                </form>
             </div>
-        )}
+        </div>
+        ) }
         </>
     )
 }

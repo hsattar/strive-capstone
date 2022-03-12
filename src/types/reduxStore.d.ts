@@ -5,13 +5,15 @@ interface IReduxStore {
     }
     website: {
         code: string, 
-        structure: {
-            containers: IContainer[]
-            elements: IElement[]
-            containerOrder: string[]
-        }
+        structure: IStructure
         elementToEdit: IElement | null
     }
+}
+
+interface IStructure {
+    containers: IContainer[]
+    elements: IElement[]
+    containerOrder: string[]
 }
 
 interface IUser {

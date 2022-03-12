@@ -56,6 +56,11 @@ const websiteReducer = (state = initialState.website, action: AnyAction) => {
             code: action.payload.newCode,
             structure: action.payload.newStructure
         }
+        case ACTIONS.UPDATE_ALL_WEBSITE_INFORMATION: return {
+            ...state,
+            code: action.payload.code,
+            structure: action.payload.structure
+        }
         default: return state
     }
 }

@@ -48,7 +48,7 @@ export default function Home() {
         try {
             const response = await axiosRequest('/websites', 'POST', { name: webName, page: 'home', stage: 'development' })
             if (response.status === 201) {
-                dispatch(createNewWebsitesAction())
+                // dispatch(createNewWebsitesAction())
                 navigate(`/ws-edit/${webName}/home`)
             } else {
                 setUserError(true)

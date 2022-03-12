@@ -2,10 +2,12 @@ import { Fragment, MouseEvent, useEffect, useState } from "react"
 import { useNavigate, useParams } from 'react-router-dom'
 import EditWebsiteSidebarDropdowns from "./EditWebsiteSidebarDropdowns"
 import SVGIcon from "./SVGIcon"
+import useAxios from '../hooks/useAxios'
 
 export default function EditWebsiteSidebarGeneral() {
 
     const navigate = useNavigate()
+    const axiosRequest = useAxios()
     const { websiteName, pageSelected } = useParams()
 
     const [pageToEdit, setPageToEdit] = useState<string | undefined>('')
@@ -27,8 +29,19 @@ export default function EditWebsiteSidebarGeneral() {
         }
     }
 
+    const fetchWebsitePages = async () => {
+        try {
+            const response = await axiosRequest(`/websites/${websiteName}`, 'GET')
+            if (response.status === 200) {
+                setPages(response.data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
-        setPages(['home', 'about', 'contact'])
+        fetchWebsitePages()
         setPageToEdit(pageSelected)
     }, [])
 
