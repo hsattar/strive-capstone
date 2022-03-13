@@ -6,6 +6,8 @@ import EditWebsite from './pages/EditWebsite'
 import NotFound from './pages/NotFound'
 import PreviewWebsite from './pages/PreviewWebsite'
 import PrivateRoute from './pages/PrivateRoute'
+import ViewWebsiteRedirect from './pages/ViewWebsiteRedirect'
+import ViewWebsite from './pages/ViewWebsite'
 
 export default function App() {
   return (
@@ -14,6 +16,8 @@ export default function App() {
         <Route path="/" element={ <PrivateRoute><Home /></PrivateRoute> } />
         <Route path="/login" element={ <Login /> } />
         <Route path="/register" element={ <Register /> } />
+        <Route path="/ws/:websiteName" element={ <ViewWebsiteRedirect /> }/>
+        <Route path="/ws/:websiteName/:pageSelected" element={ <ViewWebsite /> }/>
         <Route path="/ws-edit/:websiteName/:pageSelected" element={ <PrivateRoute><EditWebsite /></PrivateRoute> } />
         <Route path="/ws-preview/:websiteName/:pageSelected" element={ <PrivateRoute><PreviewWebsite /></PrivateRoute> } />
         <Route path="*" element={ <NotFound /> } />
