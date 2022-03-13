@@ -6,12 +6,16 @@ import fontSizes from "../data/fontSizes"
 import useDebounce from "../hooks/useDebounce"
 import { changeElementClassAction } from "../redux/actions/actionCreators"
 import SVGIcon from "./SVGIcon"
+import  useAxios from '../hooks/useAxios'
 
 export default function EditWebsiteTopBar() {
 
-    const { websiteName, pageSelected } = useParams()
-    const { REACT_APP_FE_URL: FE_URL } = process.env
     const dispatch = useDispatch()
+    const axiosRequest = useAxios()
+    const { REACT_APP_FE_URL: FE_URL } = process.env
+    const { websiteName, pageSelected } = useParams()
+    const code = useSelector((state: IReduxStore) => state.website.code)
+    const structure = useSelector((state: IReduxStore) => state.website.structure)
     const elementToEdit = useSelector((state: IReduxStore) => state.website.elementToEdit)
 
     const [showFontDropdown, setShowFontDropdown] = useState(false)
@@ -73,6 +77,32 @@ export default function EditWebsiteTopBar() {
             case 'center': return dispatch(changeElementClassAction(elementToEdit?.id!, 'alignment', 'text-center'))
             case 'right': return dispatch(changeElementClassAction(elementToEdit?.id!, 'alignment', 'text-right'))
             default: return dispatch(changeElementClassAction(elementToEdit?.id!, 'alignment', 'text-left'))
+        }
+    }
+
+    const handleSaveWebsite = async () => {
+        try {
+            const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'PUT', { code, structure })
+            if (response.status === 200) {
+                alert('saved')
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handlePublishWebsite = async () => {
+        try {
+            const saveWebsiteResponse = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'PUT', { code, structure })
+            if (saveWebsiteResponse.status === 200) {
+                alert('saved')
+            }
+            const publishWebsiteresponse = await axiosRequest(`/websites/${websiteName}/${pageSelected}/production/publish`, 'PUT', { code })
+            if (publishWebsiteresponse.status === 200 || 201) {
+                alert('published')
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -168,7 +198,7 @@ export default function EditWebsiteTopBar() {
                         <span className="topbar-tooltip group-hover:scale-100">Redo</span>
                     </div>
 
-                    <div className="group relative">
+                    <div onClick={handleSaveWebsite} className="group relative">
                         <SVGIcon svgClassName="h-6 w-6 mr-4 text-gray-400" pathD="M17 16v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-7a2 2 0 012-2h2m3-4H9a2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-1m-1 4l-3 3m0 0l-3-3m3 3V3" />
                         <span className="topbar-tooltip group-hover:scale-100">Save</span>
                     </div>
@@ -180,7 +210,7 @@ export default function EditWebsiteTopBar() {
                         <span className="topbar-tooltip group-hover:scale-100">Preview</span>
                     </div>
 
-                    <div className="group relative">
+                    <div onClick={handlePublishWebsite} className="group relative">
                         <SVGIcon svgClassName="h-6 w-6 text-gray-400" pathD="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                         <span className="topbar-tooltip group-hover:scale-100">Publish</span>
                     </div>

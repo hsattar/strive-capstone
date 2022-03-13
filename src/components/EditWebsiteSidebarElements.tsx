@@ -3,11 +3,26 @@ import { editWebsiteCodeAction, editWebsiteStructureAction, setElementToEditActi
 import EditWebsiteSidebarDropdowns from "./EditWebsiteSidebarDropdowns"
 import { v4 as uuid } from 'uuid'
 import elementTemplates from '../data/elementTemplates'
+import useAxios from '../hooks/useAxios'
 
 export default function EditWebsiteSidebarElements() {
 
     const dispatch = useDispatch()
     const originalCode = useSelector((state: IReduxStore) => state.website.code)
+    const axiosRequest = useAxios()
+
+    const handleImageUpload = async (image : File) => {
+        try {
+            const formData = new FormData()
+            formData.append('image', image)
+            const response = await axiosRequest('/websites/upload-image', 'POST', formData)
+            if (response.status === 201) {
+                handleAddCode(createImageTemplate(response.data || ''))
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const createElementTemplate = (template: elementTemplateOptions) => {
         const id = uuid()
@@ -54,7 +69,7 @@ export default function EditWebsiteSidebarElements() {
             <EditWebsiteSidebarDropdowns name="Media">
                 <div>
                     <label htmlFor="imageUpload" className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100 w-full">Image</label>
-                    <input type="file" id="imageUpload" hidden onChange={e => handleAddCode(createImageTemplate(URL.createObjectURL(e.target.files![0])))} />
+                    <input type="file" id="imageUpload" hidden onChange={e => handleImageUpload(e.target.files![0])} />
                     <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Video</p>
                     <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">YouTube</p>
                 </div>
