@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from 'react'
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet-async'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'

@@ -12,7 +12,7 @@ import EditWebsiteSidebarStyles from "../components/EditWebsiteSidebarStyles"
 import Navbar from "../components/Navbar"
 import EditWebsiteSidebarStructure from "../components/EditWebsiteSidebarStructure"
 import { changeElementClassAction, updateAllWebsiteInformationAction } from "../redux/actions/actionCreators"
-import { Helmet } from "react-helmet"
+import { Helmet } from "react-helmet-async"
 import useAxios from '../hooks/useAxios'
 
 export default function EditWebsite() {

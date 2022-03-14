@@ -1,14 +1,29 @@
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import parse from 'html-react-parser'
-import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import useAxios from '../hooks/useAxios'
 
-export default function PreviewWebsite() {
+export default function ViewWebsite() {
 
-  const code = useSelector((state: IReduxStore) => state.website.code)
+    const axiosRequest = useAxios()
+    const { websiteName, pageSelected } = useParams()
 
-  useEffect(() => {
-    // need to fetch from database and display code as redux xstore gets deleted on reload
-  }, [])
+    const [code, setCode] = useState('')
+
+    const fetchWebsiteCode = async () => {
+        try {
+            const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development/code`, 'GET')
+            if (response.status === 200) {
+                setCode(response.data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        fetchWebsiteCode()
+    }, [websiteName, pageSelected])
 
   return (
     <>

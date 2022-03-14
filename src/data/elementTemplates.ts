@@ -1,5 +1,6 @@
 const elementTemplates = {
     heading: { 
+        name: 'h1 heading',
         openingTag: `<h1 class="`,
         class: `font-['Open_Sans'] text-6xl font-bold`,
         font: `font-['Open_Sans']`,
@@ -17,6 +18,7 @@ const elementTemplates = {
         closingTag: `</h1>`
     },
     paragraph: {
+        name: 'paragraph',
         openingTag: `<p class="`,
         class: `font-['Open_Sans'] text-base`,
         font: `font-['Open_Sans']`,
@@ -34,6 +36,7 @@ const elementTemplates = {
         closingTag: `</p>`
     },
     image: {
+        name: 'image',
         openingTag: `<img src="" class="`,
         class: ``,
         height: ``,
@@ -41,6 +44,7 @@ const elementTemplates = {
         closingTag: `"/>`,
     },
     button: {
+        name: 'button',
         openingTag: `<button class="`,
         class: `font-['Open_Sans'] text-base text-white bg-blue-500 py-1 px-3 rounded-md`,
         font: `font-['Open_Sans']`,
@@ -59,6 +63,7 @@ const elementTemplates = {
         closingTag: `</button>`
     },
     youTube: {
+        name: 'youtube',
         openingTag: `<iframe src="" class="`,
         class: ``,
         src: ``,

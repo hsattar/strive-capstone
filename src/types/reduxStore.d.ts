@@ -36,6 +36,7 @@ interface IComponent {
 
 interface IContainerElement {
     id?: string
+    name: string
     openingTag: string
     class: string
     closingTag: string

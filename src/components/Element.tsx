@@ -25,7 +25,7 @@ export default function Element({ element, idx }: IProps) {
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
                 >
-                    {element?.openingTag}
+                    {element?.name}
                 </div>
             )}
         </Draggable>

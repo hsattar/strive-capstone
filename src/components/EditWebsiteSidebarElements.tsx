@@ -44,7 +44,7 @@ export default function EditWebsiteSidebarElements() {
     }
 
     const handleAddCode = (codeToAdd: IElement) => {
-        const { id, ...htmlProperties } = codeToAdd
+        const { id, name, ...htmlProperties } = codeToAdd
         const htmlValues = Object.values(htmlProperties) 
         const codeAsString = htmlValues.join(' ')
         const splitCode = originalCode.split('</div>')

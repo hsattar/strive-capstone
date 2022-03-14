@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import webSafeFonts from "../data/fonts"
 import fontSizes from "../data/fontSizes"
 import useDebounce from "../hooks/useDebounce"
@@ -93,13 +93,12 @@ export default function EditWebsiteTopBar() {
 
     const handlePublishWebsite = async () => {
         try {
-            const saveWebsiteResponse = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'PUT', { code, structure })
-            if (saveWebsiteResponse.status === 200) {
-                alert('saved')
-            }
-            const publishWebsiteresponse = await axiosRequest(`/websites/${websiteName}/${pageSelected}/production/publish`, 'PUT', { code })
-            if (publishWebsiteresponse.status === 200 || 201) {
-                alert('published')
+            const response = await Promise.all([
+                axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'PUT', { code, structure }),
+                axiosRequest(`/websites/${websiteName}/${pageSelected}/production/publish`, 'PUT', { code })
+            ])
+            if ((response[0].status === 200) && (response[1].status === 200 || 201)) {
+                alert('Saved & Published')
             }
         } catch (error) {
             console.log(error)
@@ -120,7 +119,7 @@ export default function EditWebsiteTopBar() {
 
                 <div>
                 { elementToEdit && (
-                    <p className="pr-2 mr-2">{elementToEdit.openingTag}</p>
+                    <p className="pr-2 mr-2">{elementToEdit.name}</p>
                 ) }
                 </div>
                 
@@ -204,9 +203,9 @@ export default function EditWebsiteTopBar() {
                     </div>
 
                     <div className="group relative">
-                        <a href={`${FE_URL}/ws-preview/${websiteName}/${pageSelected}`} target="_blank" rel="noopener">
+                        <Link to={`/ws-preview/${websiteName}/${pageSelected}`} rel="noopener">
                             <SVGIcon svgClassName="h-6 w-6 mr-4 text-gray-900 cursor-pointer" pathD="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-                        </a>
+                        </Link>
                         <span className="topbar-tooltip group-hover:scale-100">Preview</span>
                     </div>
 

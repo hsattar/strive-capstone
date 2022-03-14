@@ -16,7 +16,7 @@ export default function DNDContainer({ container, elements, idx }: IProps) {
                 {...provided.draggableProps}
                 ref={provided.innerRef}
             >
-                <h5 {...provided.dragHandleProps} className="p-2 font-semibold text-xl">{container?.openingTag}</h5>
+                <h5 {...provided.dragHandleProps} className="p-2 font-semibold text-xl">{container?.name}</h5>
                 <Droppable droppableId={container?.id!} type="element">
                     {provided => (
                         <div

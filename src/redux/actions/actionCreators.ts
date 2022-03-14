@@ -31,7 +31,7 @@ export const changeElementClassAction = (elementId: string, property: elementToE
     if (!elementToEdit) return
     elementToEdit[property] = className
     
-    const { id, openingTag, class: oldClass, text, closingTag, ...htmlProperties } = elementToEdit
+    const { id, name, openingTag, class: oldClass, text, closingTag, ...htmlProperties } = elementToEdit
     const htmlValues = Object.values(htmlProperties) 
     htmlValues.unshift(id)
     const classNamesAsString = htmlValues.join(' ')

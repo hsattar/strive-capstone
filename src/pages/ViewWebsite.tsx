@@ -12,7 +12,7 @@ export default function ViewWebsite() {
 
     const fetchWebsiteCode = async () => {
         try {
-            const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/production/code`, 'GET')
+            const response = await axiosRequest(`/public/${websiteName}/${pageSelected}/production/code`, 'GET')
             if (response.status === 200) {
                 setCode(response.data)
             }
