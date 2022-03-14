@@ -85,20 +85,9 @@ export default function EditWebsite() {
                 { sidebarTab === 'components' && <EditWebsiteSidebarComponents /> }
                 </div>
                 <div className="bg-gray-100 flex justify-center select-none">
-                    <iframe 
-                    className="min-w-[35%] w-[95%] max-w-[95%] resize-x bg-white my-2"
-                    srcDoc={`
-                    <!doctype html>
-                    <html>
-                    <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    </head>
-                    <body>
-                    ${code}
-                    </body>
-                    </html>`} />
+                    <div className="w-[95%] bg-white my-2">
+                        { parse(code) }
+                    </div>
                 </div>
             </div>
             </div>

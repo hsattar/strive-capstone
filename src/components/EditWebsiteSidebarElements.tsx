@@ -44,16 +44,6 @@ export default function EditWebsiteSidebarElements() {
     }
 
     const handleAddCode = (elementToAdd: IElement) => {
-        // const { id, name, ...htmlProperties } = codeToAdd
-        // const htmlValues = Object.values(htmlProperties) 
-        // const codeAsString = htmlValues.join(' ')
-        // const splitCode = originalCode.split('</div>')
-        // splitCode.splice(1, 0, codeAsString)
-        // splitCode.push('</div>')
-        // const newCode = splitCode.join('')
-        // dispatch(editWebsiteCodeAction(newCode))
-        // dispatch(editWebsiteStructureAction(codeToAdd))
-        // dispatch(setElementToEditAction(codeToAdd))
         dispatch(addNewElement(elementToAdd))
         dispatch(setElementToEditAction(elementToAdd))
     }
