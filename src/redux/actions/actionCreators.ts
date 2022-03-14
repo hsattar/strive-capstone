@@ -4,12 +4,18 @@ import ACTIONS from "./actionNames"
 
 export const userLogsInAction = () => ({ type: ACTIONS.USER_LOGS_IN })
 export const userLogsOutAction = () => ({ type: ACTIONS.USER_LOGS_OUT })
-
 export const addInfoToCurrentUserAction = (user: IUser) => ({ type: ACTIONS.ADD_INFO_TO_CURRENT_USER, payload: user })
 
 export const createNewWebsitesAction = () => ({ type: ACTIONS.CREATING_NEW_WEBSITE })
 export const editWebsiteCodeAction = (code: string) => ({ type: ACTIONS.EDIT_WEBSITE_CODE, payload: code })
 export const setElementToEditAction = (element: IElement) => ({ type: ACTIONS.SET_ELEMENT_TO_EDIT, payload: element })
+
+const createNewCode = (containers: IContainer[], elements: IElement[]) => {
+    return containers.map(struct => `${struct.openingTag}${struct.children.map(child => {
+        const element = elements.find(element => element.id === child)
+        return `${element?.openingTag}${element?.class}${element?.text}${element?.closingTag}`
+    }).join('')}${struct.closingTag}`).join('')
+}
 
 export const editWebsiteStructureAction = (code: IElement) => 
 (dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {   
@@ -21,6 +27,28 @@ export const editWebsiteStructureAction = (code: IElement) =>
             ...structure,
             elements: [...structure.elements, code]
         }
+    })
+}
+
+export const addNewElement = (newElement: IElement) => 
+(dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {   
+    const containers = getState().website.structure.containers
+    const existingElements = getState().website.structure.elements
+   
+    const { id, name, openingTag, class: oldClass, text, closingTag, ...htmlProperties } = newElement
+    const htmlValues = Object.values(htmlProperties) 
+    htmlValues.unshift(id)
+    const classNamesAsString = htmlValues.join(' ')
+    newElement.class = classNamesAsString
+    
+    const newElementsArray = [...existingElements, newElement]
+    const updatedContainers = containers[containers.length - 1].children.push(newElement.id!)
+
+    const newCode = createNewCode(containers, newElementsArray)       
+
+    dispatch({
+        type: ACTIONS.ADD_NEW_ELEMENT,
+        payload: { newElementsArray, containers, newCode }
     })
 }
 
@@ -41,17 +69,15 @@ export const changeElementClassAction = (elementId: string, property: elementToE
     if (!element) return
     element = elementToEdit
 
-    const newCode = structure.containers.map(struct => `${struct.openingTag}${struct.children.map(child => {
-        const element = structure.elements.find(element => element.id === child)
-        return `${element?.openingTag}${element?.class}${element?.text}${element?.closingTag}`
-    }).join('')}${struct.closingTag}`).join('')
-        
+    const newCode = createNewCode(structure.containers, structure.elements)       
 
     dispatch({
         type: ACTIONS.CHANGE_ELEMENT_CLASS,
         payload: { element, structure, newCode }
     })
 }
+
+
 
 export const structureDndChangeAction = (structureContainers: IContainer[]) => 
 (dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {   
@@ -79,10 +105,7 @@ export const containerOrderDndChangeAction = (containerOrder: string[]) =>
         newStructureContainers.push(container)
     })
 
-    const newCode = newStructureContainers.map(struct => `${struct.openingTag}${struct.children.map(child => {
-        const element = structure.elements.find(element => element.id === child)
-        return `${element?.openingTag}${element?.class}${element?.text}${element?.closingTag}`
-    }).join('')}${struct.closingTag}`).join('')
+    const newCode = createNewCode(newStructureContainers, structure.elements)
 
     dispatch({
         type: ACTIONS.CONTAINER_ORDER_DND_CHANGE,
@@ -102,11 +125,8 @@ export const addNewComponentAction = (container: IContainer, elements: IElement[
     const newElements = [...structure.elements, ...elements]
     const newContainerOrder = [...structure.containerOrder, container.id]
 
-    const newCode = newContainers.map(struct => `${struct.openingTag}${struct.children.map(child => {
-        const element = newElements.find(element => element.id === child)
-        return `${element?.openingTag}${element?.class}${element?.text}${element?.closingTag}`
-    }).join('')}${struct.closingTag}`).join('')
-
+    const newCode = createNewCode(newContainers, newElements)
+    
     const newStructure = {
         ...structure,
         containers: newContainers,

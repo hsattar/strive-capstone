@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { editWebsiteCodeAction, editWebsiteStructureAction, setElementToEditAction } from '../redux/actions/actionCreators'
+import { addNewElement, editWebsiteCodeAction, editWebsiteStructureAction, setElementToEditAction } from '../redux/actions/actionCreators'
 import EditWebsiteSidebarDropdowns from "./EditWebsiteSidebarDropdowns"
 import { v4 as uuid } from 'uuid'
 import elementTemplates from '../data/elementTemplates'
@@ -43,17 +43,19 @@ export default function EditWebsiteSidebarElements() {
         }
     }
 
-    const handleAddCode = (codeToAdd: IElement) => {
-        const { id, name, ...htmlProperties } = codeToAdd
-        const htmlValues = Object.values(htmlProperties) 
-        const codeAsString = htmlValues.join(' ')
-        const splitCode = originalCode.split('</div>')
-        splitCode.splice(1, 0, codeAsString)
-        splitCode.push('</div>')
-        const newCode = splitCode.join('')
-        dispatch(editWebsiteCodeAction(newCode))
-        dispatch(editWebsiteStructureAction(codeToAdd))
-        dispatch(setElementToEditAction(codeToAdd))
+    const handleAddCode = (elementToAdd: IElement) => {
+        // const { id, name, ...htmlProperties } = codeToAdd
+        // const htmlValues = Object.values(htmlProperties) 
+        // const codeAsString = htmlValues.join(' ')
+        // const splitCode = originalCode.split('</div>')
+        // splitCode.splice(1, 0, codeAsString)
+        // splitCode.push('</div>')
+        // const newCode = splitCode.join('')
+        // dispatch(editWebsiteCodeAction(newCode))
+        // dispatch(editWebsiteStructureAction(codeToAdd))
+        // dispatch(setElementToEditAction(codeToAdd))
+        dispatch(addNewElement(elementToAdd))
+        dispatch(setElementToEditAction(elementToAdd))
     }
 
     return (

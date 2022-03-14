@@ -20,6 +20,15 @@ const websiteReducer = (state = initialState.website, action: AnyAction) => {
             ...state,
             elementToEdit: action.payload
         }
+        case ACTIONS.ADD_NEW_ELEMENT: return {
+            ...state,
+            code: action.payload.newCode,
+            structure: {
+                ...state.structure,
+                containers: action.payload.containers,
+                elements: action.payload.newElementsArray
+            }
+        }
         case ACTIONS.CHANGE_ELEMENT_CLASS: return {
             ...state,
             code: action.payload.newCode,

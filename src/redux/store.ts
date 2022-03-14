@@ -16,7 +16,7 @@ export const initialState: IReduxStore = {
             containers: [{
                 id: '123456789',
                 name: 'root',
-                openingTag: `<div class="">`,
+                openingTag: `<div class="123456789">`,
                 class: `123456789`,
                 closingTag: `</div>`,
                 children: [],
