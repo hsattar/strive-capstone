@@ -19,3 +19,27 @@ export const addElementsToCodeAction = (elements: IElement[]) =>
 
     dispatch({ type: ACTIONS.ADD_ELEMENTS_TO_CODE, payload: { newCode, newCodeBlocks }})
 }
+
+export const changeElementClassNameAction = (field: elementToEditOptions, value: string) => 
+(dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {
+    const codeBlock = getState().website.codeBlocks
+    const elementToEdit = getState().website.elementToEdit
+    if (!elementToEdit) return
+    elementToEdit[field] = value
+    
+    const { id, name, tag, className, ...htmlProperties } = elementToEdit
+    const htmlValues = Object.values(htmlProperties) 
+    htmlValues.unshift(id)
+    const classNamesAsString = htmlValues.join(' ')
+    elementToEdit.className = classNamesAsString
+    const openingTag = elementToEdit.tag.split('className')[0]
+    elementToEdit.tag = openingTag.concat(`className="${classNamesAsString}">`)
+
+    let element = codeBlock.find(block => block.id === elementToEdit.id)
+    if (!element) return
+    element = elementToEdit
+
+    const newCode = createNewCode(codeBlock)
+
+    dispatch({ type: ACTIONS.CHNAGE_ELEMENT_CLASS_NAME, payload: { newCode, codeBlock } })
+}

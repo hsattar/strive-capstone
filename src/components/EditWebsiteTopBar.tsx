@@ -2,11 +2,12 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useParams } from 'react-router-dom'
 import webSafeFonts from "../data/fonts"
-import fontSizes from "../data/fontSizes"
+import textSize from "../data/textSizes"
 import SVGIcon from "./SVGIcon"
 import  useAxios from '../hooks/useAxios'
 import textColors from '../data/textColors'
 import backgroundColors from '../data/backgroundColors'
+import { changeElementClassNameAction } from "../redux/actions/actionCreators"
 
 export default function EditWebsiteTopBar() {
 
@@ -19,8 +20,8 @@ export default function EditWebsiteTopBar() {
 
     const [fontSelected, setFontSelected] = useState('sans') 
     const [showFontDropdown, setShowFontDropdown] = useState(false)
-    const [fontSizeSelected, setFontSizeSelected] = useState('base') 
-    const [showFontSizeDropdown, setShowFontSizeDropdown] = useState(false)
+    const [textSizeelected, setTextSizeelected] = useState('base') 
+    const [showTextSizeDropdown, setShowTextSizeDropdown] = useState(false)
 
     const [isBold, setIsBold] = useState(false)
     const [isItalics, setIsItalics] = useState(false)
@@ -35,38 +36,50 @@ export default function EditWebsiteTopBar() {
     const handleFontChange = (font: string) => {
         setFontSelected(font)
         setShowFontDropdown(false)
+        dispatch(changeElementClassNameAction('font', `font-${font}`))
     }
 
-    const handleFontSizeChange = (size: string) => {
-        setFontSizeSelected(size)
-        setShowFontSizeDropdown(false)
+    const handleTextSizeChange = (size: string) => {
+        setTextSizeelected(size)
+        setShowTextSizeDropdown(false)
+        dispatch(changeElementClassNameAction('textSize', `text-${size}`))
     }
 
     const handleFontBoldChange = () => {
         setIsBold(prev => !prev)
+        isBold ? dispatch(changeElementClassNameAction('bold', ``)) : dispatch(changeElementClassNameAction('bold', `font-bold`))
     }
 
     const handleFontItalicsChange = () => {
         setIsItalics(prev => !prev)
+        isItalics ? dispatch(changeElementClassNameAction('italics', ``)) : dispatch(changeElementClassNameAction('italics', `italic`))
     }
 
     const handleFontUnderlineChange = () => {
         setIsUnderline(prev => !prev)
+        isUnderline ? dispatch(changeElementClassNameAction('underline', ``)) : dispatch(changeElementClassNameAction('underline', `underline underline-offset-1`))
+
     }
 
     const handleTextColorChange = (color: string) => {
         setTextColor(color)
         setShowTextColor(false)
+        dispatch(changeElementClassNameAction('color', color))
     }
 
     const handleBackgroundColorChange = (color: string) => {
         setBackgroundColor(color)
         setShowBackgroundColor(false)
+        dispatch(changeElementClassNameAction('backgroundColor', color))
     }
 
     const handletextAlignment = (position: string) => {
         setTextAlignment(position)
         switch(position) {
+            case 'left': return dispatch(changeElementClassNameAction('alignment', 'text-left'))
+            case 'center': return dispatch(changeElementClassNameAction('alignment', 'text-center'))
+            case 'right': return dispatch(changeElementClassNameAction('alignment', 'text-right'))
+            default: return dispatch(changeElementClassNameAction('alignment', 'text-left'))
         }
     }
 
@@ -96,7 +109,7 @@ export default function EditWebsiteTopBar() {
     }
 
     return (
-        <nav className="bg-white px-2 sm:px-4 py-1 text-[14px]">
+        <nav className="bg-white px-2 sm:px-4 py-1 text-[14px] select-none">
             <div className="flex flex-wrap justify-between items-center mx-auto">
 
                 <div>
@@ -123,14 +136,14 @@ export default function EditWebsiteTopBar() {
                         </div>
                     </div>
                     <div className="w-[60px] relative mr-2">
-                        <button onClick={() => setShowFontSizeDropdown(prev => !prev)} className="transition duration-200 border text-center capitalize mx-0 px-3 py-1 my-1 cursor-pointer font-normal text-md rounded-md w-full text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
-                            {fontSizeSelected}
+                        <button onClick={() => setShowTextSizeDropdown(prev => !prev)} className="transition duration-200 border text-center capitalize mx-0 px-3 py-1 my-1 cursor-pointer font-normal text-md rounded-md w-full text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
+                            {textSizeelected}
                         </button>
-                        <div className={`${!showFontSizeDropdown && 'hidden'} absolute z-20 my-0 text-base list-none bg-white rounded divide-y divide-gray-100 shadow w-full`}>
+                        <div className={`${!showTextSizeDropdown && 'hidden'} absolute z-20 my-0 text-base list-none bg-white rounded divide-y divide-gray-100 shadow w-full`}>
                             <ul className="py-1">
-                                { fontSizes.map(size => (
+                                { textSize.map(size => (
                                 <li key={size}>
-                                    <button onClick={() => handleFontSizeChange(size)} className={`block w-full py-1 px-4 text-sm text-gray-700 hover:bg-gray-100 capitalize`}>{size}</button>
+                                    <button onClick={() => handleTextSizeChange(size)} className={`block w-full py-1 px-4 text-sm text-gray-700 hover:bg-gray-100 capitalize`}>{size}</button>
                                 </li>
                                 )) }
                             </ul>

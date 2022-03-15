@@ -27,7 +27,7 @@ interface IElement {
     height?: string
     width?: string
     font?: string
-    fontSize?: string
+    textSize?: string
     bold?: string
     italics?: string
     underline?: string

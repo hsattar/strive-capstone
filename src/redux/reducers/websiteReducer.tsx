@@ -18,6 +18,11 @@ const websiteReducer = (state = initialState.website, action: AnyAction) => {
             code: action.payload.newCode,
             codeBlocks: action.payload.newCodeBlocks
         }
+        case ACTIONS.CHNAGE_ELEMENT_CLASS_NAME: return {
+            ...state,
+            code: action.payload.newCode,
+            codeBlocks: action.payload.codeBlock
+        }
         default: return state
     }
 }

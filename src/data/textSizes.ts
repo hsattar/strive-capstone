@@ -1,4 +1,4 @@
-const fontSizes: string[] = [
+const textSizes: string[] = [
     'xs',    
     'sm',    
     'base',    
@@ -15,4 +15,4 @@ const fontSizes: string[] = [
 
 ]
 
-export default fontSizes
+export default textSizes
