@@ -5,9 +5,15 @@ interface IReduxStore {
     }
     website: {
         code: string,
-        codeBlocks: IElement[] 
+        codeBlocks: ICodeBlock[] 
         elementToEdit: IElement | null
     }
+}
+
+interface ICodeBlock {
+    id: string
+    name: string
+    code: IElement[]
 }
 
 interface IUser {

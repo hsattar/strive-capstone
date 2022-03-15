@@ -11,11 +11,12 @@ export const clearAllWebsiteInformationAction = () => ({ type: ACTIONS.CLEAR_ALL
 
 const createNewCode = (codeBlocks: IElement[]) => codeBlocks.map(block => block.tag || block.text).join('')
 
-export const addElementsToCodeAction = (elements: IElement[]) => 
+export const addElementsToCodeAction = (elements: ICodeBlock) => 
 (dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {
     const oldCodeBlock = getState().website.codeBlocks
-    const newCodeBlocks = [...oldCodeBlock, ...elements]
-    const newCode = createNewCode(newCodeBlocks)
+    const newCodeBlocks = [...oldCodeBlock, elements]
+    const newCodeBlockCode = newCodeBlocks.map(block => block.code).flat()
+    const newCode = createNewCode(newCodeBlockCode)
 
     dispatch({ type: ACTIONS.ADD_ELEMENTS_TO_CODE, payload: { newCode, newCodeBlocks }})
 }
@@ -23,6 +24,7 @@ export const addElementsToCodeAction = (elements: IElement[]) =>
 export const changeElementClassNameAction = (field: elementToEditOptions, value: string) => 
 (dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {
     const codeBlock = getState().website.codeBlocks
+    const codeBlockCode = codeBlock.map(block => block.code).flat()
     const elementToEdit = getState().website.elementToEdit
     if (!elementToEdit) return
     elementToEdit[field] = value
@@ -35,11 +37,11 @@ export const changeElementClassNameAction = (field: elementToEditOptions, value:
     const openingTag = elementToEdit.tag.split('className')[0]
     elementToEdit.tag = openingTag.concat(`className="${classNamesAsString}">`)
 
-    let element = codeBlock.find(block => block.id === elementToEdit.id)
+    let element = codeBlockCode.find(block => block.id === elementToEdit.id)
     if (!element) return
     element = elementToEdit
 
-    const newCode = createNewCode(codeBlock)
+    const newCode = createNewCode(codeBlockCode)
 
     dispatch({ type: ACTIONS.CHNAGE_ELEMENT_CLASS_NAME, payload: { newCode, codeBlock } })
 }
