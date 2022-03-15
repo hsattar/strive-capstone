@@ -4,10 +4,15 @@ interface IReduxStore {
         currentUser: IUser | null
     }
     website: {
-        code: string, 
-        structure: IStructure
-        elementToEdit: IElement | null
+        code: Icode[], 
+        // structure: IStructure
+        elementToEdit: ICode | null
     }
+}
+
+interface ICode {
+    id: string
+    code: string
 }
 
 interface IStructure {

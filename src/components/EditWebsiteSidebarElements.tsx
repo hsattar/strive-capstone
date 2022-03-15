@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { addNewElement, editWebsiteCodeAction, editWebsiteStructureAction, setElementToEditAction } from '../redux/actions/actionCreators'
+import { setElementToEditAction } from '../redux/actions/actionCreators'
 import EditWebsiteSidebarDropdowns from "./EditWebsiteSidebarDropdowns"
 import { v4 as uuid } from 'uuid'
 import elementTemplates from '../data/elementTemplates'
@@ -17,7 +17,7 @@ export default function EditWebsiteSidebarElements() {
             formData.append('image', image)
             const response = await axiosRequest('/websites/upload-image', 'POST', formData)
             if (response.status === 201) {
-                handleAddCode(createImageTemplate(response.data || ''))
+                // handleAddCode(createImageTemplate(response.data || ''))
             }
         } catch (error) {
             console.log(error)
@@ -28,8 +28,7 @@ export default function EditWebsiteSidebarElements() {
         const id = uuid()
         return {
             id,
-            ...elementTemplates[template],
-            class: `${elementTemplates[template].class} ${id}`,
+            ...elementTemplates[template]
         }
     }
 
@@ -43,8 +42,7 @@ export default function EditWebsiteSidebarElements() {
         }
     }
 
-    const handleAddCode = (elementToAdd: IElement) => {
-        dispatch(addNewElement(elementToAdd))
+    const handleAddCode = (elementToAdd: ICode) => {
         dispatch(setElementToEditAction(elementToAdd))
     }
 

@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link, useParams } from 'react-router-dom'
 import webSafeFonts from "../data/fonts"
 import fontSizes from "../data/fontSizes"
-import useDebounce from "../hooks/useDebounce"
-import { changeElementClassAction } from "../redux/actions/actionCreators"
 import SVGIcon from "./SVGIcon"
 import  useAxios from '../hooks/useAxios'
 import textColors from '../data/textColors'
@@ -17,7 +15,6 @@ export default function EditWebsiteTopBar() {
     const { REACT_APP_FE_URL: FE_URL } = process.env
     const { websiteName, pageSelected } = useParams()
     const code = useSelector((state: IReduxStore) => state.website.code)
-    const structure = useSelector((state: IReduxStore) => state.website.structure)
     const elementToEdit = useSelector((state: IReduxStore) => state.website.elementToEdit)
 
     const [fontSelected, setFontSelected] = useState('sans') 
@@ -38,55 +35,44 @@ export default function EditWebsiteTopBar() {
     const handleFontChange = (font: string) => {
         setFontSelected(font)
         setShowFontDropdown(false)
-        dispatch(changeElementClassAction(elementToEdit?.id!, 'font', `font-${font}`))
     }
 
     const handleFontSizeChange = (size: string) => {
         setFontSizeSelected(size)
         setShowFontSizeDropdown(false)
-        dispatch(changeElementClassAction(elementToEdit?.id!, 'fontSize', `text-${size}`))
     }
 
     const handleFontBoldChange = () => {
         setIsBold(prev => !prev)
-        isBold ? dispatch(changeElementClassAction(elementToEdit?.id!, 'bold', ``)) : dispatch(changeElementClassAction(elementToEdit?.id!, 'bold', `font-bold`))
     }
 
     const handleFontItalicsChange = () => {
         setIsItalics(prev => !prev)
-        isItalics ? dispatch(changeElementClassAction(elementToEdit?.id!, 'italics', ``)) : dispatch(changeElementClassAction(elementToEdit?.id!, 'italics', `italics`))
     }
 
     const handleFontUnderlineChange = () => {
         setIsUnderline(prev => !prev)
-        isUnderline ? dispatch(changeElementClassAction(elementToEdit?.id!, 'underline', ``)) : dispatch(changeElementClassAction(elementToEdit?.id!, 'underline', `underline underline-offset-1`))
     }
 
     const handleTextColorChange = (color: string) => {
         setTextColor(color)
         setShowTextColor(false)
-        dispatch(changeElementClassAction(elementToEdit?.id!, 'color', color))
     }
 
     const handleBackgroundColorChange = (color: string) => {
         setBackgroundColor(color)
         setShowBackgroundColor(false)
-        dispatch(changeElementClassAction(elementToEdit?.id!, 'backgroundColor', color))
     }
 
     const handletextAlignment = (position: string) => {
         setTextAlignment(position)
         switch(position) {
-            case 'left': return dispatch(changeElementClassAction(elementToEdit?.id!, 'alignment', 'text-left'))
-            case 'center': return dispatch(changeElementClassAction(elementToEdit?.id!, 'alignment', 'text-center'))
-            case 'right': return dispatch(changeElementClassAction(elementToEdit?.id!, 'alignment', 'text-right'))
-            default: return dispatch(changeElementClassAction(elementToEdit?.id!, 'alignment', 'text-left'))
         }
     }
 
     const handleSaveWebsite = async () => {
         try {
-            const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'PUT', { code, structure })
+            const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'PUT', { code })
             if (response.status === 200) {
                 alert('saved')
             }
@@ -98,7 +84,7 @@ export default function EditWebsiteTopBar() {
     const handlePublishWebsite = async () => {
         try {
             const response = await Promise.all([
-                axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'PUT', { code, structure }),
+                axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'PUT', { code }),
                 axiosRequest(`/websites/${websiteName}/${pageSelected}/production/publish`, 'PUT', { code })
             ])
             if ((response[0].status === 200) && (response[1].status === 200 || 201)) {
@@ -115,7 +101,7 @@ export default function EditWebsiteTopBar() {
 
                 <div>
                 { elementToEdit && (
-                    <p className="pr-2 mr-2">{elementToEdit.name}</p>
+                    <p className="pr-2 mr-2">{elementToEdit}</p>
                 ) }
                 </div>
                 

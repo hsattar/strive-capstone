@@ -2,7 +2,6 @@ import { v4 as uuid } from 'uuid'
 import { useDispatch } from 'react-redux'
 import EditWebsiteSidebarDropdowns from "./EditWebsiteSidebarDropdowns"
 import containerTemplates from '../data/containerTemplates'
-import { addWebsiteContainerAction } from '../redux/actions/actionCreators'
 
 export default function EditWebsiteSidebarLayout() {
 
@@ -18,7 +17,6 @@ export default function EditWebsiteSidebarLayout() {
     }
 
     const handleAddLayout = (container: IContainer) => {
-        dispatch(addWebsiteContainerAction(container))
     }
 
     return (

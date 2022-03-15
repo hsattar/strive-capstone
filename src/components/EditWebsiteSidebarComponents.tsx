@@ -1,7 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { v4 as uuid } from 'uuid'
 import componentTemplates from '../data/componentTemplates'
-import { addNewComponentAction } from '../redux/actions/actionCreators'
 import EditWebsiteSidebarDropdowns from "./EditWebsiteSidebarDropdowns"
 
 export default function EditWebsiteSidebarComponents() {
@@ -33,7 +32,6 @@ export default function EditWebsiteSidebarComponents() {
     const handleAddComponent = ({ container, elements }: IComponentSub) => {
         console.log(container)
         console.log(elements)
-        dispatch(addNewComponentAction(container, elements))
     }
 
     return (

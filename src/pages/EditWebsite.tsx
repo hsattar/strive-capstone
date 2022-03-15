@@ -11,7 +11,7 @@ import EditWebsiteSidebarComponents from "../components/EditWebsiteSidebarCompon
 import EditWebsiteSidebarStyles from "../components/EditWebsiteSidebarStyles"
 import Navbar from "../components/Navbar"
 import EditWebsiteSidebarStructure from "../components/EditWebsiteSidebarStructure"
-import { changeElementClassAction, clearAllWebsiteInformationAction, updateAllWebsiteInformationAction } from "../redux/actions/actionCreators"
+import { clearAllWebsiteInformationAction } from "../redux/actions/actionCreators"
 import { Helmet } from "react-helmet-async"
 import useAxios from '../hooks/useAxios'
 
@@ -22,7 +22,6 @@ export default function EditWebsite() {
     const { websiteName, pageSelected } = useParams()
     const textAreaRef = useRef<HTMLTextAreaElement>(null)
     const code = useSelector((state: IReduxStore) => state.website.code)
-    const structure = useSelector((state: IReduxStore) => state.website.structure)
     const elementToEdit = useSelector((state: IReduxStore) => state.website.elementToEdit)
 
     const [sidebarTab, setSidebarTab] = useState('general')
@@ -45,7 +44,6 @@ export default function EditWebsite() {
                     elements: [],
                     containerOrder: ['123456789']
                 }
-                dispatch(updateAllWebsiteInformationAction(response.data.code, response.data.structure || defaultWebsiteStructure ))
             }
         } catch (error) {
             console.log(error)
@@ -54,13 +52,12 @@ export default function EditWebsite() {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
-        dispatch(changeElementClassAction(elementToEdit?.id!, 'text', elementToEditText!))
         setShowEditTextModal(false)
     }
 
     const handleSaveWebsite = async () => {
         try {
-            const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'PUT', { code, structure })
+            const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'PUT', { code })
             if (response.status === 200) {
             }
         } catch (error) {
@@ -69,7 +66,7 @@ export default function EditWebsite() {
     }
 
     useEffect(() => {
-        elementToEdit && setelementToEditText(elementToEdit?.text)
+        elementToEdit && setelementToEditText(elementToEdit.code)
     }, [elementToEdit])
 
     useEffect(() => {
@@ -102,7 +99,7 @@ export default function EditWebsite() {
                 </div>
                 <div className="bg-gray-100 flex justify-center select-none">
                     <div className="w-[95%] bg-white my-2">
-                        { parse(code) }
+                        { parse(code.join('')) }
                     </div>
                 </div>
             </div>

@@ -11,19 +11,7 @@ export const initialState: IReduxStore = {
         currentUser: null
     },
     website: {
-        code: `<div class="123456789"></div>`,
-        structure: {
-            containers: [{
-                id: '123456789',
-                name: 'root',
-                openingTag: `<div class="123456789">`,
-                class: `123456789`,
-                closingTag: `</div>`,
-                children: [],
-            }],
-            elements: [],
-            containerOrder: ['123456789']
-        },
+        code: [],
         elementToEdit: null
     }
 }

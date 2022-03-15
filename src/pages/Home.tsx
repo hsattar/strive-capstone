@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import SingleWebsite from '../components/SingleWebsite'
 import useAxios from '../hooks/useAxios'
-import { createNewWebsitesAction } from '../redux/actions/actionCreators'
 
 export default function Home() {
 

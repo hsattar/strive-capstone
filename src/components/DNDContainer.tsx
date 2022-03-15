@@ -3,7 +3,7 @@ import Element from './Element'
 
 interface IProps {
     container: IContainer | undefined
-    elements: (IElement| undefined)[] | undefined
+    elements: (ICode| undefined)[] | undefined
     idx: number
 }
 

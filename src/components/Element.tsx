@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { setElementToEditAction } from '../redux/actions/actionCreators'
 
 interface IProps {
-    element: IElement | undefined
+    element: ICode | undefined
     idx: number
 }
 
@@ -11,7 +11,7 @@ export default function Element({ element, idx }: IProps) {
 
     const dispatch = useDispatch()
 
-    const handleElementToEditChange = (element: IElement) => {
+    const handleElementToEditChange = (element: ICode) => {
         dispatch(setElementToEditAction(element))
     }
 
@@ -25,7 +25,7 @@ export default function Element({ element, idx }: IProps) {
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
                 >
-                    {element?.name}
+                    {element?.id}
                 </div>
             )}
         </Draggable>
