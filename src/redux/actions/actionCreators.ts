@@ -11,16 +11,17 @@ export const editWebsiteCodeAction = (code: string) => ({ type: ACTIONS.EDIT_WEB
 export const setElementToEditAction = (element: IElement) => ({ type: ACTIONS.SET_ELEMENT_TO_EDIT, payload: element })
 
 const createNewCode = (containers: IContainer[], elements: IElement[]) => {
-    return containers.map(struct => `${struct.openingTag}${struct.children.map(child => {
+    return containers.map(container => `${container.openingTag}${container.children.map(child => {
         const element = elements.find(element => element.id === child)
         return `${element?.openingTag}${element?.class}${element?.text}${element?.closingTag}`
-    }).join('')}${struct.closingTag}`).join('')
+    }).join('')}${container.closingTag}`).join('')
 }
 
 export const editWebsiteStructureAction = (code: IElement) => 
 (dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {   
     const structure = getState().website.structure
-    structure.containers[structure.containers.length - 1].children.push(code.id!)
+    const rootIndex = structure.containers.findIndex(container => container.id === '123456789')
+    structure.containers[rootIndex].children.push(code.id!)
     dispatch({ 
         type: ACTIONS.EDIT_WEBSITE_STRUCTURE,
         payload: { 
@@ -144,3 +145,5 @@ export const updateAllWebsiteInformationAction = (code: string, structure: IStru
     type: ACTIONS.UPDATE_ALL_WEBSITE_INFORMATION,
     payload: { code, structure }
 })
+
+export const clearAllWebsiteInformationAction = () => ({ type: ACTIONS.CLEAR_ALL_WEBSITE_INFORMATION })

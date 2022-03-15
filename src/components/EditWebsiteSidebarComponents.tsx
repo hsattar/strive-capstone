@@ -11,6 +11,8 @@ export default function EditWebsiteSidebarComponents() {
     const createComponentTemplate = (templateToAdd: componentTemplateOptions) => {
         const containerId = uuid()
         const template = componentTemplates[templateToAdd]
+        console.log(template)
+        console.log(template.container)
         const container = template.container = {
             ...template.container,
             id: containerId
@@ -29,7 +31,8 @@ export default function EditWebsiteSidebarComponents() {
     }
     
     const handleAddComponent = ({ container, elements }: IComponentSub) => {
-        console.log(container, elements)
+        console.log(container)
+        console.log(elements)
         dispatch(addNewComponentAction(container, elements))
     }
 

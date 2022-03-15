@@ -70,6 +70,17 @@ const websiteReducer = (state = initialState.website, action: AnyAction) => {
             code: action.payload.code,
             structure: action.payload.structure
         }
+        case ACTIONS.CLEAR_ALL_WEBSITE_INFORMATION: return {
+            ...state,
+            code: '',
+            structure: {
+                ...state.structure,
+                containers: [],
+                elements: [],
+                containerOrder: []
+            },
+            elementToEdit: null
+        }
         default: return state
     }
 }

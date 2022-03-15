@@ -107,13 +107,6 @@ export default function EditWebsiteSidebarGeneral() {
                 </>
             </EditWebsiteSidebarDropdowns>
 
-            <EditWebsiteSidebarDropdowns name="sections">
-                <div>
-                    <p className="capitalize pl-8 py-1">Navbar</p>
-                    <p className="capitalize pl-8 py-1">Hero</p>
-                    <p className="capitalize pl-8 py-1">Pricing</p>
-                </div>
-            </EditWebsiteSidebarDropdowns>
             <EditWebsiteSidebarDropdowns name="Website Settings">
                 <div>
                     <p className="capitalize pl-8 py-1">Website Name</p>

@@ -167,7 +167,7 @@ export default function EditWebsiteTopBar() {
                         <button onClick={() => setShowTextColor(prev => !prev)} className="transition duration-200 border capitalize mx-0 px-3 py-1 my-1 cursor-pointer font-normal text-md rounded-md w-full text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset text-center">
                             Color
                         </button>
-                        <div className={`${!showTextColor && 'hidden'} absolute z-20 my-0 text-base list-none bg-white rounded divide-y divide-gray-100 shadow w-full`}>
+                        <div className={`${!showTextColor && 'hidden'} absolute z-20 h-[500px] overflow-y-scroll my-0 text-base list-none bg-white rounded divide-y divide-gray-100 shadow w-full`}>
                             <ul className="py-1">
                                 { textColors.map(color => (
                                 <li key={color}>
@@ -183,7 +183,7 @@ export default function EditWebsiteTopBar() {
                     <button onClick={() => setShowBackgroundColor(prev => !prev)} className="transition duration-200 border capitalize mx-0 px-3 py-1 my-1 cursor-pointer font-normal text-md rounded-md w-full text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset text-center">
                             BG Color
                         </button>
-                        <div className={`${!showBackgroundColor && 'hidden'} absolute z-20 my-0 text-base list-none bg-white rounded divide-y divide-gray-100 shadow w-full`}>
+                        <div className={`${!showBackgroundColor && 'hidden'} absolute z-20 h-[500px] overflow-y-scroll my-0 text-base list-none bg-white rounded divide-y divide-gray-100 shadow w-full`}>
                             <ul className="py-1">
                                 { backgroundColors.map(color => (
                                 <li key={color}>

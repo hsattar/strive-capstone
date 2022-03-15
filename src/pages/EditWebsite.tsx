@@ -11,7 +11,7 @@ import EditWebsiteSidebarComponents from "../components/EditWebsiteSidebarCompon
 import EditWebsiteSidebarStyles from "../components/EditWebsiteSidebarStyles"
 import Navbar from "../components/Navbar"
 import EditWebsiteSidebarStructure from "../components/EditWebsiteSidebarStructure"
-import { changeElementClassAction, updateAllWebsiteInformationAction } from "../redux/actions/actionCreators"
+import { changeElementClassAction, clearAllWebsiteInformationAction, updateAllWebsiteInformationAction } from "../redux/actions/actionCreators"
 import { Helmet } from "react-helmet-async"
 import useAxios from '../hooks/useAxios'
 
@@ -22,6 +22,7 @@ export default function EditWebsite() {
     const { websiteName, pageSelected } = useParams()
     const textAreaRef = useRef<HTMLTextAreaElement>(null)
     const code = useSelector((state: IReduxStore) => state.website.code)
+    const structure = useSelector((state: IReduxStore) => state.website.structure)
     const elementToEdit = useSelector((state: IReduxStore) => state.website.elementToEdit)
 
     const [sidebarTab, setSidebarTab] = useState('general')
@@ -57,12 +58,27 @@ export default function EditWebsite() {
         setShowEditTextModal(false)
     }
 
+    const handleSaveWebsite = async () => {
+        try {
+            const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'PUT', { code, structure })
+            if (response.status === 200) {
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
         elementToEdit && setelementToEditText(elementToEdit?.text)
     }, [elementToEdit])
 
     useEffect(() => {
         fetchWebsiteDetails()
+
+        return () => {
+            handleSaveWebsite()
+            dispatch(clearAllWebsiteInformationAction())
+        }
     }, [pageSelected])
 
     return (
