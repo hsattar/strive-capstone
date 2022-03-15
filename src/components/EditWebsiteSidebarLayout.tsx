@@ -16,7 +16,7 @@ export default function EditWebsiteSidebarLayout() {
         }
     }
 
-    const handleAddLayout = (container: IContainer) => {
+    const handleAddLayout = (container: IElement) => {
     }
 
     return (
@@ -24,7 +24,7 @@ export default function EditWebsiteSidebarLayout() {
             <EditWebsiteSidebarDropdowns name="Grid - Container">
                 <div className="grid grid-cols-2 justify-items-center p-3">
                     <img src="/assets/container.jpg" className="h-16 hover:border-2 hover:cursor-pointer p-2" alt="container" />
-                    <img onClick={() => handleAddLayout(createContainerTemplate('flexContainer'))} src="/assets/flex.jpg" className="h-16 hover:border-2 hover:cursor-pointer p-2" alt="flex" />
+                    <img onClick={() => {}} src="/assets/flex.jpg" className="h-16 hover:border-2 hover:cursor-pointer p-2" alt="flex" />
                 </div>
             </EditWebsiteSidebarDropdowns>
             <EditWebsiteSidebarDropdowns name="Grid - Simple">

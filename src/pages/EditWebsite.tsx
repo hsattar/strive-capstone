@@ -66,7 +66,7 @@ export default function EditWebsite() {
     }
 
     useEffect(() => {
-        elementToEdit && setelementToEditText(elementToEdit.code)
+        elementToEdit && setelementToEditText(elementToEdit.id)
     }, [elementToEdit])
 
     useEffect(() => {
@@ -99,7 +99,7 @@ export default function EditWebsite() {
                 </div>
                 <div className="bg-gray-100 flex justify-center select-none">
                     <div className="w-[95%] bg-white my-2">
-                        { parse(code.join('')) }
+                        { parse(code) }
                     </div>
                 </div>
             </div>

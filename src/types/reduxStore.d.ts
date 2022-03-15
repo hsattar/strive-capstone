@@ -4,21 +4,10 @@ interface IReduxStore {
         currentUser: IUser | null
     }
     website: {
-        code: Icode[], 
-        // structure: IStructure
-        elementToEdit: ICode | null
+        code: string,
+        codeBlocks: IElement[] 
+        elementToEdit: IElement | null
     }
-}
-
-interface ICode {
-    id: string
-    code: string
-}
-
-interface IStructure {
-    containers: IContainer[]
-    elements: IElement[]
-    containerOrder: string[]
 }
 
 interface IUser {
@@ -30,28 +19,11 @@ interface IUser {
     avatar: string
 }
 
-interface IComponentSub {
-    container: IContainer
-    elements: IElement[]
-}
-
-interface IComponent {
-    navbar: IComponentSub
-}
-
-interface IContainerElement {
-    id?: string
+interface IElement {
     name: string
-    openingTag: string
-    class: string
-    closingTag: string
-}
-
-interface IContainer extends IContainerElement {
-    children: string[]
-}
-
-interface IElement extends IContainerElement {
+    id?: string
+    tag: string
+    className: string
     height?: string
     width?: string
     font?: string

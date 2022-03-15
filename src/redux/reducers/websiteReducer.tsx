@@ -10,8 +10,13 @@ const websiteReducer = (state = initialState.website, action: AnyAction) => {
         }
         case ACTIONS.CLEAR_ALL_WEBSITE_INFORMATION: return {
             ...state,
-            code: [''],
+            code: [],
             elementToEdit: null
+        }
+        case ACTIONS.ADD_ELEMENTS_TO_CODE: return {
+            ...state,
+            code: action.payload.newCode,
+            codeBlocks: action.payload.newCodeBlocks
         }
         default: return state
     }

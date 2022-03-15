@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { setElementToEditAction } from '../redux/actions/actionCreators'
+import { addElementsToCodeAction, setElementToEditAction } from '../redux/actions/actionCreators'
 import EditWebsiteSidebarDropdowns from "./EditWebsiteSidebarDropdowns"
 import { v4 as uuid } from 'uuid'
 import elementTemplates from '../data/elementTemplates'
@@ -26,10 +26,7 @@ export default function EditWebsiteSidebarElements() {
 
     const createElementTemplate = (template: elementTemplateOptions) => {
         const id = uuid()
-        return {
-            id,
-            ...elementTemplates[template]
-        }
+        return elementTemplates[template].map(block => ({ id, ...block }))
     }
 
     const createImageTemplate = (imgSrc: string) => {
@@ -42,8 +39,10 @@ export default function EditWebsiteSidebarElements() {
         }
     }
 
-    const handleAddCode = (elementToAdd: ICode) => {
-        dispatch(setElementToEditAction(elementToAdd))
+    const handleAddCode = (elementsToAdd: any) => {
+        console.log(elementsToAdd)
+        dispatch(setElementToEditAction(elementsToAdd[0]))
+        dispatch(addElementsToCodeAction(elementsToAdd))
     }
 
     return (

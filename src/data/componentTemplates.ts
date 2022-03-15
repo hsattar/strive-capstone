@@ -1,4 +1,4 @@
-const componentTemplates: IComponent = {
+const componentTemplates = {
     navbar: {
         container: {
             name: 'navbar container',

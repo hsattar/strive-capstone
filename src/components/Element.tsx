@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { setElementToEditAction } from '../redux/actions/actionCreators'
 
 interface IProps {
-    element: ICode | undefined
+    element: IElement | undefined
     idx: number
 }
 
@@ -11,7 +11,7 @@ export default function Element({ element, idx }: IProps) {
 
     const dispatch = useDispatch()
 
-    const handleElementToEditChange = (element: ICode) => {
+    const handleElementToEditChange = (element: IElement) => {
         dispatch(setElementToEditAction(element))
     }
 

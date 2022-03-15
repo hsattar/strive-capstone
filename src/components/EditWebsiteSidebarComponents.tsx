@@ -14,11 +14,11 @@ export default function EditWebsiteSidebarComponents() {
         console.log(template.container)
         const container = template.container = {
             ...template.container,
-            id: containerId
+            // id: containerId
         }
-        const elements = template.elements.map(element => {
+        const elements = template.elements.map((element: any) => {
             const elementId = uuid()
-            container.children.push(elementId)
+            // container.children.push(elementId)
             return {
                 ...element,
                 id: elementId,
@@ -29,7 +29,7 @@ export default function EditWebsiteSidebarComponents() {
         return { container, elements }
     }
     
-    const handleAddComponent = ({ container, elements }: IComponentSub) => {
+    const handleAddComponent = ({ container, elements }: any) => {
         console.log(container)
         console.log(elements)
     }

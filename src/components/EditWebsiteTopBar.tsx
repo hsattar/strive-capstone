@@ -101,7 +101,7 @@ export default function EditWebsiteTopBar() {
 
                 <div>
                 { elementToEdit && (
-                    <p className="pr-2 mr-2">{elementToEdit}</p>
+                    <p className="pr-2 mr-2">{elementToEdit.name}</p>
                 ) }
                 </div>
                 

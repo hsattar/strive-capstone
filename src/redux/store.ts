@@ -5,13 +5,14 @@ import websiteReducer from "./reducers/websiteReducer"
 
 const composeSafely = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-export const initialState: IReduxStore = {
+export const initialState: any = {
     user: {
         isLoggedIn: false,
         currentUser: null
     },
     website: {
-        code: [],
+        code: '',
+        codeBlocks: [],
         elementToEdit: null
     }
 }

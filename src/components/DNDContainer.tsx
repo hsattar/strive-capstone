@@ -2,8 +2,8 @@ import { Draggable, Droppable } from 'react-beautiful-dnd'
 import Element from './Element'
 
 interface IProps {
-    container: IContainer | undefined
-    elements: (ICode| undefined)[] | undefined
+    container: any
+    elements: (IElement | undefined)[] | undefined
     idx: number
 }
 
