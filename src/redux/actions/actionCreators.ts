@@ -7,7 +7,7 @@ export const userLogsOutAction = () => ({ type: ACTIONS.USER_LOGS_OUT })
 export const addInfoToCurrentUserAction = (user: IUser) => ({ type: ACTIONS.ADD_INFO_TO_CURRENT_USER, payload: user })
 
 export const setElementToEditAction = (element: IElement) => ({ type: ACTIONS.SET_ELEMENT_TO_EDIT, payload: element })
-export const clearAllWebsiteInformationAction = () => ({ type: ACTIONS.CLEAR_ALL_WEBSITE_INFORMATION })
+export const clearAllWebsiteInformationAction = () => ({ type: ACTIONS.RESET_ALL_WEBSITE_INFORMATION })
 
 const createNewCode = (codeBlocks: IElement[]) => codeBlocks.map(block => block.tag || block.text).join('')
 
@@ -45,3 +45,8 @@ export const changeElementClassNameAction = (field: elementToEditOptions, value:
 
     dispatch({ type: ACTIONS.CHNAGE_ELEMENT_CLASS_NAME, payload: { newCode, codeBlock } })
 }
+
+export const addCodeAndBlocksFromDBToReduxAction = (code: string, codeBlocks: ICodeBlock[]) => ({
+    type: ACTIONS.ADD_CODE_AND_BLOCKS_FROM_DB_TO_REDUX,
+    payload: { code, codeBlocks }
+})

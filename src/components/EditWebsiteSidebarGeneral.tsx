@@ -3,12 +3,15 @@ import { useNavigate, useParams } from 'react-router-dom'
 import EditWebsiteSidebarDropdowns from "./EditWebsiteSidebarDropdowns"
 import SVGIcon from "./SVGIcon"
 import useAxios from '../hooks/useAxios'
+import { useSelector } from "react-redux"
 
 export default function EditWebsiteSidebarGeneral() {
 
     const navigate = useNavigate()
     const axiosRequest = useAxios()
     const { websiteName, pageSelected } = useParams()
+    const code = useSelector((state: IReduxStore) => state.website.code)
+    const codeBlocks = useSelector((state: IReduxStore) => state.website.codeBlocks)
 
     const [pageToEdit, setPageToEdit] = useState<string | undefined>('')
     const [showPageToEdit, setShowPageToEdit] = useState(false)
@@ -28,9 +31,21 @@ export default function EditWebsiteSidebarGeneral() {
     }
 
     const handlePageToEditChange = (page: string) => {
+        handleSaveWebsite()
         setShowPageToEdit(false)
         setPageToEdit(page)
         navigate(`/ws-edit/${websiteName}/${page}`)
+    }
+
+    const handleSaveWebsite = async () => {
+        try {
+            const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'PUT', { code, codeBlocks })
+            if (response.status === 200) {
+                // toastNotification('Saved')
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const handleDeletePage = async (e: MouseEvent, pageToDelete: string) => {
@@ -59,6 +74,7 @@ export default function EditWebsiteSidebarGeneral() {
                 navigate(`/ws-edit/${websiteName}/${pageName}`)
                 setPages(prev => ([...prev, pageName]))
                 setShowAddNewPageModal(false)
+                setNewPageName('')
             }
         } catch (error) {
             console.log(error)

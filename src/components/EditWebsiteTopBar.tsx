@@ -18,6 +18,7 @@ export default function EditWebsiteTopBar() {
     const { REACT_APP_FE_URL: FE_URL } = process.env
     const { websiteName, pageSelected } = useParams()
     const code = useSelector((state: IReduxStore) => state.website.code)
+    const codeBlocks = useSelector((state: IReduxStore) => state.website.codeBlocks)
     const elementToEdit = useSelector((state: IReduxStore) => state.website.elementToEdit)
 
     const [fontSelected, setFontSelected] = useState('sans') 
@@ -87,7 +88,7 @@ export default function EditWebsiteTopBar() {
 
     const handleSaveWebsite = async () => {
         try {
-            const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'PUT', { code })
+            const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'PUT', { code, codeBlocks })
             if (response.status === 200) {
                 toastNotification('Saved')
             }
@@ -112,7 +113,7 @@ export default function EditWebsiteTopBar() {
 
     const toastNotification = (msg: string) => toast.success(msg, {
         position: "bottom-left",
-        autoClose: 3000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -124,7 +125,7 @@ export default function EditWebsiteTopBar() {
         <>
         <ToastContainer
             position="bottom-left"
-            autoClose={2000}
+            autoClose={1000}
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick

@@ -11,7 +11,7 @@ import EditWebsiteSidebarComponents from "../components/EditWebsiteSidebarCompon
 import EditWebsiteSidebarStyles from "../components/EditWebsiteSidebarStyles"
 import Navbar from "../components/Navbar"
 import EditWebsiteSidebarStructure from "../components/EditWebsiteSidebarStructure"
-import { clearAllWebsiteInformationAction } from "../redux/actions/actionCreators"
+import { addCodeAndBlocksFromDBToReduxAction, clearAllWebsiteInformationAction } from "../redux/actions/actionCreators"
 import { Helmet } from "react-helmet-async"
 import useAxios from '../hooks/useAxios'
 import { ToastContainer, toast } from "react-toastify"
@@ -24,6 +24,7 @@ export default function EditWebsite() {
     const { websiteName, pageSelected } = useParams()
     const textAreaRef = useRef<HTMLTextAreaElement>(null)
     const code = useSelector((state: IReduxStore) => state.website.code)
+    const codeBlocks = useSelector((state: IReduxStore) => state.website.codeBlocks)
     const elementToEdit = useSelector((state: IReduxStore) => state.website.elementToEdit)
 
     const [sidebarTab, setSidebarTab] = useState('general')
@@ -34,7 +35,7 @@ export default function EditWebsite() {
         try {
             const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'GET')
             if (response.status === 200) {
-                // DO SOMETHING 
+                dispatch(addCodeAndBlocksFromDBToReduxAction(response.data.code, response.data.codeBlocks))
             }
         } catch (error) {
             console.log(error)
@@ -48,7 +49,7 @@ export default function EditWebsite() {
 
     const handleSaveWebsite = async () => {
         try {
-            const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'PUT', { code })
+            const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'PUT', { code, codeBlocks })
             if (response.status === 200) {
                 toastNotification('Website Saved')
             }
@@ -59,7 +60,7 @@ export default function EditWebsite() {
 
     const toastNotification = (msg: string) => toast.success(msg, {
         position: "bottom-left",
-        autoClose: 2000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -74,10 +75,10 @@ export default function EditWebsite() {
     useEffect(() => {
         fetchWebsiteDetails()
 
-        // return () => {
-        //     handleSaveWebsite()
-        //     dispatch(clearAllWebsiteInformationAction())
-        // }
+        return () => {
+            // handleSaveWebsite()
+            // dispatch(clearAllWebsiteInformationAction())
+        }
     }, [pageSelected])
 
     return (
@@ -87,7 +88,7 @@ export default function EditWebsite() {
         </Helmet>
         <ToastContainer
             position="bottom-left"
-            autoClose={3000}
+            autoClose={1000}
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick
