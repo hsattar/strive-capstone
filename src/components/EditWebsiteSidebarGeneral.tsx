@@ -1,6 +1,6 @@
 import { FormEvent, Fragment, MouseEvent, useEffect, useState } from "react"
 import { useNavigate, useParams } from 'react-router-dom'
-import EditWebsiteSidebarDropdowns from "./EditWebsiteSidebarDropdowns"
+import CustomDropdown from "./CustomDropdown"
 import SVGIcon from "./SVGIcon"
 import useAxios from '../hooks/useAxios'
 import { useSelector } from "react-redux"
@@ -89,7 +89,16 @@ export default function EditWebsiteSidebarGeneral() {
     return (
         <>
         <div className="flex flex-col select-none">
-            <EditWebsiteSidebarDropdowns name={`pages - ${pageSelected}`}>
+        <CustomDropdown 
+                name={`pages - ${pageSelected}`}
+                iconClassName="h-5 w-5 text-green-500 mr-2" 
+                iconPath="M12 4v16m8-8H4" 
+                iconStrokeWidth={2}
+                onClick={(e: MouseEvent) => {
+                    e.stopPropagation()
+                    setShowAddNewPageModal(true)
+                }}
+            >
                 <>
                     { pages.map(page => (
                     <Fragment key={page}>
@@ -117,17 +126,14 @@ export default function EditWebsiteSidebarGeneral() {
                     ) }
                     </Fragment>
                     )) }
-                    <div className="flex justify-center my-2">
-                        <button onClick={() => setShowAddNewPageModal(true)} className="py-1 px-5 mr-3 rounded-md text-blue-500 hover:bg-blue-200">Add Page</button>
-                    </div>
                 </>
-            </EditWebsiteSidebarDropdowns>
+            </CustomDropdown>
 
-            <EditWebsiteSidebarDropdowns name="Website Settings">
+            <CustomDropdown name="Website Settings">
                 <div>
                     <p className="capitalize pl-8 py-1">Website Name</p>
                 </div>
-            </EditWebsiteSidebarDropdowns>
+            </CustomDropdown>
         </div>
         { showAddNewPageModal && (
             <div onClick={() => setShowAddNewPageModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">

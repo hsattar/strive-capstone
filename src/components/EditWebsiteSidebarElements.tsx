@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { addElementsToCodeAction, setElementToEditAction } from '../redux/actions/actionCreators'
-import EditWebsiteSidebarDropdowns from "./EditWebsiteSidebarDropdowns"
+import CustomDropdown from "./CustomDropdown"
 import { v4 as uuid } from 'uuid'
 import elementTemplates from '../data/elementTemplates'
 import useAxios from '../hooks/useAxios'
@@ -48,27 +48,27 @@ export default function EditWebsiteSidebarElements() {
 
     return (
         <div className="select-none">
-            <EditWebsiteSidebarDropdowns name="Text">
+            <CustomDropdown name="Text">
                 <div>
                     <p onClick={() => handleAddCode(createElementTemplate('heading'))} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Heading</p>
                     <p onClick={() => handleAddCode(createElementTemplate('paragraph'))} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Paragraph</p>
                     <p onClick={() => handleAddCode(createElementTemplate('list'))} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100"> List</p>
                 </div>
-            </EditWebsiteSidebarDropdowns>
-            <EditWebsiteSidebarDropdowns name="Media">
+            </CustomDropdown>
+            <CustomDropdown name="Media">
                 <div>
                     <label htmlFor="imageUpload" className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100 w-full">Image</label>
                     <input type="file" id="imageUpload" hidden onChange={e => handleImageUpload(e.target.files![0])} />
                     <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Video</p>
                     <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">YouTube</p>
                 </div>
-            </EditWebsiteSidebarDropdowns>
-            <EditWebsiteSidebarDropdowns name="Other">
+            </CustomDropdown>
+            <CustomDropdown name="Other">
                 <div>
                     <p onClick={() => handleAddCode(createElementTemplate('button'))} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Button</p>
                     <p onClick={() => handleAddCode(createElementTemplate('youTube'))} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Dropdown</p>
                 </div>
-            </EditWebsiteSidebarDropdowns>
+            </CustomDropdown>
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react"
 import { useDispatch } from "react-redux"
 import useAxios from "../hooks/useAxios"
-import EditWebsiteSidebarDropdowns from "./EditWebsiteSidebarDropdowns"
+import CustomDropdown from "./CustomDropdown"
 import SingleUnsplashImage from "./SingleUnsplashImage"
 
 export default function EditWebsiteSidebarMedia() {
@@ -26,15 +26,29 @@ export default function EditWebsiteSidebarMedia() {
 
     return (
         <div className="select-none flex flex-col">
-            <EditWebsiteSidebarDropdowns name="My Images">
+            <CustomDropdown 
+                name="My Images" 
+                iconClassName="h-5 w-5 text-green-500 mr-2" 
+                iconPath="M12 4v16m8-8H4" 
+                iconStrokeWidth={2}
+                onClick={(e: any) => e.stopPropagation()}
+            >
                 <>
+                <p className="text-center text-gray-400 my-4">You Have No Images Uploaded</p>
                 </>
-            </EditWebsiteSidebarDropdowns>
-            <EditWebsiteSidebarDropdowns name="My Videos">
+            </CustomDropdown>
+            <CustomDropdown 
+                name="My Videos"
+                iconClassName="h-5 w-5 text-green-500 mr-2" 
+                iconPath="M12 4v16m8-8H4" 
+                iconStrokeWidth={2}
+                onClick={(e: any) => e.stopPropagation()}
+            >
                 <>
+                <p className="text-center text-gray-400 my-4">You Have No Videos Uploaded</p>
                 </>
-            </EditWebsiteSidebarDropdowns>
-            <EditWebsiteSidebarDropdowns name="Unsplash Images">
+            </CustomDropdown>
+            <CustomDropdown name="Unsplash Images">
                 <>
                 <form onSubmit={handleSubmit} autoComplete="off" noValidate className="mt-0 text-center">
                     <div className="relative z-0 mb-6 group flex justify-center">
@@ -52,7 +66,7 @@ export default function EditWebsiteSidebarMedia() {
                     { unsplashImages.map(image => <SingleUnsplashImage key={image.id} image={image} />) }
                 </div>
                 </>
-            </EditWebsiteSidebarDropdowns>
+            </CustomDropdown>
         </div>
     )
 }

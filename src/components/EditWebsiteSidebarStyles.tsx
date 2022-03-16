@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import EditWebsiteSidebarDropdowns from "./EditWebsiteSidebarDropdowns"
+import CustomDropdown from "./CustomDropdown"
 
 interface IProps {
     showEditTextModal: boolean
@@ -19,7 +19,7 @@ export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEdi
                 <div className="flex justify-center my-2">
                     <button onClick={() => setShowEditTextModal(true)} className="py-1 px-5 mr-3 rounded-md text-blue-500 hover:bg-blue-200">Edit Text</button>
                 </div>
-                <EditWebsiteSidebarDropdowns name="positioning">
+                <CustomDropdown name="positioning">
                     <>
                     <div className="flex justify-between">
                         <p className="px-2 py-1">Margin Top, Bottom, Left, Right Options With Slider?</p>
@@ -31,12 +31,12 @@ export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEdi
                         <p className="px-2 py-1">Border</p>
                     </div>
                     </>
-                </EditWebsiteSidebarDropdowns>
-                <EditWebsiteSidebarDropdowns name="hover state">
+                </CustomDropdown>
+                <CustomDropdown name="hover state">
                     <div className="flex justify-between">
                         <p className="px-2 py-1">All Options</p>
                     </div>
-                </EditWebsiteSidebarDropdowns>
+                </CustomDropdown>
                 </>
             ) : (
                 <p className="text-center mt-12">Please add/select an element to edit</p>
