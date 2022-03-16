@@ -1,7 +1,6 @@
 import { FormEvent, useEffect, useRef, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
-import parse from 'html-react-parser'
 import EditWebsiteTopBar from "../components/EditWebsiteTopBar"
 import EditWebsiteSidebarGeneral from "../components/EditWebsiteSidebarGeneral"
 import EditWebsiteSidebarIcons from "../components/EditWebsiteSidebarIcons"
@@ -11,11 +10,13 @@ import EditWebsiteSidebarComponents from "../components/EditWebsiteSidebarCompon
 import EditWebsiteSidebarStyles from "../components/EditWebsiteSidebarStyles"
 import Navbar from "../components/Navbar"
 import EditWebsiteSidebarStructure from "../components/EditWebsiteSidebarStructure"
-import { addCodeAndBlocksFromDBToReduxAction, clearAllWebsiteInformationAction } from "../redux/actions/actionCreators"
+import { updateCodeAndCodeBlocksAction, createNewCode } from "../redux/actions/actionCreators"
 import { Helmet } from "react-helmet-async"
 import useAxios from '../hooks/useAxios'
 import { ToastContainer, toast } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
+import { DragDropContext, Droppable } from "react-beautiful-dnd"
+import DraggableCodeBlock from "../components/DraggableCodeBlock"
 
 export default function EditWebsite() {
 
@@ -35,7 +36,7 @@ export default function EditWebsite() {
         try {
             const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'GET')
             if (response.status === 200) {
-                dispatch(addCodeAndBlocksFromDBToReduxAction(response.data.code, response.data.codeBlocks))
+                dispatch(updateCodeAndCodeBlocksAction(response.data.code, response.data.codeBlocks))
             }
         } catch (error) {
             console.log(error)
@@ -58,6 +59,22 @@ export default function EditWebsite() {
         }
     }
 
+    const handleDragEnd = (result: any) => {
+        const { source, destination, draggableId } = result
+
+        if (!destination) return 
+        if (destination.droppableId === source.droppableId && destination.index === source.index) return
+
+        const elementToMove = codeBlocks.find(block => block.id === draggableId)
+        if (!elementToMove) return
+        const newCodeBlocks = [...codeBlocks]
+        newCodeBlocks.splice(source.index, 1)
+        newCodeBlocks.splice(destination.index, 0, elementToMove)
+        const newCodeBlockCode = newCodeBlocks.map(block => block.code).flat()
+        const newCode = createNewCode(newCodeBlockCode)
+        dispatch(updateCodeAndCodeBlocksAction(newCode, newCodeBlocks))
+    }
+
     const toastNotification = (msg: string) => toast.success(msg, {
         position: "bottom-left",
         autoClose: 1000,
@@ -74,11 +91,6 @@ export default function EditWebsite() {
 
     useEffect(() => {
         fetchWebsiteDetails()
-
-        return () => {
-            // handleSaveWebsite()
-            // dispatch(clearAllWebsiteInformationAction())
-        }
     }, [pageSelected])
 
     return (
@@ -112,19 +124,22 @@ export default function EditWebsite() {
                 { sidebarTab === 'components' && <EditWebsiteSidebarComponents /> }
                 </div>
                 <div className="bg-gray-100 flex justify-center select-none overflow-hidden min-h-[88vh] max-h-[88vh]">
-                    <div className="w-[95%] bg-white my-2 overflow-y-scroll">
-                        { parse(code) }
-                        {/* <p>Hi</p>
-                        <h1 className="my-8 py-8">Hello</h1>
-                        <h1 className="my-8 py-8">Hello</h1>
-                        <h1 className="my-8 py-8">Hello</h1>
-                        <h1 className="my-8 py-8">Hello</h1>
-                        <h1 className="my-8 py-8">Hello</h1>
-                        <h1 className="my-8 py-8">Hello</h1>
-                        <h1 className="my-8 py-8">Hello</h1>
-                        <h1 className="my-8 py-8">Hello</h1>
-                        <p>Hi</p> */}
-                    </div>
+                    <DragDropContext onDragEnd={handleDragEnd}>
+                        <Droppable droppableId="website-display">
+                            {(provided) => (
+                            <div
+                                className="w-[95%] bg-white my-2 overflow-y-scroll"
+                                {...provided.droppableProps}
+                                ref={provided.innerRef}
+                            >
+                            { codeBlocks.map((block, index) => (
+                            <DraggableCodeBlock key={block.id} codeBlock={block} index={index} />
+                            )) }
+                            { provided.placeholder }
+                            </div>
+                            )}
+                        </Droppable>
+                    </DragDropContext>
                 </div>
             </div>
             </div>

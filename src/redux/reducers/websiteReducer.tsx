@@ -24,7 +24,7 @@ const websiteReducer = (state = initialState.website, action: AnyAction) => {
             code: action.payload.newCode,
             codeBlocks: action.payload.codeBlock
         }
-        case ACTIONS.ADD_CODE_AND_BLOCKS_FROM_DB_TO_REDUX: return {
+        case ACTIONS.UPDATE_CODE_AND_CODEBLOCKS: return {
             ...state,
             code: action.payload.code,
             codeBlocks: action.payload.codeBlocks

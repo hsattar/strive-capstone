@@ -9,7 +9,7 @@ export const addInfoToCurrentUserAction = (user: IUser) => ({ type: ACTIONS.ADD_
 export const setElementToEditAction = (element: IElement) => ({ type: ACTIONS.SET_ELEMENT_TO_EDIT, payload: element })
 export const clearAllWebsiteInformationAction = () => ({ type: ACTIONS.RESET_ALL_WEBSITE_INFORMATION })
 
-const createNewCode = (codeBlocks: IElement[]) => codeBlocks.map(block => block.tag || block.text).join('')
+export const createNewCode = (codeBlocks: IElement[]) => codeBlocks.map(block => block.tag || block.text).join('')
 
 export const addElementsToCodeAction = (elements: ICodeBlock) => 
 (dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {
@@ -46,7 +46,7 @@ export const changeElementClassNameAction = (field: elementToEditOptions, value:
     dispatch({ type: ACTIONS.CHNAGE_ELEMENT_CLASS_NAME, payload: { newCode, codeBlock } })
 }
 
-export const addCodeAndBlocksFromDBToReduxAction = (code: string, codeBlocks: ICodeBlock[]) => ({
-    type: ACTIONS.ADD_CODE_AND_BLOCKS_FROM_DB_TO_REDUX,
+export const updateCodeAndCodeBlocksAction = (code: string, codeBlocks: ICodeBlock[]) => ({
+    type: ACTIONS.UPDATE_CODE_AND_CODEBLOCKS,
     payload: { code, codeBlocks }
 })

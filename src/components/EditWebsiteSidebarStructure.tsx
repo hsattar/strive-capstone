@@ -1,7 +1,6 @@
 import { Dispatch, Fragment, SetStateAction } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { DragDropContext, Droppable } from "react-beautiful-dnd"
-import DNDContainer from "./DNDContainer"
 
 interface IProps {
     setSidebarTab: Dispatch<SetStateAction<string>>
