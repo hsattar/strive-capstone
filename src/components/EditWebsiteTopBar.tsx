@@ -8,6 +8,8 @@ import  useAxios from '../hooks/useAxios'
 import textColors from '../data/textColors'
 import backgroundColors from '../data/backgroundColors'
 import { changeElementClassNameAction } from "../redux/actions/actionCreators"
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function EditWebsiteTopBar() {
 
@@ -87,7 +89,7 @@ export default function EditWebsiteTopBar() {
         try {
             const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'PUT', { code })
             if (response.status === 200) {
-                alert('saved')
+                toastNotification('Saved')
             }
         } catch (error) {
             console.log(error)
@@ -101,14 +103,36 @@ export default function EditWebsiteTopBar() {
                 axiosRequest(`/websites/${websiteName}/${pageSelected}/production/publish`, 'PUT', { code })
             ])
             if ((response[0].status === 200) && (response[1].status === 200 || 201)) {
-                alert('Saved & Published')
+                toastNotification('Published')
             }
         } catch (error) {
             console.log(error)
         }
     }
 
+    const toastNotification = (msg: string) => toast.success(msg, {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+    })
+
     return (
+        <>
+        <ToastContainer
+            position="bottom-left"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss={false}
+            draggable={false}
+            pauseOnHover
+        />
         <nav className="bg-white px-2 sm:px-4 py-1 text-[14px] select-none">
             <div className="flex flex-wrap justify-between items-center mx-auto">
 
@@ -228,5 +252,6 @@ export default function EditWebsiteTopBar() {
 
             </div>
         </nav>
+        </>
     )
 }

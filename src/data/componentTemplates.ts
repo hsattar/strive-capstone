@@ -15,8 +15,14 @@ const componentTemplates = {
         alignment: ``,
         color: ``,
         backgroundColor: ``,
-        margin: ``,
-        padding: ``,
+        marginT: ``,
+        marginR: ``,
+        marginB: ``,
+        marginL: ``,
+        paddingT: ``,
+        paddingR: ``,
+        paddingB: ``,
+        paddingL: ``,
         border: ``,
     }, {
         text: `Name / Logo`
@@ -38,8 +44,14 @@ const componentTemplates = {
         alignment: ``,
         color: ``,
         backgroundColor: ``,
-        margin: `mr-2`,
-        padding: ``,
+        marginT: ``,
+        marginR: `mr-2`,
+        marginB: ``,
+        marginL: ``,
+        paddingT: ``,
+        paddingR: ``,
+        paddingB: ``,
+        paddingL: ``,
         border: ``,
     }, {
         text: `Link 1`
@@ -57,8 +69,14 @@ const componentTemplates = {
         alignment: ``,
         color: ``,
         backgroundColor: ``,
-        margin: ``,
-        padding: ``,
+        marginT: ``,
+        marginR: ``,
+        marginB: ``,
+        marginL: ``,
+        paddingT: ``,
+        paddingR: ``,
+        paddingB: ``,
+        paddingL: ``,
         border: ``,
     }, {
         text: `Link 2`
@@ -72,69 +90,3 @@ const componentTemplates = {
 }
 
 export default componentTemplates
-
-// const componentTemplates = {
-//     navbar: {
-//         container: {
-//             name: 'navbar container',
-//             openingTag: `<div class="flex justify-between items-center p-2 bg-gray-200">`,
-//             class: `flex justify-between items-center p-2 bg-gray-400`,
-//             closingTag: `</div>`,
-//             children: [],
-//         },
-//         elements: [{
-//             name: 'h2 heading',
-//             openingTag: `<h2 class="`,
-//             class: `font-['Open_Sans'] text-xl`,
-//             font: `font-['Open_Sans']`,
-//             textSize: `text-xl`,
-//             bold: ``,
-//             italics: ``,
-//             underline: ``,
-//             alignment: ``,
-//             color: ``,
-//             backgroundColor: ``,
-//             margin: ``,
-//             padding: ``,
-//             border: ``,
-//             text: `">Name / Logo`,
-//             closingTag: `</h2>`
-//         }, {
-//             name: 'link',
-//             openingTag: `<a href="https://www.google.com" class="`,
-//             class: `font-['Open_Sans'] text-base`,
-//             font: `font-['Open_Sans']`,
-//             textSize: `text-base`,
-//             bold: ``,
-//             italics: ``,
-//             underline: ``,
-//             alignment: ``,
-//             color: ``,
-//             backgroundColor: ``,
-//             margin: ``,
-//             padding: ``,
-//             border: ``,
-//             text: `">Link 1`,
-//             closingTag: `</a>`
-//         }, {
-//             name: 'link',
-//             openingTag: `<p class="`,
-//             class: `font-['Open_Sans'] text-base`,
-//             font: `font-['Open_Sans']`,
-//             textSize: `text-base`,
-//             bold: ``,
-//             italics: ``,
-//             underline: ``,
-//             alignment: ``,
-//             color: ``,
-//             backgroundColor: ``,
-//             margin: ``,
-//             padding: ``,
-//             border: ``,
-//             text: `">Link 2`,
-//             closingTag: `</p>`
-//         }]
-//     }
-// }
-
-// export default componentTemplates

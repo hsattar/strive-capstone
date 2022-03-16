@@ -11,8 +11,14 @@ const elementTemplates = {
         alignment: ``,
         color: ``,
         backgroundColor: ``,
-        margin: ``,
-        padding: ``,
+        marginT: ``,
+        marginR: ``,
+        marginB: ``,
+        marginL: ``,
+        paddingT: ``,
+        paddingR: ``,
+        paddingB: ``,
+        paddingL: ``,
         border: ``
     }, {
         text: `Heading`
@@ -31,9 +37,15 @@ const elementTemplates = {
         alignment: ``,
         color: ``,
         backgroundColor: ``,
-        margin: ``,
-        padding: ``,
-        border: ``
+        border: ``,
+        marginT: ``,
+        marginR: ``,
+        marginB: ``,
+        marginL: ``,
+        paddingT: ``,
+        paddingR: ``,
+        paddingB: ``,
+        paddingL: ``,
     }, {
         text: `Paragraph`
     }, {
@@ -45,6 +57,14 @@ const elementTemplates = {
         className: ``,
         height: ``,
         width: ``,
+        marginT: ``,
+        marginR: ``,
+        marginB: ``,
+        marginL: ``,
+        paddingT: ``,
+        paddingR: ``,
+        paddingB: ``,
+        paddingL: ``
     }],
     button: [{
         name: 'button',
@@ -58,8 +78,14 @@ const elementTemplates = {
         alignment: ``,
         color: `text-white`,
         backgroundColor: `bg-blue-500`,
-        margin: ``,
-        padding: `py-1 px-3`,
+        marginT: ``,
+        marginR: ``,
+        marginB: ``,
+        marginL: ``,
+        paddingT: `pt-1`,
+        paddingR: `pr-3`,
+        paddingB: `pb-1`,
+        paddingL: `pl-3`,
         border: ``,
         borderRadius: `rounded-md`,
     }, {
@@ -74,6 +100,47 @@ const elementTemplates = {
         allow: ``,
         height: ``,
         width: ``,
+    }],
+    list: [{
+        name: 'bullet list',
+        tag: `<ol className="list-disc ml-6">`,
+        className: `list-disc ml-6`,
+        marginT: ``,
+        marginR: ``,
+        marginB: ``,
+        marginL: `ml-6`,
+        paddingT: ``,
+        paddingR: ``,
+        paddingB: ``,
+        paddingL: ``,
+        listStyle: `list-disc`
+
+    }, {
+        name: 'list item 1',
+        tag: `<li className="">`,
+        className: ``
+    }, {
+        text: `Bullet 1`
+    }, {
+        tag: `</li>`
+    }, {
+        name: 'list item 2',
+        tag: `<li className="">`,
+        className: ``
+    }, {
+        text: `Bullet 2`
+    }, {
+        tag: `</li>`
+    }, {
+        name: 'list item 3',
+        tag: `<li className="">`,
+        className: ``
+    }, {
+        text: `Bullet 3`
+    }, {
+        tag: `</li>`
+    }, {
+        tag: `</ol>`
     }]
 }
 

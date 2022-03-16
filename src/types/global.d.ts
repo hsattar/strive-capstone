@@ -11,9 +11,9 @@ interface IWesbite {
     __v: number
 }
 
-type elementTemplateOptions = 'heading' | 'paragraph' | 'button' | 'image' | 'youTube'
+type elementTemplateOptions = 'heading' | 'paragraph' | 'button' | 'image' | 'youTube' | 'list'
 
-type elementToEditOptions = 'tag' | 'height' | 'width' | 'font' | 'textSize' | 'bold' | 'italics' | 'underline' | 'alignment' | 'color' | 'backgroundColor' | 'margin' | 'padding' | 'border' | 'borderRadius' | 'text' | 'className'
+type elementToEditOptions = 'tag' | 'height' | 'width' | 'font' | 'textSize' | 'bold' | 'italics' | 'underline' | 'alignment' | 'color' | 'backgroundColor' | 'marginT' | 'marginR' | 'marginB' | 'marginL' | 'paddingT' | 'paddingR' | 'paddingB' | 'paddingL' | 'border' | 'borderRadius' | 'text' | 'className'
 
 type layoutTemplateOptions = 'flexContainer'
 

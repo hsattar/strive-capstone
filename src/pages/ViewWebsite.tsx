@@ -26,8 +26,8 @@ export default function ViewWebsite() {
     }, [websiteName, pageSelected])
 
   return (
-    <>
+    <div className="overflow-y-scroll min-h-[100vh] max-h-[100vh]">
       { parse(code) }
-    </>
+    </div>
   )
 }

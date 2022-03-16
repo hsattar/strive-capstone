@@ -40,9 +40,16 @@ interface IElement {
     alignment?: string
     color?: string
     backgroundColor?: string
-    margin?: string
-    padding?: string
+    marginT?: string
+    marginR?: string
+    marginB?: string
+    marginL?: string
+    paddingT?: string
+    paddingR?: string
+    paddingB?: string
+    paddingL?: string
     border?: string 
     borderRadius?: string 
     text?: string
+    listStyle?: string
 }

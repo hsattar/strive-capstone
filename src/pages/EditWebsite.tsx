@@ -14,6 +14,8 @@ import EditWebsiteSidebarStructure from "../components/EditWebsiteSidebarStructu
 import { clearAllWebsiteInformationAction } from "../redux/actions/actionCreators"
 import { Helmet } from "react-helmet-async"
 import useAxios from '../hooks/useAxios'
+import { ToastContainer, toast } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function EditWebsite() {
 
@@ -32,18 +34,7 @@ export default function EditWebsite() {
         try {
             const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'GET')
             if (response.status === 200) {
-                const defaultWebsiteStructure = {
-                    containers: [{
-                        id: '123456789',
-                        name: 'root',
-                        openingTag: `<div class="">`,
-                        class: `123456789`,
-                        closingTag: `</div>`,
-                        children: [],
-                    }],
-                    elements: [],
-                    containerOrder: ['123456789']
-                }
+                // DO SOMETHING 
             }
         } catch (error) {
             console.log(error)
@@ -59,11 +50,22 @@ export default function EditWebsite() {
         try {
             const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'PUT', { code })
             if (response.status === 200) {
+                toastNotification('Website Saved')
             }
         } catch (error) {
             console.log(error)
         }
     }
+
+    const toastNotification = (msg: string) => toast.success(msg, {
+        position: "bottom-left",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+    })
 
     useEffect(() => {
         elementToEdit && setelementToEditText(elementToEdit.id)
@@ -72,10 +74,10 @@ export default function EditWebsite() {
     useEffect(() => {
         fetchWebsiteDetails()
 
-        return () => {
-            handleSaveWebsite()
-            dispatch(clearAllWebsiteInformationAction())
-        }
+        // return () => {
+        //     handleSaveWebsite()
+        //     dispatch(clearAllWebsiteInformationAction())
+        // }
     }, [pageSelected])
 
     return (
@@ -83,6 +85,17 @@ export default function EditWebsite() {
         <Helmet>
             <title>{`Code Buddy - Edit ${websiteName}`}</title>
         </Helmet>
+        <ToastContainer
+            position="bottom-left"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss={false}
+            draggable={false}
+            pauseOnHover
+        />
         <div className="overflow-hidden">
             <Navbar />
             <div className="divide-y divide-gray-200">
@@ -97,9 +110,19 @@ export default function EditWebsite() {
                 { sidebarTab === 'elements' && <EditWebsiteSidebarElements /> }
                 { sidebarTab === 'components' && <EditWebsiteSidebarComponents /> }
                 </div>
-                <div className="bg-gray-100 flex justify-center select-none">
-                    <div className="w-[95%] bg-white my-2">
+                <div className="bg-gray-100 flex justify-center select-none overflow-hidden min-h-[88vh] max-h-[88vh]">
+                    <div className="w-[95%] bg-white my-2 overflow-y-scroll">
                         { parse(code) }
+                        {/* <p>Hi</p>
+                        <h1 className="my-8 py-8">Hello</h1>
+                        <h1 className="my-8 py-8">Hello</h1>
+                        <h1 className="my-8 py-8">Hello</h1>
+                        <h1 className="my-8 py-8">Hello</h1>
+                        <h1 className="my-8 py-8">Hello</h1>
+                        <h1 className="my-8 py-8">Hello</h1>
+                        <h1 className="my-8 py-8">Hello</h1>
+                        <h1 className="my-8 py-8">Hello</h1>
+                        <p>Hi</p> */}
                     </div>
                 </div>
             </div>

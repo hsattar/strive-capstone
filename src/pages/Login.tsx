@@ -1,10 +1,12 @@
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { userLogsInAction } from '../redux/actions/actionCreators'
 import SVGIcon from '../components/SVGIcon'
 import useAxios from '../hooks/useAxios'
 import { Helmet } from 'react-helmet-async'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function Login() {
 
@@ -29,24 +31,60 @@ export default function Login() {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
+        setLoginError(false)
+        setUserError(false)
         if (!userDetails.email || !userDetails.password) return setUserError(true)
         
         try {
             const response = await axiosRequest('users/login', 'POST', userDetails)
+            console.log(response)
             if (response.status === 200) {
                 dispatch(userLogsInAction())
                 navigate('/')
+            } else if (response.status === 401) {
+                setLoginError(true)
+                console.log('here')
+            } else if (response.status === 400) {
+                setUserError(true)
             }
         } catch (error) {
             console.log(error)
         }
     }
 
+    const toastNotification = (msg: string) => toast.error(msg, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+    })
+
+    useEffect(() => {
+        userError && toastNotification('Please Fill In All Details')
+        loginError && toastNotification('Invalid Login')
+    }, [userError, loginError])
+
     return (
         <>
         <Helmet>
             <title>Code Buddy - Login</title>
         </Helmet>
+        { (loginError || userError) && (
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss={false}
+                draggable
+                pauseOnHover
+            />
+        )}
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
             <div className="p-10 xs:p-0 mx-auto md:w-full md:min-w-xl md:max-w-2xl">
                 <div className="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
