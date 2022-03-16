@@ -9,7 +9,7 @@ import EditWebsiteSidebarElements from "../components/EditWebsiteSidebarElements
 import EditWebsiteSidebarComponents from "../components/EditWebsiteSidebarComponents"
 import EditWebsiteSidebarStyles from "../components/EditWebsiteSidebarStyles"
 import Navbar from "../components/Navbar"
-import EditWebsiteSidebarStructure from "../components/EditWebsiteSidebarStructure"
+import EditWebsiteSidebarMedia from "../components/EditWebsiteSidebarMedia"
 import { updateCodeAndCodeBlocksAction, createNewCode } from "../redux/actions/actionCreators"
 import { Helmet } from "react-helmet-async"
 import useAxios from '../hooks/useAxios'
@@ -117,7 +117,7 @@ export default function EditWebsite() {
                 <div className="grid gap-0 grid-cols-[50px_250px] divide-x min-h-[88vh] max-h-[88vh] overflow-y-scroll overflow-x-hidden">
                 <EditWebsiteSidebarIcons sidebarTab={sidebarTab} setSidebarTab={setSidebarTab} />
                 { sidebarTab === 'general' && <EditWebsiteSidebarGeneral /> }
-                { sidebarTab === 'structure' && <EditWebsiteSidebarStructure setSidebarTab={setSidebarTab} /> }
+                { sidebarTab === 'media' && <EditWebsiteSidebarMedia /> }
                 { sidebarTab === 'styles' && <EditWebsiteSidebarStyles showEditTextModal={showEditTextModal} setShowEditTextModal={setShowEditTextModal} /> }
                 { sidebarTab === 'layout' && <EditWebsiteSidebarLayout /> }
                 { sidebarTab === 'elements' && <EditWebsiteSidebarElements /> }

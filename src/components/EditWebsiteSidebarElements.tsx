@@ -15,7 +15,7 @@ export default function EditWebsiteSidebarElements() {
         try {
             const formData = new FormData()
             formData.append('image', image)
-            const response = await axiosRequest('/websites/upload-image', 'POST', formData)
+            const response = await axiosRequest('/images/upload-image', 'POST', formData)
             if (response.status === 201) {
                 // handleAddCode(createImageTemplate(response.data || ''))
             }

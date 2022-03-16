@@ -29,9 +29,8 @@ export const changeElementClassNameAction = (field: elementToEditOptions, value:
     if (!elementToEdit) return
     elementToEdit[field] = value
     
-    const { id, name, tag, className, ...htmlProperties } = elementToEdit
+    const { name, tag, className, ...htmlProperties } = elementToEdit
     const htmlValues = Object.values(htmlProperties) 
-    htmlValues.unshift(id)
     const classNamesAsString = htmlValues.join(' ')
     elementToEdit.className = classNamesAsString
     const openingTag = elementToEdit.tag.split('className')[0]
