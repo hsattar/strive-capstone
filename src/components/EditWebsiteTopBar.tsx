@@ -11,6 +11,7 @@ import { changeElementClassNameAction } from "../redux/actions/actionCreators"
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import CustomSelectMenu from "./CustomSelectMenu"
+import handleSave from "../utils/handleSave"
 
 export default function EditWebsiteTopBar() {
 
@@ -81,6 +82,7 @@ export default function EditWebsiteTopBar() {
 
     const handleSaveWebsite = async () => {
         try {
+            // const publicCode = handleSave(codeBlocks)
             const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'PUT', { code, codeBlocks })
             if (response.status === 200) {
                 toastNotification('Saved')

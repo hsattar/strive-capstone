@@ -17,7 +17,7 @@ export default function SingleWebsiteImage({ image }: IProps) {
             id,
             ...elementTemplates.image,
             className: id,
-            tag: `<img src="${imgSrc}" className="${id}" />`,
+            tag: `<img src="${imgSrc}" className="${id} hover:border-2 hover:border-blue-300 hover:cursor-grab" />`,
         }]
     }
     

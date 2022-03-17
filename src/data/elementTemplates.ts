@@ -1,8 +1,8 @@
 const elementTemplates = {
     heading: [{ 
         name: 'h1 heading',
-        tag: `<h1 className="font-sans text-6xl font-bold">`,
-        className: `font-sans text-6xl font-bold`,
+        tag: `<h1 className="font-sans text-6xl font-bold hover:border-2 hover:border-blue-300 hover:cursor-grab">`,
+        className: `font-sans text-6xl font-bold hover:border-2 hover:border-blue-300 hover:cursor-grab`,
         font: `font-sans`,
         textSize: `text-6xl`,
         bold: `font-bold`,
@@ -19,7 +19,8 @@ const elementTemplates = {
         paddingR: ``,
         paddingB: ``,
         paddingL: ``,
-        border: ``
+        border: ``,
+        hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
     }, {
         text: `Heading`
     }, {
@@ -27,8 +28,8 @@ const elementTemplates = {
     }],
     paragraph: [{
         name: 'paragraph',
-        tag: `<p className="font-sans text-base">`,
-        className: `font-sans text-base`,
+        tag: `<p className="font-sans text-base hover:border-2 hover:border-blue-300 hover:cursor-grab">`,
+        className: `font-sans text-base hover:border-2 hover:border-blue-300 hover:cursor-grab`,
         font: `font-sans`,
         textSize: `text-base`,
         bold: ``,
@@ -46,6 +47,7 @@ const elementTemplates = {
         paddingR: ``,
         paddingB: ``,
         paddingL: ``,
+        hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
     }, {
         text: `Paragraph`
     }, {
@@ -53,8 +55,8 @@ const elementTemplates = {
     }],
     image: [{
         name: 'image',
-        tag: `<img src="" className="" />`,
-        className: ``,
+        tag: `<img src="" className="hover:border-2 hover:border-blue-300 hover:cursor-grab" />`,
+        className: `hover:border-2 hover:border-blue-300 hover:cursor-grab`,
         height: ``,
         width: ``,
         marginT: ``,
@@ -64,12 +66,14 @@ const elementTemplates = {
         paddingT: ``,
         paddingR: ``,
         paddingB: ``,
-        paddingL: ``
+        paddingL: ``,
+        hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
     }], 
     unsplashImage: [{
         name: `unsplash container`,
-        tag: `<div className="flex flex-col items-center p-2">`,
-        className: `flex flex-col items-center p-2`
+        tag: `<div className="flex flex-col items-center p-2 hover:border-2 hover:border-blue-300 hover:cursor-grab">`,
+        className: `flex flex-col items-center p-2 hover:border-2 hover:border-blue-300 hover:cursor-grab`,
+        hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
     }, {
         name: 'unsplashImage',
         tag: `<img src="" className="" />`,
@@ -109,8 +113,8 @@ const elementTemplates = {
     }],
     button: [{
         name: 'button',
-        tag: `<button className="font-sans text-base text-white bg-blue-500 py-1 px-3 rounded-md">`,
-        className: `font-sans text-base text-white bg-blue-500 py-1 px-3 rounded-md`,
+        tag: `<button className="font-sans text-base text-white bg-blue-500 py-1 px-3 rounded-md hover:border-2 hover:border-blue-300 hover:cursor-grab">`,
+        className: `font-sans text-base text-white bg-blue-500 py-1 px-3 rounded-md hover:border-2 hover:border-blue-300 hover:cursor-grab`,
         font: `font-sans`,
         textSize: `text-base`,
         bold: ``,
@@ -129,6 +133,7 @@ const elementTemplates = {
         paddingL: `pl-3`,
         border: ``,
         borderRadius: `rounded-md`,
+        hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
     }, {
         text: `Button`
     }, {
@@ -144,8 +149,8 @@ const elementTemplates = {
     }],
     list: [{
         name: 'bullet list',
-        tag: `<ol className="list-disc ml-6">`,
-        className: `list-disc ml-6`,
+        tag: `<ol className="list-disc ml-6 hover:border-2 hover:border-blue-300 hover:cursor-grab">`,
+        className: `list-disc ml-6 hover:border-2 hover:border-blue-300 hover:cursor-grab`,
         marginT: ``,
         marginR: ``,
         marginB: ``,
@@ -154,8 +159,8 @@ const elementTemplates = {
         paddingR: ``,
         paddingB: ``,
         paddingL: ``,
-        listStyle: `list-disc`
-
+        listStyle: `list-disc`,
+        hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
     }, {
         name: 'list item 1',
         tag: `<li className="">`,

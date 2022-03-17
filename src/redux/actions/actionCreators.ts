@@ -16,6 +16,7 @@ export const addElementsToCodeAction = (elements: ICodeBlock) =>
     const oldCodeBlock = getState().website.codeBlocks
     const newCodeBlocks = [...oldCodeBlock, elements]
     const newCodeBlockCode = newCodeBlocks.map(block => block.code).flat()
+    console.log(newCodeBlockCode)
     const newCode = createNewCode(newCodeBlockCode)
 
     dispatch({ type: ACTIONS.ADD_ELEMENTS_TO_CODE, payload: { newCode, newCodeBlocks }})

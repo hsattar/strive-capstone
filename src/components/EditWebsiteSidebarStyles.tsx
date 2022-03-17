@@ -138,11 +138,6 @@ export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEdi
                     />
                     </div>
                 </CustomDropdown>
-                <CustomDropdown name="hover state">
-                    <div className="flex justify-between">
-                        <p className="px-2 py-1">All Options</p>
-                    </div>
-                </CustomDropdown>
                 </>
             ) : (
                 <p className="text-center mt-12">Please add/select an element to edit</p>

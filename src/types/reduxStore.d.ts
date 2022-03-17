@@ -26,8 +26,8 @@ interface IUser {
 }
 
 interface IElement {
-    name: string
     id?: string
+    name: string
     tag: string
     className: string
     height?: string
@@ -52,4 +52,5 @@ interface IElement {
     borderRadius?: string 
     text?: string
     listStyle?: string
+    hoverBorder?: string
 }
