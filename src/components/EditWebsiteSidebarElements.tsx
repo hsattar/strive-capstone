@@ -57,9 +57,6 @@ export default function EditWebsiteSidebarElements() {
             </CustomDropdown>
             <CustomDropdown name="Media">
                 <div>
-                    <label htmlFor="imageUpload" className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100 w-full">Image</label>
-                    <input type="file" id="imageUpload" hidden onChange={e => handleImageUpload(e.target.files![0])} />
-                    <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Video</p>
                     <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">YouTube</p>
                 </div>
             </CustomDropdown>

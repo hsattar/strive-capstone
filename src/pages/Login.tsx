@@ -37,7 +37,6 @@ export default function Login() {
         
         try {
             const response = await axiosRequest('users/login', 'POST', userDetails)
-            console.log(response)
             if (response.status === 200) {
                 dispatch(userLogsInAction())
                 navigate('/')
