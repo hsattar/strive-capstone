@@ -65,6 +65,47 @@ const elementTemplates = {
         paddingR: ``,
         paddingB: ``,
         paddingL: ``
+    }], 
+    unsplashImage: [{
+        name: `unsplash container`,
+        tag: `<div className="flex flex-col items-center p-2">`,
+        className: `flex flex-col items-center p-2`
+    }, {
+        name: 'unsplashImage',
+        tag: `<img src="" className="" />`,
+        className: ``,
+        height: ``,
+        width: ``,
+        marginT: ``,
+        marginR: ``,
+        marginB: ``,
+        marginL: ``,
+        paddingT: ``,
+        paddingR: ``,
+        paddingB: ``,
+        paddingL: ``
+    }, {
+        tag: `<p className="mt-2">`
+    }, {
+        text: `Photo by `
+    }, {
+        tag: `<a href="" className="underline">`
+    }, {
+        text: `Alice`
+    }, {
+        tag: `</a>`
+    }, {
+        text: ` on `
+    }, {
+        tag: `<a href="https://unsplash.com/?utm_source=code_buddy&utm_medium=referral" className="underline" target="_blank">`
+    }, {
+        text: `Unsplash`
+    }, {
+        tag: `</a>`
+    }, {
+        tag: `</p>`
+    }, {
+        tag: `</div>`
     }],
     button: [{
         name: 'button',

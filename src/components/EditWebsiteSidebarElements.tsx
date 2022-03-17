@@ -11,32 +11,9 @@ export default function EditWebsiteSidebarElements() {
     const originalCode = useSelector((state: IReduxStore) => state.website.code)
     const axiosRequest = useAxios()
 
-    const handleImageUpload = async (image : File) => {
-        try {
-            const formData = new FormData()
-            formData.append('image', image)
-            const response = await axiosRequest('/images/upload-image', 'POST', formData)
-            if (response.status === 201) {
-                // handleAddCode(createImageTemplate(response.data || ''))
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
     const createElementTemplate = (template: elementTemplateOptions) => {
         const id = uuid()
         return elementTemplates[template].map(block => ({ id, ...block }))
-    }
-
-    const createImageTemplate = (imgSrc: string) => {
-        const id = uuid()
-        return {
-            id,
-            ...elementTemplates.image,
-            class: id,
-            openingTag: `<img src=${imgSrc} class="`,
-        }
     }
 
     const handleAddCode = (elementsToAdd: any) => {

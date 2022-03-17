@@ -18,7 +18,7 @@ export default function CustomDropdown({ name, children, iconClassName, iconPath
         <>
         { iconPath ? (
             <>
-            <button className="flex flex-row justify-between items-center my-2 border-b-2 pb-1 w-full mb-0" onClick={() => setShowChildren(prev => !prev)}>
+            <button className="flex flex-row justify-between items-center my-2 border-b-2 pb-1 w-full mb-0 cursor-default" onClick={() => setShowChildren(prev => !prev)}>
                 <div className="flex items-center">
                     <SVGIcon svgClassName="h-5 w-5 ml-2" pathD={showChildren ? 'M19 9l-7 7-7-7' : 'M9 5l7 7-7 7'} />
                     <span className="ml-2 font-medium capitalize">{name}</span>
