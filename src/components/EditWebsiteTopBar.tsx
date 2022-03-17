@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useParams } from 'react-router-dom'
 import webSafeFonts from "../data/fonts"
-import textSize from "../data/textSizes"
+import textSizes from "../data/textSizes"
 import SVGIcon from "./SVGIcon"
 import  useAxios from '../hooks/useAxios'
 import textColors from '../data/textColors'
@@ -10,6 +10,7 @@ import backgroundColors from '../data/backgroundColors'
 import { changeElementClassNameAction } from "../redux/actions/actionCreators"
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import CustomSelectMenu from "./CustomSelectMenu"
 
 export default function EditWebsiteTopBar() {
 
@@ -22,9 +23,7 @@ export default function EditWebsiteTopBar() {
     const elementToEdit = useSelector((state: IReduxStore) => state.website.elementToEdit)
 
     const [fontSelected, setFontSelected] = useState('sans') 
-    const [showFontDropdown, setShowFontDropdown] = useState(false)
     const [textSizeelected, setTextSizeelected] = useState('base') 
-    const [showTextSizeDropdown, setShowTextSizeDropdown] = useState(false)
 
     const [isBold, setIsBold] = useState(false)
     const [isItalics, setIsItalics] = useState(false)
@@ -32,19 +31,15 @@ export default function EditWebsiteTopBar() {
     const [textAlignment, setTextAlignment] = useState('left')
 
     const [textColor, setTextColor] = useState('gray-900')
-    const [showTextColor, setShowTextColor] = useState(false)
     const [backgroundColor, setBackgroundColor] = useState('gray-900')
-    const [showBackgroundColor, setShowBackgroundColor] = useState(false)
 
     const handleFontChange = (font: string) => {
         setFontSelected(font)
-        setShowFontDropdown(false)
         dispatch(changeElementClassNameAction('font', `font-${font}`))
     }
 
     const handleTextSizeChange = (size: string) => {
         setTextSizeelected(size)
-        setShowTextSizeDropdown(false)
         dispatch(changeElementClassNameAction('textSize', `text-${size}`))
     }
 
@@ -66,13 +61,11 @@ export default function EditWebsiteTopBar() {
 
     const handleTextColorChange = (color: string) => {
         setTextColor(color)
-        setShowTextColor(false)
         dispatch(changeElementClassNameAction('color', color))
     }
 
     const handleBackgroundColorChange = (color: string) => {
         setBackgroundColor(color)
-        setShowBackgroundColor(false)
         dispatch(changeElementClassNameAction('backgroundColor', color))
     }
 
@@ -146,34 +139,20 @@ export default function EditWebsiteTopBar() {
                 <div className="flex">
                 { elementToEdit && (
                     <div className="flex items-center">
-                    <div className="w-[175px] relative mr-2">
-                        <button onClick={() => setShowFontDropdown(prev => !prev)} className="transition duration-200 border capitalize mx-0 px-3 py-1 my-1 cursor-pointer font-normal text-md rounded-md w-full text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset text-center">
-                            {fontSelected}
-                        </button>
-                        <div className={`${!showFontDropdown && 'hidden'} absolute z-20 my-0 text-base list-none bg-white rounded divide-y divide-gray-100 shadow w-full`}>
-                            <ul className="py-1">
-                                { webSafeFonts.map(font => (
-                                <li key={font}>
-                                    <button onClick={() => handleFontChange(font)} className={`block w-full py-1 px-4 text-sm text-gray-700 hover:bg-gray-100 capitalize font-${font}`}>{font}</button>
-                                </li>
-                                )) }
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="w-[60px] relative mr-2">
-                        <button onClick={() => setShowTextSizeDropdown(prev => !prev)} className="transition duration-200 border text-center capitalize mx-0 px-3 py-1 my-1 cursor-pointer font-normal text-md rounded-md w-full text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
-                            {textSizeelected}
-                        </button>
-                        <div className={`${!showTextSizeDropdown && 'hidden'} absolute z-20 my-0 text-base list-none bg-white rounded divide-y divide-gray-100 shadow w-full`}>
-                            <ul className="py-1">
-                                { textSize.map(size => (
-                                <li key={size}>
-                                    <button onClick={() => handleTextSizeChange(size)} className={`block w-full py-1 px-4 text-sm text-gray-700 hover:bg-gray-100 capitalize`}>{size}</button>
-                                </li>
-                                )) }
-                            </ul>
-                        </div>
-                    </div>
+                    <CustomSelectMenu 
+                        type="font"
+                        containerClass="w-[175px] relative mr-2"
+                        initialValue={fontSelected}
+                        listOfValues={webSafeFonts}
+                        onClick={handleFontChange}
+                    />
+                    <CustomSelectMenu 
+                        type="textSize"
+                        containerClass="w-[60px] relative mr-2"
+                        initialValue={textSizeelected}
+                        listOfValues={textSizes}
+                        onClick={handleTextSizeChange}
+                    />
                     <div className="flex justify-between my-1">
                         <div className="mx-2 py-1 border-2 rounded-md">
                             <span onClick={handleFontBoldChange} className="px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100 font-bold">B</span>
@@ -187,36 +166,22 @@ export default function EditWebsiteTopBar() {
                         </div>
                     </div>
                     <div className="flex justify-between items-center">
-                    <div className="w-[150px] relative mr-2">
-                        <button onClick={() => setShowTextColor(prev => !prev)} className="transition duration-200 border capitalize mx-0 px-3 py-1 my-1 cursor-pointer font-normal text-md rounded-md w-full text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset text-center">
-                            Color
-                        </button>
-                        <div className={`${!showTextColor && 'hidden'} absolute z-20 h-[500px] overflow-y-scroll my-0 text-base list-none bg-white rounded divide-y divide-gray-100 shadow w-full`}>
-                            <ul className="py-1">
-                                { textColors.map(color => (
-                                <li key={color}>
-                                    <button onClick={() => handleTextColorChange(color)} className={`block w-full py-1 px-4 text-sm ${color} hover:bg-gray-100 capitalize`}>{color}</button>
-                                </li>
-                                )) }
-                            </ul>
-                        </div>
-                        </div>
+                    <CustomSelectMenu 
+                        type="color"
+                        containerClass="w-[150px] relative mr-2"
+                        initialValue="Color"
+                        listOfValues={textColors}
+                        onClick={handleTextColorChange}
+                    />
                     </div>
                     <div className="flex justify-between items-center">
-                    <div className="w-[150px] relative mr-2">
-                    <button onClick={() => setShowBackgroundColor(prev => !prev)} className="transition duration-200 border capitalize mx-0 px-3 py-1 my-1 cursor-pointer font-normal text-md rounded-md w-full text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset text-center">
-                            BG Color
-                        </button>
-                        <div className={`${!showBackgroundColor && 'hidden'} absolute z-20 h-[500px] overflow-y-scroll my-0 text-base list-none bg-white rounded divide-y divide-gray-100 shadow w-full`}>
-                            <ul className="py-1">
-                                { backgroundColors.map(color => (
-                                <li key={color}>
-                                    <button onClick={() => handleBackgroundColorChange(color)} className={`block w-full py-1 px-4 text-sm text-white ${color} hover:bg-gray-100 capitalize`}>{color}</button>
-                                </li>
-                                )) }
-                            </ul>
-                        </div>
-                        </div>
+                    <CustomSelectMenu 
+                        type="bgColor"
+                        containerClass="w-[150px] relative mr-2"
+                        initialValue="BG Color"
+                        listOfValues={backgroundColors}
+                        onClick={handleBackgroundColorChange}
+                    />
                     </div>
                     </div>
                 ) }

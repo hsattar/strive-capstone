@@ -1,6 +1,8 @@
 import { Dispatch, SetStateAction } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import CustomDropdown from "./CustomDropdown"
+import spacingOptions from '../data/spacingOptions'
+import CustomSelectMenu from "./CustomSelectMenu"
 
 interface IProps {
     showEditTextModal: boolean
@@ -12,6 +14,10 @@ export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEdi
     const dispatch = useDispatch()
     const elementToEdit = useSelector((state: IReduxStore) => state.website.elementToEdit)
 
+    const handleSpacingChange = (value: string) => {
+        // TODO: NEED TO DO THIS, MAY ADD MORE PARAMS SO CAN BE ONE FUNCTION FOR ALL
+    }
+
     return (
         <div className="select-none">
             { elementToEdit ? (
@@ -21,8 +27,38 @@ export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEdi
                 </div>
                 <CustomDropdown name="positioning">
                     <>
-                    <div className="flex justify-between">
-                        <p className="px-2 py-1">Margin Top, Bottom, Left, Right Options With Slider?</p>
+                    <h5 className=" ml-2 py-1 font-semibold">Margin</h5>
+                    <div className="flex flex-col items-center">
+                    <CustomSelectMenu 
+                        type="spacingY"
+                        containerClass="w-[175px] relative mr-2"
+                        initialValue="Top"
+                        listOfValues={spacingOptions}
+                        onClick={handleSpacingChange}
+                    />
+                    <div className="flex">
+                    <CustomSelectMenu 
+                        type="spacingY"
+                        containerClass="w-[85px] relative mr-2"
+                        initialValue="Left"
+                        listOfValues={spacingOptions}
+                        onClick={handleSpacingChange}
+                    />
+                    <CustomSelectMenu 
+                        type="spacingY"
+                        containerClass="w-[85px] relative mr-2"
+                        initialValue="Right"
+                        listOfValues={spacingOptions}
+                        onClick={handleSpacingChange}
+                    />
+                    </div>
+                    <CustomSelectMenu 
+                        type="spacingY"
+                        containerClass="w-[175px] relative mr-2"
+                        initialValue="Bottom"
+                        listOfValues={spacingOptions}
+                        onClick={handleSpacingChange}
+                    />
                     </div>
                     <div className="flex justify-between">
                         <p className="px-2 py-1">Padding</p>
