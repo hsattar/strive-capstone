@@ -39,7 +39,7 @@ interface IElement {
     underline?: string
     alignment?: string
     color?: string
-    backgroundColor?: string
+    bgColor?: string
     marginT?: string
     marginR?: string
     marginB?: string

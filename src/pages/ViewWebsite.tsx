@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import parse from 'html-react-parser'
 import useAxios from '../hooks/useAxios'
+import { Helmet } from 'react-helmet-async'
 
 export default function ViewWebsite() {
 
@@ -26,8 +27,14 @@ export default function ViewWebsite() {
     }, [websiteName, pageSelected])
 
   return (
+    <>
+    <Helmet>
+      <title>{websiteName}</title>
+      <script src="https://cdn.tailwindcss.com"></script>
+    </Helmet>
     <div className="overflow-y-scroll min-h-[100vh] max-h-[100vh]">
       { parse(code) }
     </div>
+    </>
   )
 }

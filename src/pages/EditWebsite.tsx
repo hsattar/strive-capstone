@@ -97,6 +97,7 @@ export default function EditWebsite() {
         <>
         <Helmet>
             <title>{`Code Buddy - Edit ${websiteName}`}</title>
+            <script src="https://cdn.tailwindcss.com"></script>
         </Helmet>
         <ToastContainer
             position="bottom-left"

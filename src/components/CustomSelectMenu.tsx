@@ -1,13 +1,13 @@
 import { useState } from "react"
 
-type selectMenuOptions = 'font' | 'textSize' | 'color' | 'bgColor' | 'spacingY' | 'spacingX'
-
+type selectMenuOptions = 'font' | 'textSize' | 'color' | 'bgColor' | 'marginT' | 'marginR' | 'marginB' | 'marginL' | 'paddingT' | 'paddingR' | 'paddingB' | 'paddingL'
+ 
 interface IProps {
     type: selectMenuOptions
     containerClass: string
     initialValue: string,
     listOfValues: string[]
-    onClick: (arg: string) => void
+    onClick: (value: string, type: elementToEditOptions) => void
 }
 
 export default function CustomSelectMenu({ containerClass, initialValue, listOfValues, type, onClick }: IProps) {
@@ -21,11 +21,11 @@ export default function CustomSelectMenu({ containerClass, initialValue, listOfV
             </button>
             <div className={`${!showValues && 'hidden'} absolute z-20 max-h-[350px] overflow-y-scroll my-0 text-base list-none bg-white rounded divide-y divide-gray-100 shadow w-full`}>
                 <ul className="py-1">
-                    { listOfValues.map(value => (
-                    <li key={value}>
+                    { listOfValues.map((value, index) => (
+                    <li key={index}>
                         <button 
                             onClick={() => {
-                                onClick(value)
+                                onClick(value, type)
                                 setShowValues(false)
                             }} 
                             className={ 

@@ -1,6 +1,7 @@
 import { Draggable } from "react-beautiful-dnd"
 import parse from 'html-react-parser'
-import { createNewCode } from "../redux/actions/actionCreators"
+import { createNewCode, setElementToEditAction } from "../redux/actions/actionCreators"
+import { useDispatch } from "react-redux"
 
 interface IProps {
     codeBlock: ICodeBlock
@@ -9,6 +10,7 @@ interface IProps {
 
 export default function DraggableCodeBlock({ codeBlock, index}: IProps) {
 
+    const dispatch = useDispatch()
     const code = createNewCode(codeBlock.code)
 
     return (
@@ -18,7 +20,7 @@ export default function DraggableCodeBlock({ codeBlock, index}: IProps) {
                     {...provided.draggableProps}
                     ref={provided.innerRef}
                 >
-                <div {...provided.dragHandleProps}>{ parse(code) }</div>
+                <div onClick={() => dispatch(setElementToEditAction(codeBlock.code[0]))} {...provided.dragHandleProps}>{ parse(code) }</div>
                 </div>
             )}
         </Draggable>

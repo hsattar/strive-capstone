@@ -13,7 +13,7 @@ interface IWesbite {
 
 type elementTemplateOptions = 'heading' | 'paragraph' | 'button' | 'image' | 'unsplashImage' | 'youTube' | 'list'
 
-type elementToEditOptions = 'tag' | 'height' | 'width' | 'font' | 'textSize' | 'bold' | 'italics' | 'underline' | 'alignment' | 'color' | 'backgroundColor' | 'marginT' | 'marginR' | 'marginB' | 'marginL' | 'paddingT' | 'paddingR' | 'paddingB' | 'paddingL' | 'border' | 'borderRadius' | 'text' | 'className'
+type elementToEditOptions = 'tag' | 'height' | 'width' | 'font' | 'textSize' | 'bold' | 'italics' | 'underline' | 'alignment' | 'color' | 'bgColor' | 'marginT' | 'marginR' | 'marginB' | 'marginL' | 'paddingT' | 'paddingR' | 'paddingB' | 'paddingL' | 'border' | 'borderRadius' | 'text' | 'className'
 
 type layoutTemplateOptions = 'flexContainer'
 

@@ -66,7 +66,7 @@ export default function EditWebsiteTopBar() {
 
     const handleBackgroundColorChange = (color: string) => {
         setBackgroundColor(color)
-        dispatch(changeElementClassNameAction('backgroundColor', color))
+        dispatch(changeElementClassNameAction('bgColor', color))
     }
 
     const handletextAlignment = (position: string) => {
@@ -141,14 +141,14 @@ export default function EditWebsiteTopBar() {
                     <div className="flex items-center">
                     <CustomSelectMenu 
                         type="font"
-                        containerClass="w-[175px] relative mr-2"
+                        containerClass="w-[175px] relative mr-2 z-50"
                         initialValue={fontSelected}
                         listOfValues={webSafeFonts}
                         onClick={handleFontChange}
                     />
                     <CustomSelectMenu 
                         type="textSize"
-                        containerClass="w-[60px] relative mr-2"
+                        containerClass="w-[60px] relative mr-2 z-50"
                         initialValue={textSizeelected}
                         listOfValues={textSizes}
                         onClick={handleTextSizeChange}
