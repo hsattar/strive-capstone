@@ -17,7 +17,7 @@ export default function DraggableCodeBlock({ codeBlock, index, setSidebarTab, se
     const code = createNewCode(codeBlock.code)
 
     const handleClick = () => {
-        dispatch(setElementToEditAction(codeBlock.code[0]))
+        dispatch(setElementToEditAction(codeBlock))
         setSidebarTab('styles')
     }
 

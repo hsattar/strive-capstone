@@ -24,7 +24,7 @@ export default function SingleWebsiteImage({ image }: IProps) {
     const handleAddCode = (elementsToAdd: any) => {
         const id = uuid()
         const codeObject = { id, name: elementsToAdd[0].name, code: elementsToAdd} as ICodeBlock
-        dispatch(setElementToEditAction(elementsToAdd[0]))
+        dispatch(setElementToEditAction(codeObject))
         dispatch(addElementsToCodeAction(codeObject))
     }
 

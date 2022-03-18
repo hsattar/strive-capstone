@@ -6,7 +6,7 @@ export const userLogsInAction = () => ({ type: ACTIONS.USER_LOGS_IN })
 export const userLogsOutAction = () => ({ type: ACTIONS.USER_LOGS_OUT })
 export const addInfoToCurrentUserAction = (user: IUser) => ({ type: ACTIONS.ADD_INFO_TO_CURRENT_USER, payload: user })
 
-export const setElementToEditAction = (element: IElement) => ({ type: ACTIONS.SET_ELEMENT_TO_EDIT, payload: element })
+export const setElementToEditAction = (block: ICodeBlock) => ({ type: ACTIONS.SET_ELEMENT_TO_EDIT, payload: block })
 export const clearAllWebsiteInformationAction = () => ({ type: ACTIONS.RESET_ALL_WEBSITE_INFORMATION })
 
 export const createNewCode = (codeBlocks: IElement[]) => codeBlocks.map(block => block.tag || block.text).join('')
@@ -28,18 +28,18 @@ export const changeElementClassNameAction = (field: elementToEditOptions, value:
     const codeBlockCode = codeBlock.map(block => block.code).flat()
     const elementToEdit = getState().website.elementToEdit
     if (!elementToEdit) return
-    elementToEdit[field] = value
+    elementToEdit.code[0][field] = value
     
-    const { name, tag, className, ...htmlProperties } = elementToEdit
+    const { name, tag, className, ...htmlProperties } = elementToEdit.code[0]
     const htmlValues = Object.values(htmlProperties) 
     const classNamesAsString = htmlValues.join(' ')
-    elementToEdit.className = classNamesAsString
-    const openingTag = elementToEdit.tag.split('className')[0]
-    elementToEdit.tag = openingTag.concat(`className="${classNamesAsString}">`)
+    elementToEdit.code[0].className = classNamesAsString
+    const openingTag = elementToEdit.code[0].tag!.split('className')[0]
+    elementToEdit.code[0].tag = openingTag.concat(`className="${classNamesAsString}">`)
 
-    let element = codeBlockCode.find(block => block.id === elementToEdit.id)
+    let element = codeBlockCode.find(block => block.id === elementToEdit.code[0].id)
     if (!element) return
-    element = elementToEdit
+    element = elementToEdit.code[0]
 
     const newCode = createNewCode(codeBlockCode)
 

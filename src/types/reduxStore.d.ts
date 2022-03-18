@@ -6,7 +6,7 @@ interface IReduxStore {
     website: {
         code: string,
         codeBlocks: ICodeBlock[] 
-        elementToEdit: IElement | null
+        elementToEdit: ICodeBlock | null
     }
 }
 
@@ -28,8 +28,8 @@ interface IUser {
 interface IElement {
     id?: string
     name: string
-    tag: string
-    className: string
+    tag?: string
+    className?: string
     height?: string
     width?: string
     font?: string

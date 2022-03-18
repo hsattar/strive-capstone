@@ -39,7 +39,7 @@ export default function SingleUnsplashImage({ image }: IProps) {
         console.log(elementsToAdd)
         console.log(elementsToAdd[0])
         const codeObject = { id, name: elementsToAdd[0].name, code: elementsToAdd} as ICodeBlock
-        dispatch(setElementToEditAction(elementsToAdd[0]))
+        dispatch(setElementToEditAction(codeObject))
         dispatch(addElementsToCodeAction(codeObject))
     }
 
