@@ -134,7 +134,7 @@ export default function EditWebsite() {
                                 ref={provided.innerRef}
                             >
                             { codeBlocks.map((block, index) => (
-                            <DraggableCodeBlock key={block.id} codeBlock={block} index={index} setSidebarTab={setSidebarTab} />
+                            <DraggableCodeBlock key={block.id} codeBlock={block} index={index} setSidebarTab={setSidebarTab} setShowEditTextModal={setShowEditTextModal} />
                             )) }
                             { provided.placeholder }
                             </div>

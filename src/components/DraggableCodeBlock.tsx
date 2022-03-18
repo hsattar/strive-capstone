@@ -8,9 +8,10 @@ interface IProps {
     codeBlock: ICodeBlock
     index: number
     setSidebarTab: Dispatch<SetStateAction<string>>
+    setShowEditTextModal: Dispatch<SetStateAction<boolean>>
 }
 
-export default function DraggableCodeBlock({ codeBlock, index, setSidebarTab}: IProps) {
+export default function DraggableCodeBlock({ codeBlock, index, setSidebarTab, setShowEditTextModal}: IProps) {
 
     const dispatch = useDispatch()
     const code = createNewCode(codeBlock.code)
@@ -27,7 +28,7 @@ export default function DraggableCodeBlock({ codeBlock, index, setSidebarTab}: I
                     {...provided.draggableProps}
                     ref={provided.innerRef}
                 >
-                <div onClick={handleClick} {...provided.dragHandleProps}>{ parse(code) }</div>
+                <div onClick={handleClick} onDoubleClick={() => setShowEditTextModal(true)} {...provided.dragHandleProps}>{ parse(code) }</div>
                 </div>
             )}
         </Draggable>

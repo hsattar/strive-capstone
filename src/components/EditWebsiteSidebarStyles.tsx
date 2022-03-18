@@ -99,7 +99,7 @@ export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEdi
                     <div className="flex">
                     <CustomSelectMenu 
                         type="marginL"
-                        containerClass="w-[60px] relative mr-2 translate-y-5 z-40"
+                        containerClass="w-[60px] relative mr-2 translate-y-5 z-50"
                         initialValue={marginL}
                         listOfValues={spacingOptions}
                         onClick={handleStyleChange}
@@ -113,7 +113,7 @@ export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEdi
                     />
                     <CustomSelectMenu 
                         type="marginR"
-                        containerClass="w-[60px] relative mr-2 translate-y-5 z-40"
+                        containerClass="w-[60px] relative mr-2 translate-y-5 z-50"
                         initialValue={marginR}
                         listOfValues={spacingOptions}
                         onClick={handleStyleChange}
@@ -133,7 +133,7 @@ export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEdi
                     <div className="flex">
                     <CustomSelectMenu 
                         type="paddingL"
-                        containerClass="w-[60px] relative mr-2 translate-y-5"
+                        containerClass="w-[60px] relative mr-2 translate-y-5 z-40"
                         initialValue={paddingL}
                         listOfValues={spacingOptions}
                         onClick={handleStyleChange}
@@ -147,7 +147,7 @@ export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEdi
                     />
                     <CustomSelectMenu 
                         type="paddingR"
-                        containerClass="w-[60px] relative mr-2 translate-y-5"
+                        containerClass="w-[60px] relative mr-2 translate-y-5 z-40"
                         initialValue={paddingR}
                         listOfValues={spacingOptions}
                         onClick={handleStyleChange}
