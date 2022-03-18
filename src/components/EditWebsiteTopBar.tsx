@@ -1,17 +1,15 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useParams } from 'react-router-dom'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import colors from "../data/colors"
 import webSafeFonts from "../data/fonts"
 import textSizes from "../data/textSizes"
-import SVGIcon from "./SVGIcon"
-import  useAxios from '../hooks/useAxios'
-import textColors from '../data/textColors'
-import backgroundColors from '../data/backgroundColors'
+import useAxios from '../hooks/useAxios'
 import { changeElementClassNameAction } from "../redux/actions/actionCreators"
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 import CustomSelectMenu from "./CustomSelectMenu"
-import handleSave from "../utils/handleSave"
+import SVGIcon from "./SVGIcon"
 
 export default function EditWebsiteTopBar() {
 
@@ -31,8 +29,8 @@ export default function EditWebsiteTopBar() {
     const [isUnderline, setIsUnderline] = useState(false)
     const [textAlignment, setTextAlignment] = useState('left')
 
-    const [textColor, setTextColor] = useState('gray-900')
-    const [backgroundColor, setBackgroundColor] = useState('gray-900')
+    const [textColor, setTextColor] = useState('Color')
+    const [backgroundColor, setBackgroundColor] = useState('BG Color')
 
     const handleFontChange = (font: string) => {
         setFontSelected(font)
@@ -62,12 +60,12 @@ export default function EditWebsiteTopBar() {
 
     const handleTextColorChange = (color: string) => {
         setTextColor(color)
-        dispatch(changeElementClassNameAction('color', color))
+        dispatch(changeElementClassNameAction('color', `text-${color}`))
     }
 
     const handleBackgroundColorChange = (color: string) => {
         setBackgroundColor(color)
-        dispatch(changeElementClassNameAction('bgColor', color))
+        dispatch(changeElementClassNameAction('bgColor', `bg-${color}`))
     }
 
     const handletextAlignment = (position: string) => {
@@ -171,8 +169,8 @@ export default function EditWebsiteTopBar() {
                     <CustomSelectMenu 
                         type="color"
                         containerClass="w-[150px] relative mr-2"
-                        initialValue="Color"
-                        listOfValues={textColors}
+                        initialValue={textColor}
+                        listOfValues={colors}
                         onClick={handleTextColorChange}
                     />
                     </div>
@@ -180,8 +178,8 @@ export default function EditWebsiteTopBar() {
                     <CustomSelectMenu 
                         type="bgColor"
                         containerClass="w-[150px] relative mr-2"
-                        initialValue="BG Color"
-                        listOfValues={backgroundColors}
+                        initialValue={backgroundColor}
+                        listOfValues={colors}
                         onClick={handleBackgroundColorChange}
                     />
                     </div>

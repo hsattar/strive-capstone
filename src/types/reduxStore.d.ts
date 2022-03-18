@@ -48,8 +48,10 @@ interface IElement {
     paddingR?: string
     paddingB?: string
     paddingL?: string
-    border?: string 
-    borderRadius?: string 
+    borderStyle?: string
+    borderColor?: string
+    borderWidth?: string
+    borderRadius?: string
     text?: string
     listStyle?: string
     hoverBorder?: string

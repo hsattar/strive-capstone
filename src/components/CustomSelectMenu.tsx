@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-type selectMenuOptions = 'font' | 'textSize' | 'color' | 'bgColor' | 'marginT' | 'marginR' | 'marginB' | 'marginL' | 'paddingT' | 'paddingR' | 'paddingB' | 'paddingL'
+type selectMenuOptions = 'font' | 'textSize' | 'color' | 'bgColor' | 'marginT' | 'marginR' | 'marginB' | 'marginL' | 'paddingT' | 'paddingR' | 'paddingB' | 'paddingL' | 'borderStyle' | 'borderColor' | 'borderWidth' | 'borderRadius'
  
 interface IProps {
     type: selectMenuOptions
@@ -30,8 +30,8 @@ export default function CustomSelectMenu({ containerClass, initialValue, listOfV
                             }} 
                             className={ 
                                 type === 'font' ? `block w-full py-1 px-4 text-sm text-gray-700 hover:bg-gray-100 capitalize font-${value}` : 
-                                type === 'color' ? `block w-full py-1 px-4 text-sm ${value} hover:bg-gray-100 capitalize` :
-                                type === 'bgColor' ? `block w-full py-1 px-4 text-sm text-white ${value} hover:bg-gray-100 capitalize` :
+                                type === 'color' ? `block w-full py-1 px-4 text-sm text-${value} hover:bg-gray-100 capitalize` :
+                                (type === 'bgColor' || type === 'borderColor') ? `block w-full py-1 px-4 text-sm text-white bg-${value} hover:bg-gray-100 capitalize` :
                                 'block w-full py-1 px-4 text-sm text-gray-700 hover:bg-gray-100 capitalize'
                             }
                         >

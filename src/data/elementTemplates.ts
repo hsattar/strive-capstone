@@ -19,7 +19,10 @@ const elementTemplates = {
         paddingR: ``,
         paddingB: ``,
         paddingL: ``,
-        border: ``,
+        borderStyle: ``,
+        borderColor: ``,
+        borderWidth: ``,
+        borderRadius: ``,
         hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
     }, {
         text: `Heading`
@@ -38,7 +41,10 @@ const elementTemplates = {
         alignment: ``,
         color: ``,
         bgColor: ``,
-        border: ``,
+        borderStyle: ``,
+        borderColor: ``,
+        borderWidth: ``,
+        borderRadius: ``,
         marginT: ``,
         marginR: ``,
         marginB: ``,
@@ -67,12 +73,20 @@ const elementTemplates = {
         paddingR: ``,
         paddingB: ``,
         paddingL: ``,
+        borderStyle: ``,
+        borderColor: ``,
+        borderWidth: ``,
+        borderRadius: ``,
         hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
     }], 
     unsplashImage: [{
         name: `unsplash container`,
         tag: `<div className="flex flex-col items-center p-2 hover:border-2 hover:border-blue-300 hover:cursor-grab">`,
         className: `flex flex-col items-center p-2 hover:border-2 hover:border-blue-300 hover:cursor-grab`,
+        borderStyle: ``,
+        borderColor: ``,
+        borderWidth: ``,
+        borderRadius: ``,
         hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
     }, {
         name: 'unsplashImage',
@@ -131,7 +145,9 @@ const elementTemplates = {
         paddingR: `pr-3`,
         paddingB: `pb-1`,
         paddingL: `pl-3`,
-        border: ``,
+        borderStyle: ``,
+        borderColor: ``,
+        borderWidth: ``,
         borderRadius: `rounded-md`,
         hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
     }, {
@@ -160,6 +176,10 @@ const elementTemplates = {
         paddingB: ``,
         paddingL: ``,
         listStyle: `list-disc`,
+        borderStyle: ``,
+        borderColor: ``,
+        borderWidth: ``,
+        borderRadius: ``,
         hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
     }, {
         name: 'list item 1',
