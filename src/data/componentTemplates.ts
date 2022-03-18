@@ -1,8 +1,8 @@
 const componentTemplates = {
     navbar: [{
         name: `navabr container`,
-        tag: `<div className="flex justify-between items-center p-2 bg-gray-200">`,
-        className: `flex justify-between items-center p-2 bg-gray-200`
+        tag: `<div className="flex justify-between items-center p-2 bg-gray-200 hover:border-2 hover:border-blue-300 hover:cursor-grab">`,
+        className: `flex justify-between items-center p-2 bg-gray-200 hover:border-2 hover:border-blue-300 hover:cursor-grab`
     }, {
         name: 'h2 heading',
         openingTag: `<h2 class="font-sans text-xl">`,

@@ -61,9 +61,20 @@ export default function EditWebsite() {
 
     const handleDragEnd = (result: any) => {
         const { source, destination, draggableId } = result
+        
+        if (!destination) {
+            const elementToMove = codeBlocks.find(block => block.id === draggableId)
+            if (!elementToMove) return
+            const newCodeBlocks = [...codeBlocks]
+            newCodeBlocks.splice(source.index, 1)
+            const newCodeBlockCode = newCodeBlocks.map(block => block.code).flat()
+            const newCode = createNewCode(newCodeBlockCode)
+            dispatch(updateCodeAndCodeBlocksAction(newCode, newCodeBlocks))
+            return
+        } 
 
-        if (!destination) return 
         if (destination.droppableId === source.droppableId && destination.index === source.index) return
+        
 
         const elementToMove = codeBlocks.find(block => block.id === draggableId)
         if (!elementToMove) return
@@ -73,6 +84,7 @@ export default function EditWebsite() {
         const newCodeBlockCode = newCodeBlocks.map(block => block.code).flat()
         const newCode = createNewCode(newCodeBlockCode)
         dispatch(updateCodeAndCodeBlocksAction(newCode, newCodeBlocks))
+        return
     }
 
     const toastNotification = (msg: string) => toast.success(msg, {
