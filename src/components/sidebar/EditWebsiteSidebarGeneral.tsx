@@ -1,7 +1,7 @@
 import { FormEvent, Fragment, MouseEvent, useEffect, useState } from "react"
 import { useNavigate, useParams } from 'react-router-dom'
 import CustomDropdown from "../reusable/CustomDropdown"
-import SVGIcon from "../reusable/CustomSVGIcon"
+import CustomSVGIcon from "../reusable/CustomSVGIcon"
 import useAxios from '../../hooks/useAxios'
 import { useSelector } from "react-redux"
 
@@ -18,6 +18,7 @@ export default function EditWebsiteSidebarGeneral() {
     const [pages, setPages] = useState<string[]>([])
     const [showAddNewPageModal, setShowAddNewPageModal] = useState(false)
     const [newPageName, setNewPageName] = useState('')
+    const [pageToCopy, setPageToCopy] = useState(false)
 
     const fetchWebsitePages = async () => {
         try {
@@ -48,6 +49,11 @@ export default function EditWebsiteSidebarGeneral() {
         }
     }
 
+    const handleDuplicatePage = async (e: MouseEvent) => {
+        setPageToCopy(true)
+        setShowAddNewPageModal(true)
+    }
+
     const handleDeletePage = async (e: MouseEvent, pageToDelete: string) => {
         e.stopPropagation()
         try {
@@ -69,12 +75,23 @@ export default function EditWebsiteSidebarGeneral() {
         const pageName = newPageName.toLowerCase()
         if (!newPageName) return
         try {
-            const response = await axiosRequest('/websites', 'POST', { name: websiteName, page: pageName, stage: 'development' })
-            if (response.status === 201) {
-                navigate(`/ws-edit/${websiteName}/${pageName}`)
-                setPages(prev => ([...prev, pageName]))
-                setShowAddNewPageModal(false)
-                setNewPageName('')
+            if (pageToCopy) {
+                const response = await axiosRequest('/websites', 'POST', { name: websiteName, page: pageName, stage: 'development', code, codeBlocks })
+                if (response.status === 201) {
+                    navigate(`/ws-edit/${websiteName}/${pageName}`)
+                    setPages(prev => ([...prev, pageName]))
+                    setShowAddNewPageModal(false)
+                    setNewPageName('')
+                    setPageToCopy(false)
+                }
+            } else {
+                const response = await axiosRequest('/websites', 'POST', { name: websiteName, page: pageName, stage: 'development' })
+                if (response.status === 201) {
+                    navigate(`/ws-edit/${websiteName}/${pageName}`)
+                    setPages(prev => ([...prev, pageName]))
+                    setShowAddNewPageModal(false)
+                    setNewPageName('')
+                }
             }
         } catch (error) {
             console.log(error)
@@ -105,23 +122,43 @@ export default function EditWebsiteSidebarGeneral() {
                     { (page === 'home' && page !== pageSelected) && (
                         <div className="flex justify-between items-center hover:bg-gray-100 py-1" onClick={e => handlePageToEditChange(page)}>
                             <p className="capitalize ml-8 cursor-default">{page}</p>
+                            <button onClick={handleDuplicatePage}>
+                                <CustomSVGIcon svgClassName="text-blue-500 h-4 w-4 mr-2.5" pathD="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </button>
                         </div>
                     ) }
                     { (page === 'home' && page === pageSelected) && (
                         <div className="flex justify-between items-center bg-gray-100 py-1" onClick={e => handlePageToEditChange(page)}>
                             <p className="capitalize ml-8 cursor-default">{page}</p>
+                            <button onClick={handleDuplicatePage}>
+                                <CustomSVGIcon svgClassName="text-blue-500 h-4 w-4 mr-2.5" pathD="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </button>
                         </div>
                     ) }
                     { (page !== 'home' && page !== pageSelected) && (
                         <div className="flex justify-between items-center hover:bg-gray-100 py-1" onClick={e => handlePageToEditChange(page)}>
                             <p className="capitalize ml-8 cursor-default">{page}</p>
-                            <button onClick={e => handleDeletePage(e, page)}><SVGIcon svgClassName="h-4 w-4 mr-8 text-red-500 cursor-pointer" pathD="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></button>
+                            <div>
+                                <button onClick={handleDuplicatePage}>
+                                    <CustomSVGIcon svgClassName="text-blue-500 h-4 w-4 mr-2.5" pathD="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                </button>
+                                <button onClick={e => handleDeletePage(e, page)}>
+                                    <CustomSVGIcon svgClassName="h-4 w-4 mr-2.5 text-red-500 cursor-pointer" pathD="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </button>
+                            </div>
                         </div>
                     ) }
                     { (page !== 'home' && page === pageSelected) && (
                         <div className="flex justify-between items-center bg-gray-100 py-1" onClick={e => handlePageToEditChange(page)}>
                             <p className="capitalize ml-8 cursor-default">{page}</p>
-                            <button onClick={e => handleDeletePage(e, page)}><SVGIcon svgClassName="h-4 w-4 mr-8 text-red-500 cursor-pointer" pathD="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></button>
+                            <div>
+                                <button onClick={handleDuplicatePage}>
+                                    <CustomSVGIcon svgClassName="text-blue-500 h-4 w-4 mr-2.5" pathD="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                </button>
+                                <button onClick={e => handleDeletePage(e, page)}>
+                                    <CustomSVGIcon svgClassName="h-4 w-4 mr-2.5 text-red-500 cursor-pointer" pathD="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </button>
+                            </div>
                         </div>
                     ) }
                     </Fragment>
@@ -136,7 +173,7 @@ export default function EditWebsiteSidebarGeneral() {
             </CustomDropdown>
         </div>
         { showAddNewPageModal && (
-            <div onClick={() => setShowAddNewPageModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+        <div onClick={() => setShowAddNewPageModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
             <div onClick={e => e.stopPropagation()} className="relative top-20 mx-auto p-5 border w-[50%] shadow-lg rounded-md bg-white">
                 <form onSubmit={handleSubmit} autoComplete="off" noValidate className="mt-3 text-center">
                     <div className="relative z-0 mb-6 w-full group">
@@ -158,3 +195,7 @@ export default function EditWebsiteSidebarGeneral() {
         </>
     )
 }
+
+{/* <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+</svg> */}
