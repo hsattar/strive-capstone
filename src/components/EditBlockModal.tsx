@@ -1,6 +1,7 @@
-import { Dispatch, FormEvent, SetStateAction, useEffect, useRef, useState } from 'react'
+import { Dispatch, FormEvent, MouseEvent, SetStateAction, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createNewCode, updateCodeAndCodeBlocksAction } from '../redux/actions/actionCreators'
+import { addElementsToCodeAction, createNewCode, updateCodeAndCodeBlocksAction } from '../redux/actions/actionCreators'
+import { v4 as uuid } from 'uuid'
 
 interface IProps {
     setShowEditTextModal: Dispatch<SetStateAction<boolean>>
@@ -14,6 +15,20 @@ export default function EditBlockModal({ setShowEditTextModal }: IProps) {
     const elementToEdit = useSelector((state: IReduxStore) => state.website.elementToEdit)
     
     const [elementToEditText, setelementToEditText] = useState<string | undefined>('')
+
+    const handleDuplicateBlock = (e: MouseEvent) => {
+        e.stopPropagation()
+        const id = uuid()
+        const newCodeArray = [...elementToEdit!.code]
+        const updatedCodeArray = newCodeArray.map(block => ({ ...block }))
+        const newElement = {
+            ...elementToEdit,
+            id,
+            code: [...updatedCodeArray]
+        } as ICodeBlock
+        dispatch(addElementsToCodeAction(newElement))
+        setShowEditTextModal(false)
+    }
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
@@ -48,7 +63,10 @@ export default function EditBlockModal({ setShowEditTextModal }: IProps) {
                         className="w-full p-2 mb-2 resize-none border-2 rounded outline-none"
 
                     />
-                    <button type="submit" onClick={e => e.stopPropagation()} className="bg-blue-500 hover:bg-blue-600 py-1 px-5 mr-3 rounded-md text-white">Save</button>
+                    <div className="flex justify-center">
+                        <button type="submit" onClick={e => e.stopPropagation()} className="bg-blue-500 hover:bg-blue-600 py-1 px-5 mr-3 rounded-md text-white">Save</button>
+                        <button type="button" onClick={handleDuplicateBlock} className="bg-green-500 hover:bg-green-600 py-1 px-5 mr-3 rounded-md text-white">Duplicate</button>
+                    </div>
                 </form>
             </div>
         </div>

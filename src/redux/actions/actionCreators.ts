@@ -10,6 +10,7 @@ export const setElementToEditAction = (block: ICodeBlock) => ({ type: ACTIONS.SE
 export const clearAllWebsiteInformationAction = () => ({ type: ACTIONS.RESET_ALL_WEBSITE_INFORMATION })
 
 export const createNewEditableCode = (codeBlocks: IElement[]) => codeBlocks.map(block => block.tag || block.text).join('')
+
 export const createNewCode = (codeBlocks: IElement[]) => 
     codeBlocks.map(block => {
         if (block.tag && block.hoverBorder) {
