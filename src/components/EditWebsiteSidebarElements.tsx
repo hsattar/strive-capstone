@@ -12,12 +12,15 @@ export default function EditWebsiteSidebarElements() {
     const axiosRequest = useAxios()
 
     const createElementTemplate = (template: elementTemplateOptions) => {
-        const id = uuid()
-        return elementTemplates[template].map(block => ({ id, ...block }))
+        return elementTemplates[template].map(block => {
+            const id = uuid()
+            return { id, ...block }
+        })
     }
 
     const handleAddCode = (elementsToAdd: any) => {
         const id = uuid()
+        console.log('add code')
         const codeObject = { id, name: elementsToAdd[0].name, type: elementsToAdd[0].type, code: elementsToAdd} as ICodeBlock
         dispatch(setElementToEditAction(codeObject))
         dispatch(addElementsToCodeAction(codeObject))

@@ -34,6 +34,10 @@ body {
     overflow: hidden;
 }
 
+h1, p, button {
+    white-space: pre-line;
+}
+
 ::-webkit-scrollbar {
     width: 0px;
 }

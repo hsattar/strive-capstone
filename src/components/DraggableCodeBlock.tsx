@@ -1,6 +1,6 @@
 import { Draggable } from "react-beautiful-dnd"
 import parse from 'html-react-parser'
-import { createNewCode, setElementToEditAction } from "../redux/actions/actionCreators"
+import { createNewEditableCode, setElementToEditAction } from "../redux/actions/actionCreators"
 import { useDispatch } from "react-redux"
 import { Dispatch, SetStateAction } from "react"
 
@@ -14,7 +14,7 @@ interface IProps {
 export default function DraggableCodeBlock({ codeBlock, index, setSidebarTab, setShowEditTextModal}: IProps) {
 
     const dispatch = useDispatch()
-    const code = createNewCode(codeBlock.code)
+    const code = createNewEditableCode(codeBlock.code)
 
     const handleClick = () => {
         dispatch(setElementToEditAction(codeBlock))
