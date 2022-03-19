@@ -13,6 +13,7 @@ interface IReduxStore {
 interface ICodeBlock {
     id: string
     name: string
+    type: string
     code: IElement[]
 }
 
