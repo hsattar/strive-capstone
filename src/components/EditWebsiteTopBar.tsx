@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link, useParams } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import colors from "../data/colors"
-import webSafeFonts from "../data/fonts"
-import textSizes from "../data/textSizes"
+import colors from "../data/tailwind-options/colors"
+import webSafeFonts from "../data/tailwind-options/fonts"
+import textSizes from "../data/tailwind-options/textSizes"
 import useAxios from '../hooks/useAxios'
 import { changeElementClassNameAction } from "../redux/actions/actionCreators"
-import CustomSelectMenu from "./CustomSelectMenu"
-import SVGIcon from "./SVGIcon"
+import CustomSelectMenu from "./reusable/CustomSelectMenu"
+import SVGIcon from "./reusable/CustomSVGIcon"
 
 export default function EditWebsiteTopBar() {
 

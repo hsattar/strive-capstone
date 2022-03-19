@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid'
 import { useDispatch } from 'react-redux'
-import CustomDropdown from "./CustomDropdown"
-import containerTemplates from '../data/containerTemplates'
+import CustomDropdown from "../reusable/CustomDropdown"
+import containerTemplates from '../../data/templates/containerTemplates'
 
 export default function EditWebsiteSidebarLayout() {
 

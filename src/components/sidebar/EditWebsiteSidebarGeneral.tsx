@@ -1,8 +1,8 @@
 import { FormEvent, Fragment, MouseEvent, useEffect, useState } from "react"
 import { useNavigate, useParams } from 'react-router-dom'
-import CustomDropdown from "./CustomDropdown"
-import SVGIcon from "./SVGIcon"
-import useAxios from '../hooks/useAxios'
+import CustomDropdown from "../reusable/CustomDropdown"
+import SVGIcon from "../reusable/CustomSVGIcon"
+import useAxios from '../../hooks/useAxios'
 import { useSelector } from "react-redux"
 
 export default function EditWebsiteSidebarGeneral() {

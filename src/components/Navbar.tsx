@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { userLogsOutAction } from '../redux/actions/actionCreators'
-import SVGIcon from './SVGIcon'
+import SVGIcon from './reusable/CustomSVGIcon'
 
 export default function Navbar() {
 
