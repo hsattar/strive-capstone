@@ -9,11 +9,11 @@ export default function EditWebsiteSidebarLayout() {
 
     const createContainerTemplate = (template: layoutTemplateOptions) => {
         const id = uuid()
-        return {
-            id,
-            ...containerTemplates[template],
-            class: `${containerTemplates[template].class} ${id}`,
-        }
+        // return {
+        //     id,
+        //     ...containerTemplates[template],
+        //     class: `${containerTemplates[template].class} ${id}`,
+        // }
     }
 
     const handleAddLayout = (container: IElement) => {

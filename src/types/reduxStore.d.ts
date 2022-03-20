@@ -55,5 +55,9 @@ interface IElement {
     borderRadius?: string
     text?: string
     listStyle?: string
+    display?: string
+    flexDirection?: string
+    flexItems?: string
+    flexJustify?: string
     hoverBorder?: string
 }
