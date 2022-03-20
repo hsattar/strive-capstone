@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { addElementsToCodeAction, setElementToEditAction } from '../redux/actions/actionCreators'
-import CustomDropdown from "./CustomDropdown"
+import { addElementsToCodeAction, setElementToEditAction } from '../../redux/actions/actionCreators'
+import CustomDropdown from "../reusable/CustomDropdown"
 import { v4 as uuid } from 'uuid'
-import elementTemplates from '../data/elementTemplates'
-import useAxios from '../hooks/useAxios'
+import elementTemplates from '../../data/templates/elementTemplates'
+import useAxios from '../../hooks/useAxios'
 
 export default function EditWebsiteSidebarElements() {
 
@@ -12,13 +12,16 @@ export default function EditWebsiteSidebarElements() {
     const axiosRequest = useAxios()
 
     const createElementTemplate = (template: elementTemplateOptions) => {
-        const id = uuid()
-        return elementTemplates[template].map(block => ({ id, ...block }))
+        return elementTemplates[template].map(block => {
+            const id = uuid()
+            return { id, ...block }
+        })
     }
 
     const handleAddCode = (elementsToAdd: any) => {
         const id = uuid()
-        const codeObject = { id, name: elementsToAdd[0].name, code: elementsToAdd} as ICodeBlock
+        console.log('add code')
+        const codeObject = { id, name: elementsToAdd[0].name, type: elementsToAdd[0].type, code: elementsToAdd} as ICodeBlock
         dispatch(setElementToEditAction(codeObject))
         dispatch(addElementsToCodeAction(codeObject))
     }

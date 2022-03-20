@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid'
 import { useDispatch } from 'react-redux'
-import CustomDropdown from "./CustomDropdown"
-import containerTemplates from '../data/containerTemplates'
+import CustomDropdown from "../reusable/CustomDropdown"
+import containerTemplates from '../../data/templates/containerTemplates'
 
 export default function EditWebsiteSidebarLayout() {
 
@@ -9,11 +9,11 @@ export default function EditWebsiteSidebarLayout() {
 
     const createContainerTemplate = (template: layoutTemplateOptions) => {
         const id = uuid()
-        return {
-            id,
-            ...containerTemplates[template],
-            class: `${containerTemplates[template].class} ${id}`,
-        }
+        // return {
+        //     id,
+        //     ...containerTemplates[template],
+        //     class: `${containerTemplates[template].class} ${id}`,
+        // }
     }
 
     const handleAddLayout = (container: IElement) => {

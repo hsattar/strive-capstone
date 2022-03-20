@@ -1,10 +1,10 @@
 import { FormEvent, MouseEvent, useEffect, useRef, useState } from "react"
 import { useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
-import useAxios from "../hooks/useAxios"
-import CustomDropdown from "./CustomDropdown"
-import SingleUnsplashImage from "./SingleUnsplashImage"
-import SingleWesbiteImage from "./SingleWebsiteImage"
+import useAxios from "../../hooks/useAxios"
+import CustomDropdown from "../reusable/CustomDropdown"
+import SingleUnsplashImage from "../SingleUnsplashImage"
+import SingleWesbiteImage from "../SingleWebsiteImage"
 
 export default function EditWebsiteSidebarMedia() {
 

@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import CustomDropdown from "./CustomDropdown"
-import spacingOptions from '../data/spacingOptions'
-import CustomSelectMenu from "./CustomSelectMenu"
-import { changeElementClassNameAction } from "../redux/actions/actionCreators"
-import { borderRadii, borderStyles, borderWidths } from "../data/borders"
-import colors from "../data/colors"
+import CustomDropdown from "../reusable/CustomDropdown"
+import spacingOptions from '../../data/tailwind-options/spacingOptions'
+import CustomSelectMenu from "../reusable/CustomSelectMenu"
+import { changeElementClassNameAction } from "../../redux/actions/actionCreators"
+import { borderRadii, borderStyles, borderWidths } from "../../data/tailwind-options/borders"
+import colors from "../../data/tailwind-options/colors"
 
 interface IProps {
     showEditTextModal: boolean

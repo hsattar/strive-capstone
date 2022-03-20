@@ -1,5 +1,5 @@
 import { MouseEventHandler, useState } from "react"
-import SVGIcon from "./SVGIcon"
+import SVGIcon from "./CustomSVGIcon"
 
 interface IProps {
     name: string

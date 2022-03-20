@@ -1,5 +1,6 @@
 const elementTemplates = {
     heading: [{ 
+        type: 'element',
         name: 'h1 heading',
         tag: `<h1 className="font-sans text-6xl font-bold hover:border-2 hover:border-blue-300 hover:cursor-grab">`,
         className: `font-sans text-6xl font-bold hover:border-2 hover:border-blue-300 hover:cursor-grab`,
@@ -30,6 +31,7 @@ const elementTemplates = {
         tag: `</h1>`
     }],
     paragraph: [{
+        type: 'element',
         name: 'paragraph',
         tag: `<p className="font-sans text-base hover:border-2 hover:border-blue-300 hover:cursor-grab">`,
         className: `font-sans text-base hover:border-2 hover:border-blue-300 hover:cursor-grab`,
@@ -60,6 +62,7 @@ const elementTemplates = {
         tag: `</p>`
     }],
     image: [{
+        type: 'single',
         name: 'image',
         tag: `<img src="" className="hover:border-2 hover:border-blue-300 hover:cursor-grab" />`,
         className: `hover:border-2 hover:border-blue-300 hover:cursor-grab`,
@@ -80,13 +83,26 @@ const elementTemplates = {
         hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
     }], 
     unsplashImage: [{
+        type: 'image-container',
         name: `unsplash container`,
         tag: `<div className="flex flex-col items-center p-2 hover:border-2 hover:border-blue-300 hover:cursor-grab">`,
-        className: `flex flex-col items-center p-2 hover:border-2 hover:border-blue-300 hover:cursor-grab`,
+        className: `flex flex-col items-center pt-2 pr-2 pb-2 pl-2 hover:border-2 hover:border-blue-300 hover:cursor-grab`,
         borderStyle: ``,
         borderColor: ``,
         borderWidth: ``,
         borderRadius: ``,
+        marginT: ``,
+        marginR: ``,
+        marginB: ``,
+        marginL: ``,
+        paddingT: `2`,
+        paddingR: `2`,
+        paddingB: `2`,
+        paddingL: `2`,
+        display: 'flex',
+        flexDirection: 'flex-col',
+        flexItems: 'items-center',
+        flexJustify: '',
         hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
     }, {
         name: 'unsplashImage',
@@ -126,6 +142,7 @@ const elementTemplates = {
         tag: `</div>`
     }],
     button: [{
+        type: 'element',
         name: 'button',
         tag: `<button className="font-sans text-base text-white bg-blue-500 py-1 px-3 rounded-md hover:border-2 hover:border-blue-300 hover:cursor-grab">`,
         className: `font-sans text-base text-white bg-blue-500 py-1 px-3 rounded-md hover:border-2 hover:border-blue-300 hover:cursor-grab`,
@@ -156,6 +173,7 @@ const elementTemplates = {
         tag: `</button>`
     }],
     youTube: [{
+        type: 'single',
         name: 'youtube',
         tag: `<iframe src="" className="">`,
         className: ``,
@@ -164,6 +182,8 @@ const elementTemplates = {
         width: ``,
     }],
     list: [{
+
+        type: 'nested-element',
         name: 'bullet list',
         tag: `<ol className="list-disc ml-6 hover:border-2 hover:border-blue-300 hover:cursor-grab">`,
         className: `list-disc ml-6 hover:border-2 hover:border-blue-300 hover:cursor-grab`,

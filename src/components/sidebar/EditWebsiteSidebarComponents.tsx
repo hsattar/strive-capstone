@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux'
 import { v4 as uuid } from 'uuid'
-import componentTemplates from '../data/componentTemplates'
-import { addElementsToCodeAction } from '../redux/actions/actionCreators'
-import CustomDropdown from "./CustomDropdown"
+import componentTemplates from '../../data/templates/componentTemplates'
+import { addElementsToCodeAction } from '../../redux/actions/actionCreators'
+import CustomDropdown from "../reusable/CustomDropdown"
 
 export default function EditWebsiteSidebarComponents() {
 

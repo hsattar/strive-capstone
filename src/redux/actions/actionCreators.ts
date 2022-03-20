@@ -9,14 +9,25 @@ export const addInfoToCurrentUserAction = (user: IUser) => ({ type: ACTIONS.ADD_
 export const setElementToEditAction = (block: ICodeBlock) => ({ type: ACTIONS.SET_ELEMENT_TO_EDIT, payload: block })
 export const clearAllWebsiteInformationAction = () => ({ type: ACTIONS.RESET_ALL_WEBSITE_INFORMATION })
 
-export const createNewCode = (codeBlocks: IElement[]) => codeBlocks.map(block => block.tag || block.text).join('')
+export const createNewEditableCode = (codeBlocks: IElement[]) => codeBlocks.map(block => block.tag || block.text).join('')
+
+export const createNewCode = (codeBlocks: IElement[]) => 
+    codeBlocks.map(block => {
+        if (block.tag && block.hoverBorder) {
+            const newTag = block.tag.split('hover:border-2 hover:border-blue-300 hover:cursor-grab')
+            return newTag[0].concat('">')
+        } else if (block.tag) {
+            return block.tag
+        } else {
+            return block.text
+        }
+    }).join('')
 
 export const addElementsToCodeAction = (elements: ICodeBlock) => 
 (dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {
     const oldCodeBlock = getState().website.codeBlocks
     const newCodeBlocks = [...oldCodeBlock, elements]
     const newCodeBlockCode = newCodeBlocks.map(block => block.code).flat()
-    // console.log(newCodeBlockCode)
     const newCode = createNewCode(newCodeBlockCode)
 
     dispatch({ type: ACTIONS.ADD_ELEMENTS_TO_CODE, payload: { newCode, newCodeBlocks }})

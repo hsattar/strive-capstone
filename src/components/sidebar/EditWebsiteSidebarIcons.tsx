@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react"
-import SVGIcon from "./SVGIcon"
+import SVGIcon from "../reusable/CustomSVGIcon"
 
 interface IProps {
     sidebarTab: string

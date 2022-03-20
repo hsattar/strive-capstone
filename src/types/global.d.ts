@@ -18,3 +18,5 @@ type elementToEditOptions = 'tag' | 'height' | 'width' | 'font' | 'textSize' | '
 type layoutTemplateOptions = 'flexContainer'
 
 type componentTemplateOptions = 'navbar'
+
+type blockTypes = 'element' | 'single' | 'image-container' | 'nested-element'
