@@ -2,29 +2,32 @@ import { v4 as uuid } from 'uuid'
 import { useDispatch } from 'react-redux'
 import CustomDropdown from "../reusable/CustomDropdown"
 import containerTemplates from '../../data/templates/containerTemplates'
+import { addElementsToCodeAction, setElementToEditAction } from '../../redux/actions/actionCreators'
 
 export default function EditWebsiteSidebarLayout() {
 
     const dispatch = useDispatch()
 
     const createContainerTemplate = (template: layoutTemplateOptions) => {
-        const id = uuid()
-        // return {
-        //     id,
-        //     ...containerTemplates[template],
-        //     class: `${containerTemplates[template].class} ${id}`,
-        // }
+        return containerTemplates[template].map(block => {
+            const id = uuid()
+            return { id, ...block }
+        })
     }
 
-    const handleAddLayout = (container: IElement) => {
+    const handleAddLayout = (container: any) => {
+        const id = uuid()
+        const codeObject = { id, name: container[0].name, type: container[0].type, code: container} as ICodeBlock
+        dispatch(setElementToEditAction(codeObject))
+        dispatch(addElementsToCodeAction(codeObject))
     }
 
     return (
         <div className="select-none overflow-y-scroll">
-            <CustomDropdown name="Grid - Container">
+            <CustomDropdown name="Containers">
                 <div className="grid grid-cols-2 justify-items-center p-3">
                     <img src="/assets/container.jpg" className="h-16 hover:border-2 hover:cursor-pointer p-2" alt="container" />
-                    <img onClick={() => {}} src="/assets/flex.jpg" className="h-16 hover:border-2 hover:cursor-pointer p-2" alt="flex" />
+                    <img onClick={() => handleAddLayout(createContainerTemplate('flexContainer'))} src="/assets/flex.jpg" className="h-16 hover:border-2 hover:cursor-pointer p-2" alt="flex" />
                 </div>
             </CustomDropdown>
             <CustomDropdown name="Grid - Simple">

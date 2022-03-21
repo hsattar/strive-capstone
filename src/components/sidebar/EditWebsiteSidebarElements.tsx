@@ -20,7 +20,6 @@ export default function EditWebsiteSidebarElements() {
 
     const handleAddCode = (elementsToAdd: any) => {
         const id = uuid()
-        console.log('add code')
         const codeObject = { id, name: elementsToAdd[0].name, type: elementsToAdd[0].type, code: elementsToAdd} as ICodeBlock
         dispatch(setElementToEditAction(codeObject))
         dispatch(addElementsToCodeAction(codeObject))

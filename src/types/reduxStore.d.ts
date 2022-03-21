@@ -28,6 +28,7 @@ interface IUser {
 
 interface IElement {
     id?: string
+    type?: string
     name: string
     tag?: string
     className?: string
