@@ -12,32 +12,10 @@ export default function EditWebsiteSidebarComponents() {
         const id = uuid()
         return componentTemplates[template].map(block => ({ id, ...block }))
     }
-
-    // const createComponentTemplate = (templateToAdd: componentTemplateOptions) => {
-    //     const containerId = uuid()
-    //     const template = componentTemplates[templateToAdd]
-    //     console.log(template)
-    //     console.log(template.container)
-    //     const container = template.container = {
-    //         ...template.container,
-    //         // id: containerId
-    //     }
-    //     const elements = template.elements.map((element: any) => {
-    //         const elementId = uuid()
-    //         // container.children.push(elementId)
-    //         return {
-    //             ...element,
-    //             id: elementId,
-    //             class: `${element.class} ${elementId}`
-    //         }
-    //     })
-
-    //     return { container, elements }
-    // }
     
     const handleAddComponent = (elementsToAdd: any) => {
         const id = uuid()
-        const codeObject = { id, name: elementsToAdd[0].name, code: elementsToAdd} as ICodeBlock
+        const codeObject = { id, name: elementsToAdd[0].name, type: elementsToAdd[0].type, code: elementsToAdd} as ICodeBlock
         dispatch(addElementsToCodeAction(codeObject))
     }
 

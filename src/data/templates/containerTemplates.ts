@@ -6,8 +6,8 @@ const containerTeamplates = {
         className: `flex flex-row items-center hover:border-2 hover:border-blue-300 hover:cursor-grab`,
         display: 'flex',
         flexDirection: 'flex-row',
-        flexItems: 'items-center',
         flexJustify: '',
+        flexItems: 'items-center',
         hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
     }, {
         tag: `</div>`

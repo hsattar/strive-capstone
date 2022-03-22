@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-type selectMenuOptions = 'font' | 'textSize' | 'color' | 'bgColor' | 'marginT' | 'marginR' | 'marginB' | 'marginL' | 'paddingT' | 'paddingR' | 'paddingB' | 'paddingL' | 'borderStyle' | 'borderColor' | 'borderWidth' | 'borderRadius'
+type selectMenuOptions = 'font' | 'textSize' | 'color' | 'bgColor' | 'marginT' | 'marginR' | 'marginB' | 'marginL' | 'paddingT' | 'paddingR' | 'paddingB' | 'paddingL' | 'borderStyle' | 'borderColor' | 'borderWidth' | 'borderRadius' | 'display'
  
 interface IProps {
     type: selectMenuOptions
@@ -10,7 +10,7 @@ interface IProps {
     onClick: (value: string, type: elementToEditOptions) => void
 }
 
-export default function CustomSelectMenu({ containerClass, initialValue, listOfValues, type, onClick }: IProps) {
+export default function CustomStylesSelectMenu({ containerClass, initialValue, listOfValues, type, onClick }: IProps) {
 
     const [showValues, setShowValues] = useState(false)
 

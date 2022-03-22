@@ -1,8 +1,24 @@
 const componentTemplates = {
     navbar: [{
+        type: 'container',
         name: `navabr container`,
-        tag: `<div className="flex justify-between items-center p-2 bg-gray-200 hover:border-2 hover:border-blue-300 hover:cursor-grab">`,
-        className: `flex justify-between items-center p-2 bg-gray-200 hover:border-2 hover:border-blue-300 hover:cursor-grab`
+        tag: `<div className="flex flex-row justify-between items-center p-2 bg-gray-200 hover:border-2 hover:border-blue-300 hover:cursor-grab">`,
+        className: `flex flex-row justify-between items-center pt-2 pr-2 pb-2 pl-2 bg-gray-200 hover:border-2 hover:border-blue-300 hover:cursor-grab`,
+        bgColor: `bg-gray-200`,
+        marginT: ``,
+        marginR: ``,
+        marginB: ``,
+        marginL: ``,
+        paddingT: `pt-2`,
+        paddingR: `pr-2`,
+        paddingB: `pb-2`,
+        paddingL: `pl-2`,
+        border: ``,
+        display: 'flex',
+        flexDirection: 'flex-row',
+        flexJustify: 'justify-between',
+        flexItems: 'items-center',
+        hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
     }, {
         name: 'h2 heading',
         openingTag: `<h2 class="font-sans text-xl">`,

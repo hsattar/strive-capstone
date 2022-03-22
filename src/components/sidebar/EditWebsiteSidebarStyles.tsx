@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import CustomDropdown from "../reusable/CustomDropdown"
-import spacingOptions from '../../data/tailwind-options/spacingOptions'
-import CustomSelectMenu from "../reusable/CustomSelectMenu"
-import { changeElementClassNameAction } from "../../redux/actions/actionCreators"
 import { borderRadii, borderStyles, borderWidths } from "../../data/tailwind-options/borders"
 import colors from "../../data/tailwind-options/colors"
+import spacingOptions from '../../data/tailwind-options/spacingOptions'
+import { changeElementClassNameAction } from "../../redux/actions/actionCreators"
+import CustomDropdown from "../reusable/CustomDropdown"
+import CustomStylesSelectMenu from "../reusable/CustomStylesSelectMenu"
 
 interface IProps {
     showEditTextModal: boolean
@@ -91,27 +91,24 @@ export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEdi
         <div className="select-none">
             { elementToEdit ? (
                 <>
-                {/* <div className="flex justify-center my-2">
-                    <button onClick={() => setShowEditTextModal(true)} className="py-1 px-5 mr-3 rounded-md text-blue-500 hover:bg-blue-200">Edit Text</button>
-                </div> */}
                 <CustomDropdown name="margin">
                     <div className="flex flex-col items-center mt-2">
                     <div className="flex">
-                    <CustomSelectMenu 
+                    <CustomStylesSelectMenu 
                         type="marginL"
                         containerClass="w-[60px] relative mr-2 translate-y-5 z-50"
                         initialValue={marginL}
                         listOfValues={spacingOptions}
                         onClick={handleStyleChange}
                     />
-                    <CustomSelectMenu 
+                    <CustomStylesSelectMenu 
                         type="marginT"
                         containerClass="w-[75px] relative mr-2"
                         initialValue={marginT}
                         listOfValues={spacingOptions}
                         onClick={handleStyleChange}
                     />
-                    <CustomSelectMenu 
+                    <CustomStylesSelectMenu 
                         type="marginR"
                         containerClass="w-[60px] relative mr-2 translate-y-5 z-50"
                         initialValue={marginR}
@@ -119,7 +116,7 @@ export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEdi
                         onClick={handleStyleChange}
                     />
                     </div>
-                    <CustomSelectMenu 
+                    <CustomStylesSelectMenu 
                         type="marginB"
                         containerClass="w-[75px] relative mr-2"
                         initialValue={marginB}
@@ -131,21 +128,21 @@ export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEdi
                 <CustomDropdown name="padding">
                     <div className="flex flex-col items-center mt-2">
                     <div className="flex">
-                    <CustomSelectMenu 
+                    <CustomStylesSelectMenu 
                         type="paddingL"
                         containerClass="w-[60px] relative mr-2 translate-y-5 z-40"
                         initialValue={paddingL}
                         listOfValues={spacingOptions}
                         onClick={handleStyleChange}
                     />
-                    <CustomSelectMenu 
+                    <CustomStylesSelectMenu 
                         type="paddingT"
                         containerClass="w-[75px] relative mr-2"
                         initialValue={paddingT}
                         listOfValues={spacingOptions}
                         onClick={handleStyleChange}
                     />
-                    <CustomSelectMenu 
+                    <CustomStylesSelectMenu 
                         type="paddingR"
                         containerClass="w-[60px] relative mr-2 translate-y-5 z-40"
                         initialValue={paddingR}
@@ -153,7 +150,7 @@ export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEdi
                         onClick={handleStyleChange}
                     />
                     </div>
-                    <CustomSelectMenu 
+                    <CustomStylesSelectMenu 
                         type="paddingB"
                         containerClass="w-[75px] relative mr-2"
                         initialValue={paddingB}
@@ -164,28 +161,28 @@ export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEdi
                 </CustomDropdown>
                 <CustomDropdown name="borders">
                     <div className="flex flex-col items-center mt-2">
-                        <CustomSelectMenu 
+                        <CustomStylesSelectMenu 
                             type="borderStyle"
                             containerClass="w-[160px] relative mr-2"
                             initialValue={borderStyle}
                             listOfValues={borderStyles}
                             onClick={handleStyleChange}
                         />
-                        <CustomSelectMenu 
+                        <CustomStylesSelectMenu 
                             type="borderWidth"
                             containerClass="w-[160px] relative mr-2"
                             initialValue={borderWidth}
                             listOfValues={borderWidths}
                             onClick={handleStyleChange}
                         />
-                        <CustomSelectMenu 
+                        <CustomStylesSelectMenu 
                             type="borderColor"
                             containerClass="w-[160px] relative mr-2"
                             initialValue={borderColor}
                             listOfValues={colors}
                             onClick={handleStyleChange}
                         />
-                        <CustomSelectMenu 
+                        <CustomStylesSelectMenu 
                             type="borderRadius"
                             containerClass="w-[160px] relative mr-2"
                             initialValue={borderRadius}

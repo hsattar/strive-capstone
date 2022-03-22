@@ -8,7 +8,7 @@ import webSafeFonts from "../data/tailwind-options/fonts"
 import textSizes from "../data/tailwind-options/textSizes"
 import useAxios from '../hooks/useAxios'
 import { changeElementClassNameAction } from "../redux/actions/actionCreators"
-import CustomSelectMenu from "./reusable/CustomSelectMenu"
+import CustomStylesSelectMenu from "./reusable/CustomStylesSelectMenu"
 import SVGIcon from "./reusable/CustomSVGIcon"
 
 export default function EditWebsiteTopBar() {
@@ -139,14 +139,14 @@ export default function EditWebsiteTopBar() {
                 <div className="flex">
                 { elementToEdit && (
                     <div className="flex items-center">
-                    <CustomSelectMenu 
+                    <CustomStylesSelectMenu 
                         type="font"
                         containerClass="w-[175px] relative mr-2 z-50"
                         initialValue={fontSelected}
                         listOfValues={webSafeFonts}
                         onClick={handleFontChange}
                     />
-                    <CustomSelectMenu 
+                    <CustomStylesSelectMenu 
                         type="textSize"
                         containerClass="w-[60px] relative mr-2 z-50"
                         initialValue={textSizeelected}
@@ -166,7 +166,7 @@ export default function EditWebsiteTopBar() {
                         </div>
                     </div>
                     <div className="flex justify-between items-center">
-                    <CustomSelectMenu 
+                    <CustomStylesSelectMenu 
                         type="color"
                         containerClass="w-[150px] relative mr-2"
                         initialValue={textColor}
@@ -175,7 +175,7 @@ export default function EditWebsiteTopBar() {
                     />
                     </div>
                     <div className="flex justify-between items-center">
-                    <CustomSelectMenu 
+                    <CustomStylesSelectMenu 
                         type="bgColor"
                         containerClass="w-[150px] relative mr-2"
                         initialValue={backgroundColor}
