@@ -1,7 +1,7 @@
 const componentTemplates = {
     navbar: [{
         type: 'container',
-        name: `navabr container`,
+        name: `navbar container`,
         tag: `<div className="flex flex-row justify-between items-center p-2 bg-gray-200 hover:border-2 hover:border-blue-300 hover:cursor-grab">`,
         className: `flex flex-row justify-between items-center pt-2 pr-2 pb-2 pl-2 bg-gray-200 hover:border-2 hover:border-blue-300 hover:cursor-grab`,
         bgColor: `bg-gray-200`,
@@ -21,7 +21,7 @@ const componentTemplates = {
         hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
     }, {
         name: 'h2 heading',
-        openingTag: `<h2 class="font-sans text-xl">`,
+        tag: `<h2 className="font-sans text-xl">`,
         className: `font-sans text-xl`,
         font: `font-sans`,
         textSize: `text-xl`,
@@ -43,15 +43,15 @@ const componentTemplates = {
     }, {
         text: `Name / Logo`
     }, {
-        closingTag: `</h2>`
+        tag: `</h2>`
     }, {
         name: `links container`,
         tag: `<div className="flex items-center">`,
         className: `flex items-center`
     }, {
-        name: 'link 1',
-        openingTag: `<Link to="" class="font-sans text-base mr-2">`,
-        class: `font-sans text-base mr-2`,
+        name: 'Paragraph',
+        tag: `<p className="font-sans text-base mr-2">`,
+        className: `font-sans text-base mr-2`,
         font: `font-sans`,
         textSize: `text-base`,
         bold: ``,
@@ -70,13 +70,13 @@ const componentTemplates = {
         paddingL: ``,
         border: ``,
     }, {
-        text: `Link 1`
+        text: `Text 1`
     }, {
-        tag: `</Link>`
+        tag: `</p>`
     }, {
-        name: 'link 2',
-        openingTag: `<Link to="" class="font-sans text-base">`,
-        class: `font-sans text-base`,
+        name: 'Paragraph',
+        tag: `<p className="font-sans text-base">`,
+        className: `font-sans text-base`,
         font: `font-sans`,
         textSize: `text-base`,
         bold: ``,
@@ -95,9 +95,9 @@ const componentTemplates = {
         paddingL: ``,
         border: ``,
     }, {
-        text: `Link 2`
+        text: `Text 2`
     }, {
-        tag: `</Link>`
+        tag: `</p>`
     }, {
         tag: `</div>`
     }, {

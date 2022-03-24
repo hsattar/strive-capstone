@@ -7,6 +7,10 @@ import CustomStylesSelectMenu from './reusable/CustomEditSelectMenu'
 import parse from 'html-react-parser'
 import CustomSelectDropdown from './reusable/CustomSelectDropdown'
 import { useLocation } from 'react-router-dom'
+import SVGIcon from './reusable/CustomSVGIcon'
+import colors from '../data/tailwind-options/colors'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'
+import DraggableContainerItem from './DraggableContainerItem'
 
 interface IProps {
     pages: string[]
@@ -28,6 +32,7 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
     const [flexDirection, setFlexDirection] = useState('Flex Direction')
     const [flexItems, setFlexItems] = useState('Flex Items')
     const [flexJustify, setFlexJustify] = useState('Flex Justify')
+    const [backgroundColor, setBackgroundColor] = useState('BG Color')
 
     const [linkTo, setLinkTo] = useState('')
     const [pageSelected, setPageSelected] = useState(pages[0])
@@ -86,9 +91,15 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
             case 'flexItems': 
                 setFlexItems(value)
                 break
+            case 'bgColor': 
+                setBackgroundColor(value)
+                dispatch(changeElementClassNameAction(type, `bg-${value}`))
+                break
             default: return
         }
-        dispatch(changeElementClassNameAction(type, value))
+        if (type !== 'bgColor') {
+            dispatch(changeElementClassNameAction(type, value))
+        }
         !changesMade && setChangesMade(true)
     }
 
@@ -104,6 +115,10 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
             dispatch(addOrRemoveElementLinkAction('', ''))
         }
         !changesMade && setChangesMade(true)
+    }
+
+    const handleDragEnd = (result: any) => {
+
     }
 
     useEffect(() => {
@@ -146,10 +161,6 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
                             onClick={value => setPageSelected(value)}
                         />  
                     ) : (
-                        // <div className="relative z-0 mb-6 w-full group">
-                        //     <input type="email" name="floating_email" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                        //     <label htmlFor="floating_email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email address</label>
-                        // </div>
                         <input 
                             type="url" 
                             placeholder="URL" 
@@ -169,46 +180,69 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
                     </>
                 ) }
                     { elementToEdit!.type === 'container' && (
-                    <div className="flex flex-col items-center">
+                    <div className="flex flex-col items-center select-none">
                     <div className="w-full">{ parse(code) }</div>
-                    <div className="flex my-3">
-                    <CustomStylesSelectMenu 
-                        type="display"
-                        containerClass="w-[150px] relative mr-2"
-                        initialValue={display}
-                        listOfValues={displayOptions}
-                        onClick={handleStyleChange}
-                    />
-                    <CustomStylesSelectMenu 
-                        type="flexDirection"
-                        containerClass="w-[150px] relative mr-2"
-                        initialValue={flexDirection}
-                        listOfValues={flexDirections}
-                        onClick={handleStyleChange}
-                    />
-                    <CustomStylesSelectMenu 
-                        type="flexJustify"
-                        containerClass="w-[150px] relative mr-2"
-                        initialValue={flexJustify}
-                        listOfValues={flexJustifys}
-                        onClick={handleStyleChange}
-                    />
-                    <CustomStylesSelectMenu 
-                        type="flexItems"
-                        containerClass="w-[150px] relative mr-2"
-                        initialValue={flexItems}
-                        listOfValues={flexItemss}
-                        onClick={handleStyleChange}
-                    />
+                    <div className="flex justify-between items-center w-full my-3">
+                        <p className="pr-2 mr-2">{elementToEdit!.name}</p>
+                        <div className="flex">
+                        <CustomStylesSelectMenu 
+                            type="display"
+                            containerClass="w-[150px] relative mr-2"
+                            initialValue={display}
+                            listOfValues={displayOptions}
+                            onClick={handleStyleChange}
+                        />
+                        <CustomStylesSelectMenu 
+                            type="flexDirection"
+                            containerClass="w-[150px] relative mr-2"
+                            initialValue={flexDirection}
+                            listOfValues={flexDirections}
+                            onClick={handleStyleChange}
+                        />
+                        <CustomStylesSelectMenu 
+                            type="flexJustify"
+                            containerClass="w-[150px] relative mr-2"
+                            initialValue={flexJustify}
+                            listOfValues={flexJustifys}
+                            onClick={handleStyleChange}
+                        />
+                        <CustomStylesSelectMenu 
+                            type="flexItems"
+                            containerClass="w-[150px] relative mr-2"
+                            initialValue={flexItems}
+                            listOfValues={flexItemss}
+                            onClick={handleStyleChange}
+                        />
+                        <CustomStylesSelectMenu 
+                            type="bgColor"
+                            containerClass="w-[150px] relative mr-2"
+                            initialValue={backgroundColor}
+                            listOfValues={colors}
+                            onClick={handleStyleChange}
+                        />
+                        </div>
+                        <div className="flex my-2">
+                            <SVGIcon svgClassName="h-6 w-6 mr-2 text-gray-400" pathD="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                            <SVGIcon svgClassName="h-6 w-6 mr-4 text-gray-400" pathD="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </div>
                     </div>
-                    <div className="flex">
-                    <button type="button">
-                        Add Element
-                    </button>
-                    <button type="button">
-                        Add Flex Container
-                    </button>
-                    </div>
+                    <DragDropContext onDragEnd={handleDragEnd}>
+                        <Droppable droppableId="root-container">
+                        {provided => (
+                            <div
+                                {...provided.droppableProps}
+                                ref={provided.innerRef}
+                            >
+                            { elementToEdit?.code.map((block, index) => {
+                                if (index === 0 || index === elementToEdit.code.length - 1) return
+                                if (block.tag?.startsWith('</')) return
+                                if (block.text) return
+                                return <DraggableContainerItem key={index} index={index} block={block} />
+                            }) }
+                            </div>
+                        ) }
+                        </Droppable>
+                    </DragDropContext>
                     </div>
                 ) }
                 <div className="flex justify-end mt-4">
