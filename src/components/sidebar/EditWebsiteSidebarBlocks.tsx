@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { addElementsToCodeAction, setElementToEditAction } from '../../redux/actions/actionCreators'
 import CustomSidebarDropdown from "../reusable/CustomSidebarDropdown"
 import { v4 as uuid } from 'uuid'
-import elementTemplates from '../../data/templates/elementTemplates'
+import blockTemplates from '../../data/templates/blockTemplates'
 import useAxios from '../../hooks/useAxios'
 
 export default function EditWebsiteSidebarElements() {
@@ -11,8 +11,8 @@ export default function EditWebsiteSidebarElements() {
     const originalCode = useSelector((state: IReduxStore) => state.website.present.code)
     const axiosRequest = useAxios()
 
-    const createElementTemplate = (template: elementTemplateOptions) => {
-        return elementTemplates[template].map(block => {
+    const createElementTemplate = (template: blockTemplateOptions) => {
+        return blockTemplates[template].map(block => {
             const id = uuid()
             return { id, ...block }
         })
@@ -37,13 +37,35 @@ export default function EditWebsiteSidebarElements() {
             <CustomSidebarDropdown name="Media">
                 <div>
                     <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">YouTube</p>
+                    <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Carousel</p>
                 </div>
             </CustomSidebarDropdown>
-            <CustomSidebarDropdown name="Other">
+            <CustomSidebarDropdown name="Small Components">
                 <div>
                     <p onClick={() => handleAddCode(createElementTemplate('button'))} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Button</p>
-                    <p onClick={() => handleAddCode(createElementTemplate('youTube'))} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Dropdown</p>
+                    <p className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Dropdown</p>
                 </div>
+            </CustomSidebarDropdown>
+            <CustomSidebarDropdown name="Big Components">
+                <div>
+                    <p onClick={() => handleAddCode(createElementTemplate('navbar'))} className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Navbar</p>
+                    <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Hero Section</p>
+                    <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Accordian</p>
+                    <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Form</p>
+                    <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Cards</p>
+                    <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Modal</p>
+                </div>
+            </CustomSidebarDropdown>
+            <CustomSidebarDropdown 
+                name="Custom Blocks" 
+                iconClassName="h-5 w-5 text-green-500 mr-2" 
+                iconPath="M12 4v16m8-8H4" 
+                iconStrokeWidth={2}
+                // onClick={handleSelectImage}
+            >
+                <>
+                <p className="text-center text-gray-400 my-4">You Have No Custom Blocks</p>
+                </>
             </CustomSidebarDropdown>
         </div>
     )

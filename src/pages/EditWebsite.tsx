@@ -9,8 +9,8 @@ import DraggableCodeBlock from "../components/DraggableCodeBlock"
 import EditBlockModal from "../components/EditBlockModal"
 import EditWebsiteTopBar from "../components/EditWebsiteTopBar"
 import Navbar from "../components/Navbar"
-import EditWebsiteSidebarComponents from "../components/sidebar/EditWebsiteSidebarComponents"
-import EditWebsiteSidebarElements from "../components/sidebar/EditWebsiteSidebarElements"
+// import EditWebsiteSidebarComponents from "../components/sidebar/EditWebsiteSidebarComponents"
+import EditWebsiteSidebarBlocks from "../components/sidebar/EditWebsiteSidebarBlocks"
 import EditWebsiteSidebarGeneral from "../components/sidebar/EditWebsiteSidebarGeneral"
 import EditWebsiteSidebarIcons from "../components/sidebar/EditWebsiteSidebarIcons"
 import EditWebsiteSidebarLayout from "../components/sidebar/EditWebsiteSidebarLayout"
@@ -141,8 +141,7 @@ export default function EditWebsite() {
                 { sidebarTab === 'media' && <EditWebsiteSidebarMedia /> }
                 { sidebarTab === 'styles' && <EditWebsiteSidebarStyles showEditTextModal={showEditTextModal} setShowEditTextModal={setShowEditTextModal} /> }
                 { sidebarTab === 'layout' && <EditWebsiteSidebarLayout /> }
-                { sidebarTab === 'elements' && <EditWebsiteSidebarElements /> }
-                { sidebarTab === 'components' && <EditWebsiteSidebarComponents /> }
+                { sidebarTab === 'blocks' && <EditWebsiteSidebarBlocks /> }
                 </div>
                 <div className="bg-gray-100 flex justify-center select-none overflow-hidden min-h-[88vh] max-h-[88vh]">
                     <DragDropContext onDragEnd={handleDragEnd}>

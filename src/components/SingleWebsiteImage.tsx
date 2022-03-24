@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux"
 import { v4 as uuid } from 'uuid'
-import elementTemplates from "../data/templates/elementTemplates"
+import elementTemplates from "../data/templates/blockTemplates"
 import { addElementsToCodeAction, setElementToEditAction } from "../redux/actions/actionCreators"
 
 interface IProps {
