@@ -137,7 +137,7 @@ export default function EditWebsiteTopBar() {
                 </div>
                 
                 <div className="flex">
-                { elementToEdit && (
+                { (elementToEdit && elementToEdit.type === 'element') && (
                     <div className="flex items-center">
                     <CustomStylesSelectMenu 
                         type="font"

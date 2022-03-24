@@ -34,7 +34,7 @@ body {
     overflow: hidden;
 }
 
-h1, p, button {
+h1, p, button, a {
     white-space: pre-line;
 }
 

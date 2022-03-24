@@ -29,6 +29,10 @@ const websiteReducer = (state = initialState.website, action: AnyAction) => {
             code: action.payload.code,
             codeBlocks: action.payload.codeBlocks
         }
+        case ACTIONS.ADD_OR_REMOVE_ELEMENT_LINK: return {
+            ...state,
+            code: action.payload,
+        }
         default: return state
     }
 }

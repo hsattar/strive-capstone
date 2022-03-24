@@ -1,11 +1,16 @@
-import { FormEvent, Fragment, MouseEvent, useEffect, useState } from "react"
+import { Dispatch, FormEvent, Fragment, MouseEvent, SetStateAction, useEffect, useState } from "react"
 import { useNavigate, useParams } from 'react-router-dom'
-import CustomDropdown from "../reusable/CustomDropdown"
+import CustomSidebarDropdown from "../reusable/CustomSidebarDropdown"
 import CustomSVGIcon from "../reusable/CustomSVGIcon"
 import useAxios from '../../hooks/useAxios'
 import { useSelector } from "react-redux"
 
-export default function EditWebsiteSidebarGeneral() {
+interface IProps {
+    pages: string[]
+    setPages: Dispatch<SetStateAction<string[]>>
+}
+
+export default function EditWebsiteSidebarGeneral({ pages, setPages}: IProps) {
 
     const navigate = useNavigate()
     const axiosRequest = useAxios()
@@ -15,21 +20,10 @@ export default function EditWebsiteSidebarGeneral() {
 
     const [pageToEdit, setPageToEdit] = useState<string | undefined>('')
     const [showPageToEdit, setShowPageToEdit] = useState(false)
-    const [pages, setPages] = useState<string[]>([])
     const [showAddNewPageModal, setShowAddNewPageModal] = useState(false)
     const [newPageName, setNewPageName] = useState('')
     const [pageToCopy, setPageToCopy] = useState(false)
 
-    const fetchWebsitePages = async () => {
-        try {
-            const response = await axiosRequest(`/websites/${websiteName}`, 'GET')
-            if (response.status === 200) {
-                setPages(response.data)
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     const handlePageToEditChange = (page: string) => {
         handleSaveWebsite()
@@ -99,14 +93,13 @@ export default function EditWebsiteSidebarGeneral() {
     }
 
     useEffect(() => {
-        fetchWebsitePages()
         setPageToEdit(pageSelected)
     }, [])
 
     return (
         <>
         <div className="flex flex-col select-none">
-        <CustomDropdown 
+        <CustomSidebarDropdown 
                 name={`pages - ${pageSelected}`}
                 iconClassName="h-5 w-5 text-green-500 mr-2" 
                 iconPath="M12 4v16m8-8H4" 
@@ -164,13 +157,13 @@ export default function EditWebsiteSidebarGeneral() {
                     </Fragment>
                     )) }
                 </>
-            </CustomDropdown>
+            </CustomSidebarDropdown>
 
-            <CustomDropdown name="Website Settings">
+            <CustomSidebarDropdown name="Website Settings">
                 <div>
                     <p className="capitalize pl-8 py-1">Website Name</p>
                 </div>
-            </CustomDropdown>
+            </CustomSidebarDropdown>
         </div>
         { showAddNewPageModal && (
         <div onClick={() => setShowAddNewPageModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">

@@ -10,7 +10,7 @@ interface IProps {
     onClick?: MouseEventHandler<HTMLButtonElement>
 }
 
-export default function CustomDropdown({ name, children, iconClassName, iconPath, iconStrokeWidth, onClick }: IProps) {
+export default function CustomSidebarDropdown({ name, children, iconClassName, iconPath, iconStrokeWidth, onClick }: IProps) {
 
     const [showChildren, setShowChildren] = useState(true)
 

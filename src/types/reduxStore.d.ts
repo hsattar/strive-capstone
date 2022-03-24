@@ -60,5 +60,7 @@ interface IElement {
     flexDirection?: string
     flexItems?: string
     flexJustify?: string
+    linkTo?: string
+    linkType?: string
     hoverBorder?: string
 }

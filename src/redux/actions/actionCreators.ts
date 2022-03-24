@@ -61,3 +61,40 @@ export const updateCodeAndCodeBlocksAction = (code: string, codeBlocks: ICodeBlo
     type: ACTIONS.UPDATE_CODE_AND_CODEBLOCKS,
     payload: { code, codeBlocks }
 })
+
+export const addOrRemoveElementLinkAction = (linkType: string, linkTo: string) => 
+(dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {
+    const elementToEdit = getState().website.elementToEdit
+    const codeBlocks = getState().website.codeBlocks
+    if (!elementToEdit) return
+    if (linkType === '' && linkTo === '') {
+        switch (elementToEdit.code[0].name) {
+            case 'heading': 
+                elementToEdit.code[0].tag = `<h1 className="${elementToEdit.code[0].className}" >`
+                elementToEdit.code[2].tag = `</h1>`
+                break
+            case 'paragraph': 
+                elementToEdit.code[0].tag = `<p className="${elementToEdit.code[0].className}" >`
+                elementToEdit.code[2].tag = `</p>`
+                break
+            case 'button': 
+                elementToEdit.code[0].tag = `<button className="${elementToEdit.code[0].className}" >`
+                elementToEdit.code[2].tag = `</button>`
+                break
+            default: return
+        }
+        elementToEdit.code[0].linkTo = ''
+        elementToEdit.code[0].linkType = ''
+    } else {
+        if (linkType === 'Link - Internal') {
+            elementToEdit.code[0].tag = `<a href="/ws/test/${linkTo}" className="block ${elementToEdit.code[0].className}" >`
+            elementToEdit.code[2].tag = `</a>`
+        } else {
+            elementToEdit.code[0].tag = `<a href="${linkTo}" target="_blank" className="block ${elementToEdit.code[0].className}" >`
+            elementToEdit.code[2].tag = `</a>`
+        }
+    }
+    const newCodeBlocks = codeBlocks.map(block => block.id === elementToEdit.id ? elementToEdit : block)
+    const newCode = createNewCode(newCodeBlocks.map(block => block.code).flat())
+    dispatch({ type: ACTIONS.ADD_OR_REMOVE_ELEMENT_LINK, payload: newCode })
+}   

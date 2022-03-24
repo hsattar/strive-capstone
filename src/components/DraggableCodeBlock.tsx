@@ -1,8 +1,8 @@
+import { Dispatch, SetStateAction, useRef, useEffect } from "react"
 import { Draggable } from "react-beautiful-dnd"
 import parse from 'html-react-parser'
 import { createNewEditableCode, setElementToEditAction } from "../redux/actions/actionCreators"
 import { useDispatch } from "react-redux"
-import { Dispatch, SetStateAction } from "react"
 
 interface IProps {
     codeBlock: ICodeBlock
@@ -14,6 +14,7 @@ interface IProps {
 export default function DraggableCodeBlock({ codeBlock, index, setSidebarTab, setShowEditTextModal}: IProps) {
 
     const dispatch = useDispatch()
+    const firstBlockRef = useRef<HTMLDivElement>(null)
     const code = createNewEditableCode(codeBlock.code)
 
     const handleClick = () => {
@@ -21,16 +22,35 @@ export default function DraggableCodeBlock({ codeBlock, index, setSidebarTab, se
         setSidebarTab('styles')
     }
 
+    // useEffect(() => {
+    //     firstBlockRef.current && firstBlockRef.current.click()
+    // }, [firstBlockRef])
+
     return (
+        <>
+        { index === 0 ? (
         <Draggable draggableId={codeBlock.id} index={index}>
             {(provided) => (
                 <div
-                    {...provided.draggableProps}
-                    ref={provided.innerRef}
+                {...provided.draggableProps}
+                ref={provided.innerRef}
+                >
+                <div ref={firstBlockRef} onClick={handleClick} onDoubleClick={() => setShowEditTextModal(true)} {...provided.dragHandleProps}>{ parse(code) }</div>
+                </div>
+            )}
+        </Draggable>
+        ) : (
+        <Draggable draggableId={codeBlock.id} index={index}>
+            {(provided) => (
+                <div
+                {...provided.draggableProps}
+                ref={provided.innerRef}
                 >
                 <div onClick={handleClick} onDoubleClick={() => setShowEditTextModal(true)} {...provided.dragHandleProps}>{ parse(code) }</div>
                 </div>
             )}
         </Draggable>
+        ) }
+        </>
     )
 }

@@ -4,7 +4,7 @@ import { borderRadii, borderStyles, borderWidths } from "../../data/tailwind-opt
 import colors from "../../data/tailwind-options/colors"
 import spacingOptions from '../../data/tailwind-options/spacingOptions'
 import { changeElementClassNameAction } from "../../redux/actions/actionCreators"
-import CustomDropdown from "../reusable/CustomDropdown"
+import CustomSidebarDropdown from "../reusable/CustomSidebarDropdown"
 import CustomStylesSelectMenu from "../reusable/CustomStylesSelectMenu"
 
 interface IProps {
@@ -91,7 +91,7 @@ export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEdi
         <div className="select-none">
             { elementToEdit ? (
                 <>
-                <CustomDropdown name="margin">
+                <CustomSidebarDropdown name="margin">
                     <div className="flex flex-col items-center mt-2">
                     <div className="flex">
                     <CustomStylesSelectMenu 
@@ -124,8 +124,8 @@ export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEdi
                         onClick={handleStyleChange}
                     />
                     </div>
-                </CustomDropdown>
-                <CustomDropdown name="padding">
+                </CustomSidebarDropdown>
+                <CustomSidebarDropdown name="padding">
                     <div className="flex flex-col items-center mt-2">
                     <div className="flex">
                     <CustomStylesSelectMenu 
@@ -158,8 +158,8 @@ export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEdi
                         onClick={handleStyleChange}
                     />
                     </div>
-                </CustomDropdown>
-                <CustomDropdown name="borders">
+                </CustomSidebarDropdown>
+                <CustomSidebarDropdown name="borders">
                     <div className="flex flex-col items-center mt-2">
                         <CustomStylesSelectMenu 
                             type="borderStyle"
@@ -190,7 +190,7 @@ export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEdi
                             onClick={handleStyleChange}
                         />
                     </div>
-                </CustomDropdown>
+                </CustomSidebarDropdown>
                 </>
             ) : (
                 <p className="text-center mt-12">Please add/select an element to edit</p>

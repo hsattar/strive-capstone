@@ -1,23 +1,23 @@
-import { FormEvent, useEffect, useRef, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { DragDropContext, Droppable } from "react-beautiful-dnd"
+import { Helmet } from "react-helmet-async"
 import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from "react-router-dom"
+import { toast, ToastContainer } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css'
+import DraggableCodeBlock from "../components/DraggableCodeBlock"
+import EditBlockModal from "../components/EditBlockModal"
 import EditWebsiteTopBar from "../components/EditWebsiteTopBar"
+import Navbar from "../components/Navbar"
+import EditWebsiteSidebarComponents from "../components/sidebar/EditWebsiteSidebarComponents"
+import EditWebsiteSidebarElements from "../components/sidebar/EditWebsiteSidebarElements"
 import EditWebsiteSidebarGeneral from "../components/sidebar/EditWebsiteSidebarGeneral"
 import EditWebsiteSidebarIcons from "../components/sidebar/EditWebsiteSidebarIcons"
 import EditWebsiteSidebarLayout from "../components/sidebar/EditWebsiteSidebarLayout"
-import EditWebsiteSidebarElements from "../components/sidebar/EditWebsiteSidebarElements"
-import EditWebsiteSidebarComponents from "../components/sidebar/EditWebsiteSidebarComponents"
-import EditWebsiteSidebarStyles from "../components/sidebar/EditWebsiteSidebarStyles"
-import Navbar from "../components/Navbar"
 import EditWebsiteSidebarMedia from "../components/sidebar/EditWebsiteSidebarMedia"
-import { updateCodeAndCodeBlocksAction, createNewCode } from "../redux/actions/actionCreators"
-import { Helmet } from "react-helmet-async"
+import EditWebsiteSidebarStyles from "../components/sidebar/EditWebsiteSidebarStyles"
 import useAxios from '../hooks/useAxios'
-import { ToastContainer, toast } from "react-toastify"
-import 'react-toastify/dist/ReactToastify.css'
-import { DragDropContext, Droppable } from "react-beautiful-dnd"
-import DraggableCodeBlock from "../components/DraggableCodeBlock"
-import EditBlockModal from "../components/EditBlockModal"
+import { createNewCode, updateCodeAndCodeBlocksAction } from "../redux/actions/actionCreators"
 
 export default function EditWebsite() {
 
@@ -27,8 +27,20 @@ export default function EditWebsite() {
     const code = useSelector((state: IReduxStore) => state.website.code)
     const codeBlocks = useSelector((state: IReduxStore) => state.website.codeBlocks)
 
+    const [pages, setPages] = useState<string[]>([])
     const [sidebarTab, setSidebarTab] = useState('general')
     const [showEditTextModal, setShowEditTextModal] = useState(false)
+
+    const fetchWebsitePages = async () => {
+        try {
+            const response = await axiosRequest(`/websites/${websiteName}`, 'GET')
+            if (response.status === 200) {
+                setPages(response.data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const fetchWebsiteDetails = async () => {
         try {
@@ -94,6 +106,10 @@ export default function EditWebsite() {
         fetchWebsiteDetails()
     }, [pageSelected])
 
+    useEffect(() => {
+        fetchWebsitePages()
+    }, [])
+
     return (
         <>
         <Helmet>
@@ -118,7 +134,7 @@ export default function EditWebsite() {
             <div className={sidebarTab === '' ? 'grid grid-cols-[50px_1fr] gap-0 min-h-[88vh]' : 'grid grid-cols-[300px_1fr] gap-0 min-h-[88vh]'}>
                 <div className="grid gap-0 grid-cols-[50px_250px] divide-x min-h-[88vh] max-h-[88vh] overflow-y-scroll overflow-x-hidden">
                 <EditWebsiteSidebarIcons sidebarTab={sidebarTab} setSidebarTab={setSidebarTab} />
-                { sidebarTab === 'general' && <EditWebsiteSidebarGeneral /> }
+                { sidebarTab === 'general' && <EditWebsiteSidebarGeneral pages={pages} setPages={setPages} /> }
                 { sidebarTab === 'media' && <EditWebsiteSidebarMedia /> }
                 { sidebarTab === 'styles' && <EditWebsiteSidebarStyles showEditTextModal={showEditTextModal} setShowEditTextModal={setShowEditTextModal} /> }
                 { sidebarTab === 'layout' && <EditWebsiteSidebarLayout /> }
@@ -146,7 +162,7 @@ export default function EditWebsite() {
             </div>
             </div>
         </div>
-        { showEditTextModal && <EditBlockModal setShowEditTextModal={() => setShowEditTextModal(false)} /> }
+        { showEditTextModal && <EditBlockModal pages={pages} setShowEditTextModal={() => setShowEditTextModal(false)} /> }
         </>
     )
 }

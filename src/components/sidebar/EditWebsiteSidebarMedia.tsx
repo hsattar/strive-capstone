@@ -2,7 +2,7 @@ import { FormEvent, MouseEvent, useEffect, useRef, useState } from "react"
 import { useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
 import useAxios from "../../hooks/useAxios"
-import CustomDropdown from "../reusable/CustomDropdown"
+import CustomSidebarDropdown from "../reusable/CustomSidebarDropdown"
 import SingleUnsplashImage from "../SingleUnsplashImage"
 import SingleWesbiteImage from "../SingleWebsiteImage"
 
@@ -65,7 +65,7 @@ export default function EditWebsiteSidebarMedia() {
 
     return (
         <div className="select-none flex flex-col">
-            <CustomDropdown 
+            <CustomSidebarDropdown 
                 name="My Images" 
                 iconClassName="h-5 w-5 text-green-500 mr-2" 
                 iconPath="M12 4v16m8-8H4" 
@@ -82,8 +82,8 @@ export default function EditWebsiteSidebarMedia() {
                     </div>
                 ) }
                 </>
-            </CustomDropdown>
-            <CustomDropdown 
+            </CustomSidebarDropdown>
+            <CustomSidebarDropdown 
                 name="My Videos"
                 iconClassName="h-5 w-5 text-green-500 mr-2" 
                 iconPath="M12 4v16m8-8H4" 
@@ -93,8 +93,8 @@ export default function EditWebsiteSidebarMedia() {
                 <>
                 <p className="text-center text-gray-400 my-4">You Have No Videos Uploaded</p>
                 </>
-            </CustomDropdown>
-            <CustomDropdown name="Unsplash Images">
+            </CustomSidebarDropdown>
+            <CustomSidebarDropdown name="Unsplash Images">
                 <>
                 <form onSubmit={handleSubmit} autoComplete="off" noValidate className="mt-0 text-center">
                     <div className="relative z-0 mb-6 group flex justify-center">
@@ -111,7 +111,7 @@ export default function EditWebsiteSidebarMedia() {
                     { unsplashImages.map(image => <SingleUnsplashImage key={image.id} image={image} />) }
                 </div>
                 </>
-            </CustomDropdown>
+            </CustomSidebarDropdown>
         </div>
     )
 }
