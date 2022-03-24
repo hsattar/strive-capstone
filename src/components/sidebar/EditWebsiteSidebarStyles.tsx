@@ -15,7 +15,7 @@ interface IProps {
 export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEditTextModal}: IProps) {
     
     const dispatch = useDispatch()
-    const elementToEdit = useSelector((state: IReduxStore) => state.website.elementToEdit)
+    const elementToEdit = useSelector((state: IReduxStore) => state.website.present.elementToEdit)
 
     const [marginT, setMarginT] = useState('Top')
     const [marginR, setMarginR] = useState('Right')

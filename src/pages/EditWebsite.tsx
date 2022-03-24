@@ -18,14 +18,16 @@ import EditWebsiteSidebarMedia from "../components/sidebar/EditWebsiteSidebarMed
 import EditWebsiteSidebarStyles from "../components/sidebar/EditWebsiteSidebarStyles"
 import useAxios from '../hooks/useAxios'
 import { createNewCode, updateCodeAndCodeBlocksAction } from "../redux/actions/actionCreators"
+import { ActionCreators } from 'redux-undo'
 
 export default function EditWebsite() {
 
     const dispatch = useDispatch()
     const axiosRequest = useAxios()
+    const { clearHistory } = ActionCreators
     const { websiteName, pageSelected } = useParams()
-    const code = useSelector((state: IReduxStore) => state.website.code)
-    const codeBlocks = useSelector((state: IReduxStore) => state.website.codeBlocks)
+    const code = useSelector((state: IReduxStore) => state.website.present.code)
+    const codeBlocks = useSelector((state: IReduxStore) => state.website.present.codeBlocks)
 
     const [pages, setPages] = useState<string[]>([])
     const [sidebarTab, setSidebarTab] = useState('general')
@@ -48,6 +50,7 @@ export default function EditWebsite() {
             if (response.status === 200) {
                 dispatch(updateCodeAndCodeBlocksAction(response.data.code, response.data.codeBlocks))
             }
+            dispatch(clearHistory())
         } catch (error) {
             console.log(error)
         }

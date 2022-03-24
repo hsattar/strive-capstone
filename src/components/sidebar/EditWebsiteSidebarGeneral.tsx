@@ -3,9 +3,10 @@ import { useNavigate, useParams } from 'react-router-dom'
 import CustomSidebarDropdown from "../reusable/CustomSidebarDropdown"
 import CustomSVGIcon from "../reusable/CustomSVGIcon"
 import useAxios from '../../hooks/useAxios'
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { toast, ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
+import { ActionCreators } from 'redux-undo'
 
 interface IProps {
     pages: string[]
@@ -16,9 +17,11 @@ export default function EditWebsiteSidebarGeneral({ pages, setPages}: IProps) {
 
     const navigate = useNavigate()
     const axiosRequest = useAxios()
+    const dispatch = useDispatch()
+    const { clearHistory } = ActionCreators
     const { websiteName, pageSelected } = useParams()
-    const code = useSelector((state: IReduxStore) => state.website.code)
-    const codeBlocks = useSelector((state: IReduxStore) => state.website.codeBlocks)
+    const code = useSelector((state: IReduxStore) => state.website.present.code)
+    const codeBlocks = useSelector((state: IReduxStore) => state.website.present.codeBlocks)
 
     const [websiteTitle, setWebsiteTitle] = useState('')
     const [websiteDescription, setWebsiteDescription] = useState('')
@@ -31,6 +34,7 @@ export default function EditWebsiteSidebarGeneral({ pages, setPages}: IProps) {
 
     const handlePageToEditChange = (page: string) => {
         handleSaveWebsite()
+        dispatch(clearHistory())
         setShowPageToEdit(false)
         setPageToEdit(page)
         navigate(`/ws-edit/${websiteName}/${page}`)

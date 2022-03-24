@@ -8,7 +8,7 @@ import useAxios from '../../hooks/useAxios'
 export default function EditWebsiteSidebarElements() {
 
     const dispatch = useDispatch()
-    const originalCode = useSelector((state: IReduxStore) => state.website.code)
+    const originalCode = useSelector((state: IReduxStore) => state.website.present.code)
     const axiosRequest = useAxios()
 
     const createElementTemplate = (template: elementTemplateOptions) => {

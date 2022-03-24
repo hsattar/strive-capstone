@@ -10,16 +10,20 @@ import useAxios from '../hooks/useAxios'
 import { changeElementClassNameAction } from "../redux/actions/actionCreators"
 import CustomStylesSelectMenu from "./reusable/CustomStylesSelectMenu"
 import SVGIcon from "./reusable/CustomSVGIcon"
+import { ActionCreators } from 'redux-undo'
 
 export default function EditWebsiteTopBar() {
 
     const dispatch = useDispatch()
     const axiosRequest = useAxios()
+    const { undo, redo, clearHistory } = ActionCreators
     const { REACT_APP_FE_URL: FE_URL } = process.env
     const { websiteName, pageSelected } = useParams()
-    const code = useSelector((state: IReduxStore) => state.website.code)
-    const codeBlocks = useSelector((state: IReduxStore) => state.website.codeBlocks)
-    const elementToEdit = useSelector((state: IReduxStore) => state.website.elementToEdit)
+    const code = useSelector((state: IReduxStore) => state.website.present.code)
+    const codeBlocks = useSelector((state: IReduxStore) => state.website.present.codeBlocks)
+    const elementToEdit = useSelector((state: IReduxStore) => state.website.present.elementToEdit)
+    const canUndo = useSelector((state: IReduxStore) => state.website.past.length)
+    const canRedo = useSelector((state: IReduxStore) => state.website.future.length)
 
     const [fontSelected, setFontSelected] = useState('sans') 
     const [textSizeelected, setTextSizeelected] = useState('base') 
@@ -84,6 +88,7 @@ export default function EditWebsiteTopBar() {
             const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'PUT', { code, codeBlocks })
             if (response.status === 200) {
                 toastNotification('Saved')
+                dispatch(clearHistory())
             }
         } catch (error) {
             console.log(error)
@@ -98,6 +103,7 @@ export default function EditWebsiteTopBar() {
             ])
             if ((response[0].status === 200) && (response[1].status === 200 || 201)) {
                 toastNotification('Published')
+                dispatch(clearHistory())
             }
         } catch (error) {
             console.log(error)
@@ -188,19 +194,19 @@ export default function EditWebsiteTopBar() {
                 </div>
 
                 <div className="flex my-2">
-                    <div className="group relative">
-                        <SVGIcon svgClassName="h-6 w-6 mr-2 text-gray-400" pathD="M11 17l-5-5m0 0l5-5m-5 5h12" />
-                        <span className="topbar-tooltip group-hover:scale-100">Undo</span>
+                    <div onClick={() => dispatch(undo())} className="group relative">
+                        <SVGIcon svgClassName={canUndo ? "h-6 w-6 mr-2 text-gray-900 cursor-pointer" : "h-6 w-6 mr-2 text-gray-400"} pathD="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                        { canUndo ? <span className="topbar-tooltip group-hover:scale-100">Undo</span> : '' }
                     </div>
 
-                    <div className="group relative">
-                        <SVGIcon svgClassName="h-6 w-6 mr-4 text-gray-400" pathD="M13 7l5 5m0 0l-5 5m5-5H6" />
-                        <span className="topbar-tooltip group-hover:scale-100">Redo</span>
+                    <div onClick={() => dispatch(redo())} className="group relative">
+                        <SVGIcon svgClassName={canRedo ? "h-6 w-6 mr-2 text-gray-900 cursor-pointer" : "h-6 w-6 mr-2 text-gray-400"} pathD="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        { canRedo ? <span className="topbar-tooltip group-hover:scale-100">Redo</span> : '' }
                     </div>
 
                     <div onClick={handleSaveWebsite} className="group relative">
-                        <SVGIcon svgClassName="h-6 w-6 mr-4 text-gray-400" pathD="M17 16v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-7a2 2 0 012-2h2m3-4H9a2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-1m-1 4l-3 3m0 0l-3-3m3 3V3" />
-                        <span className="topbar-tooltip group-hover:scale-100">Save</span>
+                        <SVGIcon svgClassName={canUndo > 0 ? "h-6 w-6 mr-2 text-gray-900 cursor-pointer" : "h-6 w-6 mr-2 text-gray-400"} pathD="M17 16v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-7a2 2 0 012-2h2m3-4H9a2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-1m-1 4l-3 3m0 0l-3-3m3 3V3" />
+                        { canUndo > 0 ? <span className="topbar-tooltip group-hover:scale-100">Save</span> : '' }
                     </div>
 
                     <div className="group relative">
@@ -211,8 +217,8 @@ export default function EditWebsiteTopBar() {
                     </div>
 
                     <div onClick={handlePublishWebsite} className="group relative">
-                        <SVGIcon svgClassName="h-6 w-6 text-gray-400" pathD="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                        <span className="topbar-tooltip group-hover:scale-100">Publish</span>
+                        <SVGIcon svgClassName={canUndo > 0 ? "h-6 w-6 mr-2 text-gray-900 cursor-pointer" : "h-6 w-6 mr-2 text-gray-400"} pathD="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                        { canUndo > 0 ? <span className="topbar-tooltip group-hover:scale-100">Publish</span> : '' }
                     </div>
                 </div>
 

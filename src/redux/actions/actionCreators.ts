@@ -25,7 +25,7 @@ export const createNewCode = (codeBlocks: IElement[]) =>
 
 export const addElementsToCodeAction = (elements: ICodeBlock) => 
 (dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {
-    const oldCodeBlock = getState().website.codeBlocks
+    const oldCodeBlock = getState().website.present.codeBlocks
     const newCodeBlocks = [...oldCodeBlock, elements]
     const newCodeBlockCode = newCodeBlocks.map(block => block.code).flat()
     const newCode = createNewCode(newCodeBlockCode)
@@ -35,9 +35,9 @@ export const addElementsToCodeAction = (elements: ICodeBlock) =>
 
 export const changeElementClassNameAction = (field: elementToEditOptions, value: string) => 
 (dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {
-    const codeBlock = getState().website.codeBlocks
+    const codeBlock = getState().website.present.codeBlocks
     const codeBlockCode = codeBlock.map(block => block.code).flat()
-    const elementToEdit = getState().website.elementToEdit
+    const elementToEdit = getState().website.present.elementToEdit
     if (!elementToEdit) return
     elementToEdit.code[0][field] = value
     
@@ -64,8 +64,8 @@ export const updateCodeAndCodeBlocksAction = (code: string, codeBlocks: ICodeBlo
 
 export const addOrRemoveElementLinkAction = (linkType: string, linkTo: string) => 
 (dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {
-    const elementToEdit = getState().website.elementToEdit
-    const codeBlocks = getState().website.codeBlocks
+    const elementToEdit = getState().website.present.elementToEdit
+    const codeBlocks = getState().website.present.codeBlocks
     if (!elementToEdit) return
     if (linkType === '' && linkTo === '') {
         switch (elementToEdit.code[0].name) {

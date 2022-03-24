@@ -1,4 +1,5 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux"
+import undoable from 'redux-undo'
 import thunk from 'redux-thunk'
 import userReducer from "./reducers/userReducer"
 import websiteReducer from "./reducers/websiteReducer"
@@ -11,15 +12,19 @@ export const initialState: any = {
         currentUser: null
     },
     website: {
-        code: '',
-        codeBlocks: [],
-        elementToEdit: null
+        past: [],
+        present: {
+            code: '',
+            codeBlocks: [],
+            elementToEdit: null
+        },
+        future: []
     }
 }
 
 const rootReducer = combineReducers({
     user: userReducer,
-    website: websiteReducer
+    website: undoable(websiteReducer)
 })
 
 export const storeConfig = createStore(rootReducer, initialState, composeSafely(applyMiddleware(thunk)))
