@@ -42,7 +42,7 @@ export default function EditWebsite() {
         }
     }
 
-    const fetchWebsiteDetails = async () => {
+    const fetchWebsiteCode = async () => {
         try {
             const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'GET')
             if (response.status === 200) {
@@ -103,7 +103,7 @@ export default function EditWebsite() {
     })
 
     useEffect(() => {
-        fetchWebsiteDetails()
+        fetchWebsiteCode()
     }, [pageSelected])
 
     useEffect(() => {

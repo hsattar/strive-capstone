@@ -10,6 +10,8 @@ export default function ViewWebsite() {
     const { websiteName, pageSelected } = useParams()
 
     const [code, setCode] = useState('')
+    const [websiteTitle, setWebsiteTitle] = useState('')
+    const [websiteDescription, setWebsiteDescription] = useState('')
 
     const fetchWebsiteCode = async () => {
         try {
@@ -22,15 +24,31 @@ export default function ViewWebsite() {
         }
     }
 
+    const fetchWebsiteDetails = async () => {
+      try {
+          const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/details`, 'GET')
+          if (response.status === 200) {
+              setWebsiteTitle(response.data.title)
+              setWebsiteDescription(response.data.description)
+          }
+      } catch (error) {
+          console.log(error)
+      }
+  }
+
     useEffect(() => {
         fetchWebsiteCode()
+        fetchWebsiteDetails()
     }, [websiteName, pageSelected])
 
   return (
     <>
     <Helmet>
-      <title>{websiteName}</title>
+      <title>{websiteTitle}</title>
       <script src="https://cdn.tailwindcss.com"></script>
+      <meta name="robots" content="index, follow"></meta>
+      <meta name="viewport" content="width=device-width,initial-scale=1.0"></meta>
+      <meta name="description" content={websiteDescription}></meta>
     </Helmet>
     <div className="overflow-y-scroll min-h-[100vh] max-h-[100vh]">
       { parse(code) }

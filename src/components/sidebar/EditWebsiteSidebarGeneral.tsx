@@ -4,6 +4,8 @@ import CustomSidebarDropdown from "../reusable/CustomSidebarDropdown"
 import CustomSVGIcon from "../reusable/CustomSVGIcon"
 import useAxios from '../../hooks/useAxios'
 import { useSelector } from "react-redux"
+import { toast, ToastContainer } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css'
 
 interface IProps {
     pages: string[]
@@ -18,6 +20,8 @@ export default function EditWebsiteSidebarGeneral({ pages, setPages}: IProps) {
     const code = useSelector((state: IReduxStore) => state.website.code)
     const codeBlocks = useSelector((state: IReduxStore) => state.website.codeBlocks)
 
+    const [websiteTitle, setWebsiteTitle] = useState('')
+    const [websiteDescription, setWebsiteDescription] = useState('')
     const [pageToEdit, setPageToEdit] = useState<string | undefined>('')
     const [showPageToEdit, setShowPageToEdit] = useState(false)
     const [showAddNewPageModal, setShowAddNewPageModal] = useState(false)
@@ -30,6 +34,18 @@ export default function EditWebsiteSidebarGeneral({ pages, setPages}: IProps) {
         setShowPageToEdit(false)
         setPageToEdit(page)
         navigate(`/ws-edit/${websiteName}/${page}`)
+    }
+
+    const fetchWebsiteDetails = async () => {
+        try {
+            const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/details`, 'GET')
+            if (response.status === 200) {
+                setWebsiteTitle(response.data.title)
+                setWebsiteDescription(response.data.description)
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const handleSaveWebsite = async () => {
@@ -92,9 +108,35 @@ export default function EditWebsiteSidebarGeneral({ pages, setPages}: IProps) {
         }
     }
 
+    const updateWebsiteDetails = async (e: FormEvent) => {
+        try {
+            e.preventDefault()
+            const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/update-details`, 'PUT', { title: websiteTitle, description: websiteDescription })
+            if (response.status === 200) {
+                toastNotification('Updated')
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const toastNotification = (msg: string) => toast.success(msg, {
+        position: "bottom-left",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+    })
+
     useEffect(() => {
         setPageToEdit(pageSelected)
     }, [])
+
+    useEffect(() => {
+        fetchWebsiteDetails()
+    }, [pageSelected])
 
     return (
         <>
@@ -159,10 +201,36 @@ export default function EditWebsiteSidebarGeneral({ pages, setPages}: IProps) {
                 </>
             </CustomSidebarDropdown>
 
-            <CustomSidebarDropdown name="Website Settings">
-                <div>
-                    <p className="capitalize pl-8 py-1">Website Name</p>
+            <CustomSidebarDropdown name="Website Details">
+            <form onSubmit={updateWebsiteDetails} autoComplete="off" noValidate className="mt-0 text-center">
+                <div className="relative z-0 mb-4 group flex justify-center">
+                    <input 
+                        className="block py-2.5 px-0 text-sm w-5/6 text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        value={websiteName}
+                        disabled 
+                    />
                 </div>
+                <div className="relative z-0 mb-6 group flex justify-center">
+                    <input 
+                        className="block py-2.5 px-0 text-sm w-5/6 text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        value={websiteTitle}
+                        onChange={e => setWebsiteTitle(e.target.value)}
+                        placeholder="Website Title"
+                        required 
+                    />
+                </div>
+                <div className="relative z-0 mb-6 group flex justify-center">
+                    <textarea 
+                        className="resize-none block py-2.5 px-0 text-sm w-5/6 text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        value={websiteDescription}
+                        onChange={e => setWebsiteDescription(e.target.value)}
+                        placeholder="Website Description"
+                        required 
+                        rows={4}
+                    />
+                </div>
+                <button type="submit" className="border-green-500 border hover:bg-green-500 py-1 px-5 w-5/6 rounded-md text-green-500 hover:text-white">Update</button>
+            </form>
             </CustomSidebarDropdown>
         </div>
         { showAddNewPageModal && (
@@ -187,10 +255,17 @@ export default function EditWebsiteSidebarGeneral({ pages, setPages}: IProps) {
             </div>
         </div>
         ) }
+        <ToastContainer
+            position="bottom-left"
+            autoClose={1000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss={false}
+            draggable={false}
+            pauseOnHover
+        />
         </>
     )
 }
-
-{/* <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-</svg> */}

@@ -55,45 +55,49 @@ export default function Register() {
                 <h1 className="font-bold text-center text-2xl mb-5">Code Buddy</h1>  
                     <form onSubmit={handleSubmit} autoComplete="off" noValidate>
                     <div className="grid grid-cols-2 gap-x-10">
-                        <div>
-                            <label className="font-semibold text-sm text-gray-600 pb-1 block">First Name</label>
-                            <input
-                                type="text"
-                                className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
-                                required
+                        <div className="relative z-0 mb-6 w-full group">
+                            <input 
+                                type="text" 
+                                name="floating_fname" 
+                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
+                                required 
                                 value={userDetails.firstName}
-                                onChange={e => handleChange('firstName', e.target.value)}    
+                                onChange={e => handleChange('firstName', e.target.value)}
                             />
+                            <label htmlFor="floating_fname" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">First Name</label>
                         </div>
-                        <div>
-                            <label className="font-semibold text-sm text-gray-600 pb-1 block">Last Name</label>
-                            <input
-                                type="text"
-                                className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
-                                required
+                        <div className="relative z-0 mb-6 w-full group">
+                            <input 
+                                type="text" 
+                                name="floating_lname" 
+                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
+                                required 
                                 value={userDetails.lastName}
                                 onChange={e => handleChange('lastName', e.target.value)}
                             />
+                            <label htmlFor="floating_lname" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Last Name</label>
                         </div>
-                        <div>
-                            <label className="font-semibold text-sm text-gray-600 pb-1 block">E-mail</label>
-                            <input
-                                type="email"
-                                className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
-                                required
+                        <div className="relative z-0 mb-6 w-full group">
+                            <input 
+                                type="email" 
+                                name="floating_email" 
+                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
+                                required 
                                 value={userDetails.email}
-                                onChange={e => handleChange('email', e.target.value)}    
+                                onChange={e => handleChange('email', e.target.value)}
                             />
+                            <label htmlFor="floating_email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email address</label>
                         </div>
-                        <div>
-                            <label className="font-semibold text-sm text-gray-600 pb-1 block">Password</label>
-                            <input
-                                type="password"
-                                className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
-                                required
+                        <div className="relative z-0 mb-6 w-full group">
+                            <input 
+                                type="password" 
+                                name="floating_password" 
+                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
+                                required 
                                 value={userDetails.password}
                                 onChange={e => handleChange('password', e.target.value)}
                             />
+                            <label htmlFor="floating_password" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
                         </div>
                     </div>
                     <button type="submit" className="transition duration-200 bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block">

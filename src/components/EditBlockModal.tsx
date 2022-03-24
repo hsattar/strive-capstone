@@ -171,9 +171,9 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
                     ) }
                     <div className="ml-auto">
                         { !elementLinked ? (
-                            <button onClick={() => linkChange(true)} className="bg-green-500 hover:bg-green-600 py-1 px-5 mr-3 rounded-md text-white">Add</button>
+                            <button onClick={() => linkChange(true)} className="border-green-500 border hover:bg-green-500 py-1 px-5 mr-3 rounded-md text-green-500 hover:text-white">Add</button>
                         ) : (   
-                            <button onClick={() => linkChange(false)} className="bg-red-500 hover:bg-red-600 py-1 px-5 mr-3 rounded-md text-white">Remove</button>
+                            <button onClick={() => linkChange(false)} className="border-red-500 border hover:bg-red-500 py-1 px-5 mr-3 rounded-md text-red-500 hover:text-white">Remove</button>
                         ) }
                     </div>
                     </div>
@@ -233,12 +233,15 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
                             >
-                            { elementToEdit?.code.map((block, index) => {
+                            { elementToEdit?.code.filter((block, index) => {
                                 if (index === 0 || index === elementToEdit.code.length - 1) return
                                 if (block.tag?.startsWith('</')) return
                                 if (block.text) return
-                                return <DraggableContainerItem key={index} index={index} block={block} />
+                                return block
+                            }).map((block, idx) => {
+                                return <DraggableContainerItem key={idx} index={idx} block={block} />
                             }) }
+                            {provided.placeholder}
                             </div>
                         ) }
                         </Droppable>
