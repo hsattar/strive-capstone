@@ -7,13 +7,15 @@ interface IReduxStore {
         past: IWebsiteStructure[]
         present: IWebsiteStructure
         future: IWebsiteStructure[]
+    },
+    misc: {
+        elementToEdit: ICodeBlock | null
     }
 }
 
 interface IWebsiteStructure {
     code: string,
     codeBlocks: ICodeBlock[] 
-    elementToEdit: ICodeBlock | null
 }
 
 interface ICodeBlock {

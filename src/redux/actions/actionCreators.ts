@@ -37,7 +37,7 @@ export const changeElementClassNameAction = (field: elementToEditOptions, value:
 (dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {
     const codeBlock = getState().website.present.codeBlocks
     const codeBlockCode = codeBlock.map(block => block.code).flat()
-    const elementToEdit = getState().website.present.elementToEdit
+    const elementToEdit = getState().misc.elementToEdit
     if (!elementToEdit) return
     elementToEdit.code[0][field] = value
     
@@ -64,22 +64,14 @@ export const updateCodeAndCodeBlocksAction = (code: string, codeBlocks: ICodeBlo
 
 export const addOrRemoveElementLinkAction = (linkType: string, linkTo: string) => 
 (dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {
-    const elementToEdit = getState().website.present.elementToEdit
+    const elementToEdit = getState().misc.elementToEdit
     const codeBlocks = getState().website.present.codeBlocks
     if (!elementToEdit) return
     if (linkType === '' && linkTo === '') {
-        switch (elementToEdit.code[0].name) {
-            case 'heading': 
-                elementToEdit.code[0].tag = `<h1 className="${elementToEdit.code[0].className}" >`
-                elementToEdit.code[2].tag = `</h1>`
-                break
-            case 'paragraph': 
-                elementToEdit.code[0].tag = `<p className="${elementToEdit.code[0].className}" >`
-                elementToEdit.code[2].tag = `</p>`
-                break
-            case 'button': 
-                elementToEdit.code[0].tag = `<button className="${elementToEdit.code[0].className}" >`
-                elementToEdit.code[2].tag = `</button>`
+        switch (elementToEdit.type) {
+            case 'element': 
+                const splitText = elementToEdit.code[1].text?.split('  ')
+                elementToEdit.code[1].text = splitText![1]
                 break
             default: return
         }
@@ -87,11 +79,9 @@ export const addOrRemoveElementLinkAction = (linkType: string, linkTo: string) =
         elementToEdit.code[0].linkType = ''
     } else {
         if (linkType === 'Link - Internal') {
-            elementToEdit.code[0].tag = `<a href="/ws/test/${linkTo}" className="block ${elementToEdit.code[0].className}" >`
-            elementToEdit.code[2].tag = `</a>`
+            elementToEdit.code[1].text = `<a href="/ws/test/${linkTo}">  ${elementToEdit.code[1].text}  </a>`
         } else {
-            elementToEdit.code[0].tag = `<a href="${linkTo}" target="_blank" className="block ${elementToEdit.code[0].className}" >`
-            elementToEdit.code[2].tag = `</a>`
+            elementToEdit.code[1].text = `<a href="${linkTo}" target="_blank">  ${elementToEdit.code[1].text}  </a>`
         }
     }
     const newCodeBlocks = codeBlocks.map(block => block.id === elementToEdit.id ? elementToEdit : block)

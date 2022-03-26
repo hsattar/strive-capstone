@@ -23,11 +23,11 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
     const { pathname } = useLocation()
     const textAreaRef = useRef<HTMLTextAreaElement>(null)
     const codeBlocks = useSelector((state: IReduxStore) => state.website.present.codeBlocks)
-    const elementToEdit = useSelector((state: IReduxStore) => state.website.present.elementToEdit)
+    const elementToEdit = useSelector((state: IReduxStore) => state.misc.elementToEdit)
     const code = createNewEditableCode(elementToEdit!.code)
     
     const [changesMade, setChangesMade] = useState(false)
-    const [elementToEditText, setelementToEditText] = useState<string | undefined>('')
+    const [elementToEditText, setElementToEditText] = useState<string | undefined>('')
     const [display, setDisplay] = useState('Display')
     const [flexDirection, setFlexDirection] = useState('Flex Direction')
     const [flexItems, setFlexItems] = useState('Flex Items')
@@ -55,9 +55,18 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
     }
 
     const handleSave = () => {
+        let newText = elementToEditText
+        if (elementLinked) {
+            if (linkType === 'Link - Internal') {
+                console.log('internal')
+                newText = `<a href="/ws/test/${pageSelected}">  ${elementToEditText}  </a>`
+            } else {
+                newText = `<a href="/ws/test/${linkTo}" target="_blank">  ${elementToEditText}  </a>`
+            }
+        } 
         switch (elementToEdit?.type) {
             case 'element': {
-                elementToEdit.code[1].text = elementToEditText
+                elementToEdit.code[1].text = newText
                 const updatedCodeBlocks = codeBlocks.map(block => block.id === elementToEdit.id ? elementToEdit : block)
                 const flatBlocks = updatedCodeBlocks.map(block => block.code).flat()
                 const updatedCode = createNewCode(flatBlocks)
@@ -104,6 +113,7 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
     }
 
     const linkChange = (add: boolean) => {
+        // window.getSelection()?.toString()
         setElementLinked(prev => !prev)
         if (add) {
             if (linkType === 'Link - Internal') {
@@ -122,11 +132,17 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
     }
 
     useEffect(() => {
-        (elementToEdit && elementToEdit.type === 'element') && setelementToEditText(elementToEdit.code[1].text)
-    }, [elementToEdit])
-
-    useEffect(() => {
-        (elementToEdit && (elementToEdit.code[0].tag?.startsWith('<Link') || elementToEdit.code[0].tag?.startsWith('<a'))) ? setElementLinked(true) : setElementLinked(false)
+        if (!elementToEdit) return
+        if (elementToEdit.type === 'element') {
+            if (elementToEdit.code[1].text?.startsWith('<a href')) {
+                setElementLinked(true)
+                const splitText = elementToEdit.code[1].text.split('  ')
+                setElementToEditText(splitText[1])
+            } else {
+                setElementLinked(false)
+                setElementToEditText(elementToEdit.code[1].text)
+            }
+        }
     }, [elementToEdit])
 
     return (
@@ -141,7 +157,7 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
                         onClick={e => e.stopPropagation()}
                         value={elementToEditText}
                         onChange={e => {
-                            setelementToEditText(e.target.value)
+                            setElementToEditText(e.target.value)
                             !changesMade && setChangesMade(true)
                         }}
                         className="w-full p-2 mb-2 resize-none border-2 rounded outline-none"

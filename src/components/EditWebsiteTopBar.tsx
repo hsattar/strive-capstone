@@ -21,7 +21,7 @@ export default function EditWebsiteTopBar() {
     const { websiteName, pageSelected } = useParams()
     const code = useSelector((state: IReduxStore) => state.website.present.code)
     const codeBlocks = useSelector((state: IReduxStore) => state.website.present.codeBlocks)
-    const elementToEdit = useSelector((state: IReduxStore) => state.website.present.elementToEdit)
+    const elementToEdit = useSelector((state: IReduxStore) => state.misc.elementToEdit)
     const canUndo = useSelector((state: IReduxStore) => state.website.past.length)
     const canRedo = useSelector((state: IReduxStore) => state.website.future.length)
 
