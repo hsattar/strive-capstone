@@ -24,12 +24,6 @@ export default function EditWebsiteSidebarLayout() {
 
     return (
         <div className="select-none overflow-y-scroll">
-            <CustomSidebarDropdown name="Containers">
-                <div className="grid grid-cols-2 justify-items-center p-3">
-                    <img src="/assets/container.jpg" className="h-16 hover:border-2 hover:cursor-pointer p-2" alt="container" />
-                    <img onClick={() => handleAddLayout(createContainerTemplate('flexContainer'))} src="/assets/flex.jpg" className="h-16 hover:border-2 hover:cursor-pointer p-2" alt="flex" />
-                </div>
-            </CustomSidebarDropdown>
             <CustomSidebarDropdown name="Grid - Simple">
                 <div className="grid grid-cols-2 justify-center gap-3 p-3">
                     <img src="/assets/2x1.jpg" className="h-16 hover:border-2 hover:cursor-pointer p-2" alt="2x1" />
@@ -46,13 +40,6 @@ export default function EditWebsiteSidebarLayout() {
                     <img src="/assets/1x2-1.jpg" className="h-16 hover:border-2 hover:cursor-pointer p-2" alt="1x2-1" />
                     <img src="/assets/1x2-1x3.jpg" className="h-16 hover:border-2 hover:cursor-pointer p-2" alt="1x2-1x3" />
                     <img src="/assets/1x3-1x2.jpg" className="h-16 hover:border-2 hover:cursor-pointer p-2" alt="1x3-1x2" />
-                </div>
-            </CustomSidebarDropdown>
-            <CustomSidebarDropdown name="Grid - Custom">
-                <div>
-                    <p className="capitalize pl-8 py-1">Number Of Rows</p>
-                    <p className="capitalize pl-8 py-1">Number Of Columns</p>
-                    <p className="capitalize pl-8 py-1">Generate</p>
                 </div>
             </CustomSidebarDropdown>
         </div>

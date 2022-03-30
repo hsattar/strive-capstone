@@ -36,7 +36,6 @@ export default function EditWebsiteTopBar() {
     const [isUnderline, setIsUnderline] = useState(false)
     const [textAlignment, setTextAlignment] = useState('left')
 
-    const [display, setDisplay] = useState('Display')
     const [flexDirection, setFlexDirection] = useState('Flex Direction')
     const [flexItems, setFlexItems] = useState('Flex Items')
     const [flexJustify, setFlexJustify] = useState('Flex Justify')
@@ -120,26 +119,23 @@ export default function EditWebsiteTopBar() {
 
     const handleStyleChange = (value: string, type: elementToEditOptions) => {
         switch (type) {
-            case 'display': 
-                setDisplay(value)
-                break
             case 'flexDirection': 
                 setFlexDirection(value)
+                dispatch(changeElementClassNameAction(type, `flex-${value}`))
                 break
-            case 'flexJustify': 
+                case 'flexJustify': 
                 setFlexJustify(value)
+                dispatch(changeElementClassNameAction(type, `justify-${value}`))
                 break
-            case 'flexItems': 
+                case 'flexItems': 
                 setFlexItems(value)
+                dispatch(changeElementClassNameAction(type, `items-${value}`))
                 break
             case 'bgColor': 
                 setBackgroundColor(value)
                 dispatch(changeElementClassNameAction(type, `bg-${value}`))
                 break
             default: return
-        }
-        if (type !== 'bgColor') {
-            dispatch(changeElementClassNameAction(type, value))
         }
         !changesMade && setChangesMade(true)
     }
@@ -166,10 +162,10 @@ export default function EditWebsiteTopBar() {
                 setBackgroundColor(elementToEdit.code[0].bgColor!.split('bg-')[1])
             }
             if (elementToEdit.type === 'container') {
-                // setDisplay(elementToEdit.code[0].)
-                // setFlexDirection(elementToEdit.code[0].flexDirection)
-                // setFlexJustify(elementToEdit.code[0].flexJustify)
-                // setFlexItems(elementToEdit.code[0].flexItems)
+                setFlexDirection(elementToEdit.code[0].flexDirection!.split('flex-')[1])
+                setFlexJustify(elementToEdit.code[0].flexJustify!.split('justify-')[1])
+                setFlexItems(elementToEdit.code[0].flexItems!.split('items-')[1])
+                setBackgroundColor(elementToEdit.code[0].bgColor!.split('bg-')[1])
             }
         }
     }, [elementToEdit])
@@ -247,13 +243,6 @@ export default function EditWebsiteTopBar() {
                 ) }
                 { (elementToEdit && elementToEdit.type === 'container') && (
                     <div className="flex">
-                        <CustomEditSelectMenu 
-                            type="display"
-                            containerClass="w-[150px] relative mr-2"
-                            initialValue={display}
-                            listOfValues={displayOptions}
-                            onClick={handleStyleChange}
-                        />
                         <CustomEditSelectMenu 
                             type="flexDirection"
                             containerClass="w-[150px] relative mr-2"

@@ -4,25 +4,25 @@ export const displayOptions: string[] = [
 ]
 
 export const flexDirections: string[] = [
-    'flex-row',
-    'flex-row-reverse',
-    'flex-col',
-    'flex-col-reverse'
+    'row',
+    'row-reverse',
+    'col',
+    'col-reverse'
 ]
 
 export const flexItemss: string[] = [
-    'items-start',
-    'items-center',
-    'items-end',
-    'items-baseline',
-    'items-stretch'
+    'start',
+    'center',
+    'end',
+    'baseline',
+    'stretch'
 ]
 
 export const flexJustifys: string[] = [
-    'justify-start',
-    'justify-center',
-    'justify-end',
-    'justify-between',
-    'justify-around',
-    'justify-evenly'
+    'start',
+    'center',
+    'end',
+    'between',
+    'around',
+    'evenly'
 ]
