@@ -32,8 +32,9 @@ export default function EditWebsiteSidebarElements() {
     }
 
     const handleCreateIFrame = () => {
-        const elementsToAdd = [{ name: 'youtube video', type: 'iframe', tag: IFrameElement }]
+        const elementsToAdd = [{ name: 'youtube video', type: 'iframe', tag: `<div className="flex justify-center hover:border-2 hover:border-blue-300 hover:cursor-grab">${IFrameElement}</div>` }]
         handleAddCode(elementsToAdd)
+        setIFrameElement('')
         setShowIFrameModal(false)
     }
 
