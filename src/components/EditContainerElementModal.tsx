@@ -1,25 +1,19 @@
-import parse from 'html-react-parser'
-import { Dispatch, MouseEvent, SetStateAction, useEffect, useRef, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation } from 'react-router-dom'
-import { v4 as uuid } from 'uuid'
-import { addElementsToCodeAction, addOrRemoveElementLinkAction, createNewCode, createNewEditableCode, updateCodeAndCodeBlocksAction } from '../redux/actions/actionCreators'
-import ContainerElement from './ContainerElement'
+import { addOrRemoveElementLinkAction, createNewCode, updateCodeAndCodeBlocksAction } from '../redux/actions/actionCreators'
 import CustomSelectDropdown from './reusable/CustomSelectDropdown'
 
 interface IProps {
     pages: string[]
-    setShowEditTextModal: Dispatch<SetStateAction<boolean>>
+    setShowModal: Dispatch<SetStateAction<boolean>>
 }
 
-export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) {
+export default function EditContainerElementModal({ pages, setShowModal }: IProps) {
 
     const dispatch = useDispatch()
-    const { pathname } = useLocation()
     const textAreaRef = useRef<HTMLTextAreaElement>(null)
     const codeBlocks = useSelector((state: IReduxStore) => state.website.present.codeBlocks)
     const elementToEdit = useSelector((state: IReduxStore) => state.misc.elementToEdit)
-    const code = createNewEditableCode(elementToEdit!.code)
     
     const [changesMade, setChangesMade] = useState(false)
     const [elementToEditText, setElementToEditText] = useState<string | undefined>('')
@@ -29,20 +23,6 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
     const [linkType, setLinkType] = useState('Link - Internal')
     const linkTypeOptions = ['Link - Internal', 'Link - External']
     const [elementLinked, setElementLinked] = useState(false)
-
-    const handleDuplicateBlock = (e: MouseEvent) => {
-        e.stopPropagation()
-        const id = uuid()
-        const newCodeArray = [...elementToEdit!.code]
-        const updatedCodeArray = newCodeArray.map(block => ({ ...block }))
-        const newElement = {
-            ...elementToEdit,
-            id,
-            code: [...updatedCodeArray]
-        } as ICodeBlock
-        dispatch(addElementsToCodeAction(newElement))
-        setShowEditTextModal(false)
-    }
 
     const handleSave = () => {
         let newText = elementToEditText
@@ -54,26 +34,15 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
                 newText = `<a href="/ws/test/${linkTo}" target="_blank">  ${elementToEditText}  </a>`
             }
         } 
-        switch (elementToEdit?.type) {
-            case 'element': {
-                elementToEdit.code[1].text = newText
-                const updatedCodeBlocks = codeBlocks.map(block => block.id === elementToEdit.id ? elementToEdit : block)
-                const flatBlocks = updatedCodeBlocks.map(block => block.code).flat()
-                const updatedCode = createNewCode(flatBlocks)
-                dispatch(updateCodeAndCodeBlocksAction(updatedCode, updatedCodeBlocks))
-            }
-            break
-            case 'container': {
-                const updatedCodeBlocks = codeBlocks.map(block => block.id === elementToEdit.id ? elementToEdit : block)
-                const flatBlocks = updatedCodeBlocks.map(block => block.code).flat()
-                const updatedCode = createNewCode(flatBlocks)
-                dispatch(updateCodeAndCodeBlocksAction(updatedCode, updatedCodeBlocks))
-            } 
-            break
-            default: return
-        }
+
+        elementToEdit!.code[1].text = newText
+        const updatedCodeBlocks = codeBlocks.map(block => block.id === elementToEdit!.id ? elementToEdit : block) as ICodeBlock[]
+        const flatBlocks = updatedCodeBlocks.map(block => block!.code).flat()
+        const updatedCode = createNewCode(flatBlocks)
+        dispatch(updateCodeAndCodeBlocksAction(updatedCode, updatedCodeBlocks))
+
         setChangesMade(false)
-        setShowEditTextModal(false)
+        setShowModal(false)
     }
 
     const linkChange = (add: boolean) => {
@@ -112,10 +81,8 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
     }, [elementToEdit])
 
     return (
-        <div onClick={() => setShowEditTextModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-            <div onClick={e => e.stopPropagation()} className={`relative top-20 mx-auto p-5 border ${elementToEdit!.type === 'element' ? 'w-[50%]' : 'w-[85%]'} shadow-lg rounded-md bg-white`}>
-                { elementToEdit!.type === 'element' && (
-                    <>
+        <div onClick={() => setShowModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+            <div onClick={e => e.stopPropagation()} className={`relative top-20 mx-auto p-5 border w-[50%] shadow-lg rounded-md bg-white`}>
                     <textarea
                         autoFocus
                         rows={6}
@@ -159,26 +126,11 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
                         ) }
                     </div>
                     </div>
-                    </>
-                ) }
-                    { elementToEdit!.type === 'container' && (
-                    <div className="flex flex-col items-center select-none">
-                    <div className="w-full mb-3">{ parse(code) }</div>
-                        { elementToEdit?.code.map((block, index) => {
-                            if (block.tag) return
-                            return <ContainerElement key={index} index={index} block={block} pages={pages} />
-                        }) }
-                    </div>
-                ) }
                 <div className="flex justify-end mt-4">
-                    { changesMade ? (
-                        <button onClick={e => {
-                            e.stopPropagation()
-                            handleSave()
-                        }} className="bg-green-500 hover:bg-green-600 py-1 px-5 mr-3 rounded-md text-white">Save</button>
-                    ) : (
-                        <button onClick={handleDuplicateBlock} className="bg-blue-500 hover:bg-blue-600 py-1 px-5 mr-3 rounded-md text-white">Duplicate</button>
-                    ) }
+                    <button onClick={e => {
+                        e.stopPropagation()
+                        handleSave()
+                    }} className={`bg-green-500 hover:bg-green-600 py-1 px-5 mr-3 rounded-md text-white`}>Save</button>
                 </div>
             </div>
         </div>

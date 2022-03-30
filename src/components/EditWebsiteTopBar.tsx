@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useParams } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
@@ -9,21 +9,24 @@ import textSizes from "../data/tailwind-options/textSizes"
 import useAxios from '../hooks/useAxios'
 import { changeElementClassNameAction } from "../redux/actions/actionCreators"
 import CustomStylesSelectMenu from "./reusable/CustomStylesSelectMenu"
+import CustomEditSelectMenu from './reusable/CustomEditSelectMenu'
 import SVGIcon from "./reusable/CustomSVGIcon"
 import { ActionCreators } from 'redux-undo'
+import { displayOptions, flexDirections, flexItemss, flexJustifys } from '../data/tailwind-options/display'
 
 export default function EditWebsiteTopBar() {
 
     const dispatch = useDispatch()
     const axiosRequest = useAxios()
     const { undo, redo, clearHistory } = ActionCreators
-    const { REACT_APP_FE_URL: FE_URL } = process.env
     const { websiteName, pageSelected } = useParams()
     const code = useSelector((state: IReduxStore) => state.website.present.code)
     const codeBlocks = useSelector((state: IReduxStore) => state.website.present.codeBlocks)
     const elementToEdit = useSelector((state: IReduxStore) => state.misc.elementToEdit)
     const canUndo = useSelector((state: IReduxStore) => state.website.past.length)
     const canRedo = useSelector((state: IReduxStore) => state.website.future.length)
+    
+    const [changesMade, setChangesMade] = useState(false)
 
     const [fontSelected, setFontSelected] = useState('sans') 
     const [textSizeelected, setTextSizeelected] = useState('base') 
@@ -32,6 +35,11 @@ export default function EditWebsiteTopBar() {
     const [isItalics, setIsItalics] = useState(false)
     const [isUnderline, setIsUnderline] = useState(false)
     const [textAlignment, setTextAlignment] = useState('left')
+
+    const [display, setDisplay] = useState('Display')
+    const [flexDirection, setFlexDirection] = useState('Flex Direction')
+    const [flexItems, setFlexItems] = useState('Flex Items')
+    const [flexJustify, setFlexJustify] = useState('Flex Justify')
 
     const [textColor, setTextColor] = useState('Color')
     const [backgroundColor, setBackgroundColor] = useState('BG Color')
@@ -110,6 +118,32 @@ export default function EditWebsiteTopBar() {
         }
     }
 
+    const handleStyleChange = (value: string, type: elementToEditOptions) => {
+        switch (type) {
+            case 'display': 
+                setDisplay(value)
+                break
+            case 'flexDirection': 
+                setFlexDirection(value)
+                break
+            case 'flexJustify': 
+                setFlexJustify(value)
+                break
+            case 'flexItems': 
+                setFlexItems(value)
+                break
+            case 'bgColor': 
+                setBackgroundColor(value)
+                dispatch(changeElementClassNameAction(type, `bg-${value}`))
+                break
+            default: return
+        }
+        if (type !== 'bgColor') {
+            dispatch(changeElementClassNameAction(type, value))
+        }
+        !changesMade && setChangesMade(true)
+    }
+
     const toastNotification = (msg: string) => toast.success(msg, {
         position: "bottom-left",
         autoClose: 1000,
@@ -119,6 +153,26 @@ export default function EditWebsiteTopBar() {
         draggable: false,
         progress: undefined,
     })
+
+    useEffect(() => {
+        if (elementToEdit) {
+            if (elementToEdit.type === 'element') {
+                setFontSelected(elementToEdit.code[0].font!.split('-')[1])
+                setTextSizeelected(elementToEdit.code[0].textSize!.split('-')[1])
+                setTextColor(elementToEdit.code[0].color!.split('text-')[1])
+                setIsBold(elementToEdit.code[0].bold ? true : false)
+                setIsItalics(elementToEdit.code[0].italics ? true : false)
+                setIsUnderline(elementToEdit.code[0].underline ? true : false)
+                setBackgroundColor(elementToEdit.code[0].bgColor!.split('bg-')[1])
+            }
+            if (elementToEdit.type === 'container') {
+                // setDisplay(elementToEdit.code[0].)
+                // setFlexDirection(elementToEdit.code[0].flexDirection)
+                // setFlexJustify(elementToEdit.code[0].flexJustify)
+                // setFlexItems(elementToEdit.code[0].flexItems)
+            }
+        }
+    }, [elementToEdit])
 
     return (
         <>
@@ -190,6 +244,45 @@ export default function EditWebsiteTopBar() {
                     />
                     </div>
                     </div>
+                ) }
+                { (elementToEdit && elementToEdit.type === 'container') && (
+                    <div className="flex">
+                        <CustomEditSelectMenu 
+                            type="display"
+                            containerClass="w-[150px] relative mr-2"
+                            initialValue={display}
+                            listOfValues={displayOptions}
+                            onClick={handleStyleChange}
+                        />
+                        <CustomEditSelectMenu 
+                            type="flexDirection"
+                            containerClass="w-[150px] relative mr-2"
+                            initialValue={flexDirection}
+                            listOfValues={flexDirections}
+                            onClick={handleStyleChange}
+                        />
+                        <CustomEditSelectMenu 
+                            type="flexJustify"
+                            containerClass="w-[150px] relative mr-2"
+                            initialValue={flexJustify}
+                            listOfValues={flexJustifys}
+                            onClick={handleStyleChange}
+                        />
+                        <CustomEditSelectMenu 
+                            type="flexItems"
+                            containerClass="w-[150px] relative mr-2"
+                            initialValue={flexItems}
+                            listOfValues={flexItemss}
+                            onClick={handleStyleChange}
+                        />
+                        <CustomEditSelectMenu 
+                            type="bgColor"
+                            containerClass="w-[150px] relative mr-2"
+                            initialValue={backgroundColor}
+                            listOfValues={colors}
+                            onClick={handleStyleChange}
+                        />
+                        </div>
                 ) }
                 </div>
 

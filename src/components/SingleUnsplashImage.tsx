@@ -50,7 +50,7 @@ export default function SingleUnsplashImage({ image }: IProps) {
         { showImageModal && (
             <>
             <div onClick={() => setShowImageModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-                <div onClick={e => e.stopPropagation()} className="relative top-20 mx-auto p-5 border w-[75%] shadow-lg rounded-md bg-white z-50">
+                <div onClick={e => e.stopPropagation()} className="relative top-20 mx-auto p-5 border w-[75%] shadow-lg rounded-md bg-white max-h-[85vh] overflow-y-scroll z-50">
                     <div className="flex flex-col items-center">
                     <img onClick={() => (downloadImage(image.urls.thumb, image.user.name, image.user.links.html, image.links.download_location))} className="cursor-pointer my-2" src={image.urls.thumb} alt={image.alt_description} />
                     <img onClick={() => (downloadImage(image.urls.small, image.user.name, image.user.links.html, image.links.download_location))} className="cursor-pointer my-2" src={image.urls.small} alt={image.alt_description} />

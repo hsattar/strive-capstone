@@ -62,7 +62,7 @@ export const updateCodeAndCodeBlocksAction = (code: string, codeBlocks: ICodeBlo
     payload: { code, codeBlocks }
 })
 
-export const addOrRemoveElementLinkAction = (linkType: string, linkTo: string) => 
+export const addOrRemoveElementLinkAction = (linkType: string, linkTo: string, text: string) => 
 (dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {
     const elementToEdit = getState().misc.elementToEdit
     const codeBlocks = getState().website.present.codeBlocks
@@ -77,9 +77,16 @@ export const addOrRemoveElementLinkAction = (linkType: string, linkTo: string) =
         }
         elementToEdit.code[0].linkTo = ''
         elementToEdit.code[0].linkType = ''
-    } else {
-        if (linkType === 'Link - Internal') {
+    }
+    if (linkType === 'Link - Internal') {
+        if (text) {
             elementToEdit.code[1].text = `<a href="/ws/test/${linkTo}">  ${elementToEdit.code[1].text}  </a>`
+        } else {
+            elementToEdit.code[1].text = `<a href="/ws/test/${linkTo}">  ${elementToEdit.code[1].text}  </a>`
+        }
+    } else {
+        if (text) {
+            elementToEdit.code[1].text = `<a href="${linkTo}" target="_blank">  ${elementToEdit.code[1].text}  </a>`
         } else {
             elementToEdit.code[1].text = `<a href="${linkTo}" target="_blank">  ${elementToEdit.code[1].text}  </a>`
         }
