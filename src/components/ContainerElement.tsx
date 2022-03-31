@@ -92,48 +92,48 @@ export default function ContainerElement({ block, index, pages }: IProps) {
         { showEditOptions && (
         <>
         <textarea
-                        autoFocus
-                        rows={6}
-                        ref={textAreaRef}
-                        onClick={e => e.stopPropagation()}
-                        value={elementToEditText}
-                        onChange={e => {
-                            setElementToEditText(e.target.value)
-                            !changesMade && setChangesMade(true)
-                        }}
-                        className="w-full p-2 mb-2 resize-none border-2 rounded outline-none"
-                    /> 
-                    <div className="flex items-center">
-                    <CustomSelectDropdown 
-                        containerClass="w-[150px] relative z-50"
-                        initialValue={linkType}
-                        listOfValues={linkTypeOptions}
-                        onClick={value => setLinkType(value)}
+            autoFocus
+            rows={6}
+            ref={textAreaRef}
+            onClick={e => e.stopPropagation()}
+            value={elementToEditText}
+            onChange={e => {
+                setElementToEditText(e.target.value)
+                !changesMade && setChangesMade(true)
+            }}
+            className="w-full p-2 mb-2 resize-none border-2 rounded outline-none"
+        /> 
+        <div className="flex items-center">
+            <CustomSelectDropdown 
+                containerClass="w-[150px] relative z-50"
+                initialValue={linkType}
+                listOfValues={linkTypeOptions}
+                onClick={value => setLinkType(value)}
+            />
+            { linkType === 'Link - Internal' ? (
+                <CustomSelectDropdown 
+                    containerClass="w-[150px] relative z-50 ml-4"
+                    initialValue={pageSelected}
+                    listOfValues={pages}
+                    onClick={value => setPageSelected(value)}
+                />  
+                ) : (
+                    <input 
+                        type="url" 
+                        placeholder="URL" 
+                        value={linkTo}
+                        onChange={e => setLinkTo(e.target.value)}
+                        className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:border focus:outline-none ml-4 w-[50%] block py-1.5 px-2.5" 
                     />
-                    { linkType === 'Link - Internal' ? (
-                      <CustomSelectDropdown 
-                            containerClass="w-[150px] relative z-50 ml-4"
-                            initialValue={pageSelected}
-                            listOfValues={pages}
-                            onClick={value => setPageSelected(value)}
-                        />  
-                    ) : (
-                        <input 
-                            type="url" 
-                            placeholder="URL" 
-                            value={linkTo}
-                            onChange={e => setLinkTo(e.target.value)}
-                            className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:border focus:outline-none ml-4 w-[50%] block py-1.5 px-2.5" 
-                        />
+                ) }
+                <div className="ml-4">
+                    { !elementLinked ? (
+                        <button onClick={() => linkChange(true)} className="border-green-500 border hover:bg-green-500 py-1 px-5 mr-3 rounded-md text-green-500 hover:text-white">Add</button>
+                    ) : (   
+                        <button onClick={() => linkChange(false)} className="border-red-500 border hover:bg-red-500 py-1 px-5 mr-3 rounded-md text-red-500 hover:text-white">Remove</button>
                     ) }
-                    <div className="ml-4">
-                        { !elementLinked ? (
-                            <button onClick={() => linkChange(true)} className="border-green-500 border hover:bg-green-500 py-1 px-5 mr-3 rounded-md text-green-500 hover:text-white">Add</button>
-                        ) : (   
-                            <button onClick={() => linkChange(false)} className="border-red-500 border hover:bg-red-500 py-1 px-5 mr-3 rounded-md text-red-500 hover:text-white">Remove</button>
-                        ) }
-                    </div>
-                    </div>
+                </div>
+                </div>
                 <div className="flex justify-end mt-4">
                     <button onClick={e => {
                         e.stopPropagation()

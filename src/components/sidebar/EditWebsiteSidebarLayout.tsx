@@ -1,19 +1,11 @@
 import { v4 as uuid } from 'uuid'
 import { useDispatch } from 'react-redux'
 import CustomSidebarDropdown from "../reusable/CustomSidebarDropdown"
-import containerTemplates from '../../data/templates/containerTemplates'
 import { addElementsToCodeAction, setElementToEditAction } from '../../redux/actions/actionCreators'
 
 export default function EditWebsiteSidebarLayout() {
 
     const dispatch = useDispatch()
-
-    const createContainerTemplate = (template: layoutTemplateOptions) => {
-        return containerTemplates[template].map(block => {
-            const id = uuid()
-            return { id, ...block }
-        })
-    }
 
     const handleAddLayout = (container: any) => {
         const id = uuid()

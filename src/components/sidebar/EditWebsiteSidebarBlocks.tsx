@@ -60,7 +60,7 @@ export default function EditWebsiteSidebarElements() {
                     <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Hero Section</p>
                     <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Accordian</p>
                     <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Form</p>
-                    <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Cards</p>
+                    <p onClick={() => handleAddCode(createElementTemplate('pricingCards'))} className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Cards</p>
                     <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Modal</p>
                 </div>
             </CustomSidebarDropdown>
