@@ -108,7 +108,10 @@ export default function EditWebsiteSidebarElements() {
                         handleAddCode(createElementTemplate('pricingCards'))
                         setShowCardsModal(false)
                     }}>{parse(previews.pricingCards)}</div>
-                    <div className="mb-8 cursor-pointer">{parse(previews.pricingCards)}</div>
+                    <div className="mb-8 cursor-pointer" onClick={() => {
+                        handleAddCode(createElementTemplate('testimonialCards'))
+                        setShowCardsModal(false)
+                    }}>{parse(previews.testimonialCards)}</div>
                 </div>
             </div>
         ) }

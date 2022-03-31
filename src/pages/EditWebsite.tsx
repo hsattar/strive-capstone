@@ -148,7 +148,7 @@ export default function EditWebsite() {
                         <Droppable droppableId="website-display">
                             {(provided) => (
                             <div
-                                className="w-[95%] bg-white my-2 overflow-y-scroll"
+                                className="w-[95%] bg-white my-2 overflow-y-scroll border-4 border-white"
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
                             >
