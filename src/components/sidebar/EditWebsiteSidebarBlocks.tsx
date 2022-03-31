@@ -5,6 +5,8 @@ import { v4 as uuid } from 'uuid'
 import blockTemplates from '../../data/templates/blockTemplates'
 import useAxios from '../../hooks/useAxios'
 import { useState } from 'react'
+import parse from 'html-react-parser'
+import previews from '../../data/templates/codepreviews'
 
 export default function EditWebsiteSidebarElements() {
 
@@ -14,6 +16,8 @@ export default function EditWebsiteSidebarElements() {
 
     const [showIFrameModal, setShowIFrameModal] = useState(false)
     const [IFrameElement, setIFrameElement] = useState('')
+
+    const [showCardsModal, setShowCardsModal] = useState(false)
 
     const createElementTemplate = (template: blockTemplateOptions) => {
         const test = blockTemplates[template].map(block => {
@@ -60,7 +64,7 @@ export default function EditWebsiteSidebarElements() {
                     <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Hero Section</p>
                     <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Accordian</p>
                     <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Form</p>
-                    <p onClick={() => handleAddCode(createElementTemplate('pricingCards'))} className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Cards</p>
+                    <p onClick={() => setShowCardsModal(true)} className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Cards</p>
                     <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Modal</p>
                 </div>
             </CustomSidebarDropdown>
@@ -78,7 +82,7 @@ export default function EditWebsiteSidebarElements() {
         </div>
         { showIFrameModal && (
             <div onClick={() => setShowIFrameModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
-                <div onClick={e => e.stopPropagation()} className="relative top-20 mx-auto p-5 border w-[50%] shadow-lg rounded-md bg-white">
+                <div onClick={e => e.stopPropagation()} className="relative top-10 mx-auto p-5 border w-[50%] shadow-lg rounded-md bg-white">
                     <form onSubmit={handleCreateIFrame} autoComplete="off" noValidate className="mt-3">
                         <div className="relative z-0 mb-6 w-full group">
                             <textarea 
@@ -94,6 +98,17 @@ export default function EditWebsiteSidebarElements() {
                             <button type="submit" onClick={e => e.stopPropagation()} className="bg-blue-500 hover:bg-blue-600 py-1 px-5 mr-3 rounded-md text-white">Create</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        ) }
+        { showCardsModal && (
+            <div onClick={() => setShowCardsModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+                <div onClick={e => e.stopPropagation()} className="relative top-10 mx-auto p-5 border w-[85%] max-h-[90vh] overflow-y-scroll shadow-lg rounded-md bg-white">
+                    <div className="mb-8 cursor-pointer" onClick={() => {
+                        handleAddCode(createElementTemplate('pricingCards'))
+                        setShowCardsModal(false)
+                    }}>{parse(previews.pricingCards)}</div>
+                    <div className="mb-8 cursor-pointer">{parse(previews.pricingCards)}</div>
                 </div>
             </div>
         ) }

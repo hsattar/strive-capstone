@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { addOrRemoveElementLinkAction, createNewCode, updateCodeAndCodeBlocksAction } from "../redux/actions/actionCreators"
 import CustomSelectDropdown from "./reusable/CustomSelectDropdown"
@@ -7,9 +7,11 @@ interface IProps {
     block: IElement
     index: number
     pages: string[]
+    changesMade: boolean
+    setChangesMade: Dispatch<SetStateAction<boolean>>
 }
 
-export default function ContainerElement({ block, index, pages }: IProps) {
+export default function ContainerElement({ block, index, pages, changesMade, setChangesMade }: IProps) {
 
     const dispatch = useDispatch()
     const elementToEdit = useSelector((state: IReduxStore) => state.misc.elementToEdit)
@@ -24,7 +26,6 @@ export default function ContainerElement({ block, index, pages }: IProps) {
 
     const textAreaRef = useRef<HTMLTextAreaElement>(null)
     
-    const [changesMade, setChangesMade] = useState(false)
     const [elementToEditText, setElementToEditText] = useState<string | undefined>('')
 
     const [linkTo, setLinkTo] = useState('')

@@ -84,7 +84,7 @@ export default function Home() {
         </div>
         { showNewWebsiteModal && (
             <div onClick={() => setShowNewWebsiteModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
-            <div onClick={e => e.stopPropagation()} className="relative top-20 mx-auto p-5 border w-[50%] shadow-lg rounded-md bg-white">
+            <div onClick={e => e.stopPropagation()} className="relative top-10 mx-auto p-5 border w-[50%] shadow-lg rounded-md bg-white">
                 <form onSubmit={handleSubmit} autoComplete="off" noValidate className="mt-3">
                     <div className="relative z-0 mb-6 w-full group">
                         <input 
