@@ -113,7 +113,7 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
 
     return (
         <div onClick={() => setShowEditTextModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-            <div onClick={e => e.stopPropagation()} className={`relative top-20 mx-auto p-5 border ${elementToEdit!.type === 'element' ? 'w-[50%]' : 'w-[85%]'} shadow-lg rounded-md bg-white`}>
+            <div onClick={e => e.stopPropagation()} className={`relative top-20 mx-auto p-5 border ${elementToEdit!.type === 'element' ? 'w-[50%]' : 'w-[85%]'} shadow-lg rounded-md max-h-[80vh] overflow-y-scroll bg-white`}>
                 { elementToEdit!.type === 'element' && (
                     <>
                     <textarea
