@@ -165,8 +165,12 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
                     <div className="flex flex-col items-center select-none">
                     <div className="w-full mb-3">{ parse(code) }</div>
                         { elementToEdit?.code.map((block, index) => {
-                            if (block.tag) return
-                            return <ContainerElement key={index} index={index} block={block} pages={pages} changesMade={changesMade} setChangesMade={setChangesMade} />
+                            if (block.text || block.tag?.startsWith(`<img`)) {
+                                console.log(block)
+                                return <ContainerElement key={index} index={index} block={block} pages={pages} changesMade={changesMade} setChangesMade={setChangesMade} />
+                            } else {
+                                return
+                            }
                         }) }
                     </div>
                 ) }
