@@ -229,7 +229,7 @@ const blockTemplates = {
         tag: `</ol>`
     }],
     navbar: [{
-        type: 'container',
+        type: 'flexContainer',
         name: `navbar container`,
         tag: `<div className="flex flex-row justify-between items-center p-2 bg-gray-200 hover:border-2 hover:border-blue-300 hover:cursor-grab">`,
         className: `flex flex-row justify-between items-center pt-2 pr-2 pb-2 pl-2 bg-gray-200 hover:border-2 hover:border-blue-300 hover:cursor-grab`,
@@ -333,7 +333,7 @@ const blockTemplates = {
         tag: `</div>`
     }],
     pricingCards: [{
-        type: 'container',
+        type: 'gridContainer',
         name: `cards container`,
         tag: `<div className="grid grid-cols-3 gap-20 bg-gray-100 pt-8 pb-8 pr-24 pl-24 hover:border-2 hover:border-blue-300 hover:cursor-grab">`,
         className: `grid grid-cols-3 gap-20 bg-gray-100 pt-8 pb-8 pr-24 pl-24 hover:border-2 hover:border-blue-300 hover:cursor-grab`,
@@ -351,8 +351,8 @@ const blockTemplates = {
         flexDirection: '',
         flexJustify: '',
         flexItems: '',
-        girdCols: 'grid-cols-3',
-        girdGap: 'gap-20',
+        gridCols: 'grid-cols-3',
+        gridGap: 'gap-20',
         hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
     }, {
         type: 'container',
@@ -1024,7 +1024,7 @@ const blockTemplates = {
         tag: `</div>`
     }],
     testimonialCards: [{
-        type: 'container',
+        type: 'gridContainer',
         name: `testimonial cards container`,
         tag: `<div className="grid grid-cols-2 gap-4 bg-gray-100 pt-6 pb-6 pr-8 pl-8 hover:border-2 hover:border-blue-300 hover:cursor-grab">`,
         className: `grid grid-cols-2 gap-4 bg-gray-100 pt-6 pb-6 pr-8 pl-8 hover:border-2 hover:border-blue-300 hover:cursor-grab`,
@@ -1042,8 +1042,8 @@ const blockTemplates = {
         flexDirection: '',
         flexJustify: '',
         flexItems: '',
-        girdCols: 'grid-cols-2',
-        girdGap: 'gap-4',
+        gridCols: 'grid-cols-2',
+        gridGap: 'gap-4',
         hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
     }, {
         type: 'container',
@@ -1587,6 +1587,164 @@ const blockTemplates = {
         tag: `</p>`
     }, {
         tag: `</div>`
+    }, {
+        tag: `</div>`
+    }, {
+        tag: `</div>`
+    }],
+    layout_2x1_1: [{
+        type: 'gridContainer',
+        name: `2x1 container`,
+        tag: `<div className="grid grid-cols-2 gap-4 pt-6 pb-6 pr-8 pl-8 hover:border-2 hover:border-blue-300 hover:cursor-grab">`,
+        className: `grid grid-cols-2 gap-4 pt-6 pb-6 pr-8 pl-8 hover:border-2 hover:border-blue-300 hover:cursor-grab`,
+        bgColor: ``,
+        marginT: ``,
+        marginR: ``,
+        marginB: ``,
+        marginL: ``,
+        paddingT: `pt-6`,
+        paddingR: `pr-8`,
+        paddingB: `pb-6`,
+        paddingL: `pl-8`,
+        border: ``,
+        display: 'grid',
+        flexDirection: '',
+        flexJustify: '',
+        flexItems: '',
+        gridCols: 'grid-cols-2',
+        gridGap: 'gap-4',
+        hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
+    }, {
+        type: 'single',
+        name: 'image',
+        tag: `<img src="/assets/zuck.webp" className="" />`,
+        className: ``,
+        height: ``,
+        width: ``,
+        marginT: ``,
+        marginR: ``,
+        marginB: ``,
+        marginL: ``,
+        paddingT: ``,
+        paddingR: ``,
+        paddingB: ``,
+        paddingL: ``,
+        borderStyle: ``,
+        borderColor: ``,
+        borderWidth: ``,
+        borderRadius: ``,
+    }, {
+        type: 'flexContainer',
+        name: `text container`,
+        tag: `<div className="bg-white text-center p-4 flex flex-col justify-center">`,
+        className: `bg-white text-center p-4 flex flex-col justify-center`,
+        bgColor: `bg-white`,
+        marginT: ``,
+        marginR: ``,
+        marginB: ``,
+        marginL: ``,
+        paddingT: `pt-6`,
+        paddingR: `pr-8`,
+        paddingB: `pb-6`,
+        paddingL: `pl-8`,
+        border: ``,
+        display: 'flex',
+        flexDirection: 'flex-col',
+        flexJustify: 'justify-center',
+        flexItems: '',
+        gridCols: '',
+        gridGap: '',
+        hoverBorder: ``
+    }, { 
+        type: 'element',
+        name: 'h3 heading',
+        tag: `<h3 className="font-semibold text-3xl p-2">`,
+        className: `font-semibold text-3xl p-2`,
+        font: ``,
+        textSize: `text-3xl`,
+        bold: `font-semibold`,
+        italics: ``,
+        underline: ``,
+        alignment: ``,
+        color: ``,
+        bgColor: ``,
+        marginT: ``,
+        marginR: ``,
+        marginB: ``,
+        marginL: ``,
+        paddingT: ``,
+        paddingR: ``,
+        paddingB: ``,
+        paddingL: ``,
+        borderStyle: ``,
+        borderColor: ``,
+        borderWidth: ``,
+        borderRadius: ``,
+        hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
+    }, {
+        text: `Mark Zuckerberg`
+    }, {
+        tag: `</h3>`
+    }, { 
+        type: 'element',
+        name: 'paragraph',
+        tag: `<p className="font-medium my-2.5 trunctuate p-2">`,
+        className: `font-medium my-2.5 trunctuate p-2`,
+        font: ``,
+        textSize: ``,
+        bold: `font-medium`,
+        italics: ``,
+        underline: ``,
+        alignment: ``,
+        color: ``,
+        bgColor: ``,
+        marginT: ``,
+        marginR: ``,
+        marginB: ``,
+        marginL: ``,
+        paddingT: ``,
+        paddingR: ``,
+        paddingB: ``,
+        paddingL: ``,
+        borderStyle: ``,
+        borderColor: ``,
+        borderWidth: ``,
+        borderRadius: ``,
+        hoverBorder: ``
+    }, {
+        text: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`
+    }, {
+        tag: `</p>`
+    }, { 
+        type: 'element',
+        name: 'paragraph',
+        tag: `<p className="font-medium my-2.5 trunctuate p-2">`,
+        className: `font-medium my-2.5 trunctuate p-2`,
+        font: ``,
+        textSize: ``,
+        bold: `font-medium`,
+        italics: ``,
+        underline: ``,
+        alignment: ``,
+        color: ``,
+        bgColor: ``,
+        marginT: ``,
+        marginR: ``,
+        marginB: ``,
+        marginL: ``,
+        paddingT: ``,
+        paddingR: ``,
+        paddingB: ``,
+        paddingL: ``,
+        borderStyle: ``,
+        borderColor: ``,
+        borderWidth: ``,
+        borderRadius: ``,
+        hoverBorder: ``
+    }, {
+        text: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`
+    }, {
+        tag: `</p>`
     }, {
         tag: `</div>`
     }, {

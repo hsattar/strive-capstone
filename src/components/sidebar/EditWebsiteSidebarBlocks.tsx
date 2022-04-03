@@ -21,15 +21,12 @@ export default function EditWebsiteSidebarElements() {
     const [newBlockName, setNewBlockName] = useState('')
 
     const [showCardsModal, setShowCardsModal] = useState(false)
-    
 
     const createElementTemplate = (template: blockTemplateOptions) => {
-        const test = blockTemplates[template].map(block => {
+        return blockTemplates[template].map(block => {
             const id = uuid()
             return { id, ...block }
         })
-        console.log(test)
-        return test
     }
 
     const handleAddCode = (elementsToAdd: any) => {

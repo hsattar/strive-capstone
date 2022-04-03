@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-type selectMenuOptions = 'font' | 'textSize' | 'color' | 'bgColor' | 'marginT' | 'marginR' | 'marginB' | 'marginL' | 'paddingT' | 'paddingR' | 'paddingB' | 'paddingL' | 'borderStyle' | 'borderColor' | 'borderWidth' | 'borderRadius' | 'display' | 'flexDirection' | 'flexItems' | 'flexJustify'
+type selectMenuOptions = 'font' | 'textSize' | 'color' | 'bgColor' | 'marginT' | 'marginR' | 'marginB' | 'marginL' | 'paddingT' | 'paddingR' | 'paddingB' | 'paddingL' | 'borderStyle' | 'borderColor' | 'borderWidth' | 'borderRadius' | 'display' | 'flexDirection' | 'flexItems' | 'flexJustify' | 'gridCols' | 'gridGap'
  
 interface IProps {
     type: selectMenuOptions

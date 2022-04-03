@@ -73,7 +73,7 @@ const previews = {
         </div>`,
     layout_2x1: `
         <div class="grid md:grid-cols-2 gap-4 pt-6 pb-6 pr-8 pl-8">
-            <img src="zuck.webp" alt="" />
+            <img src="/assets/zuck.webp" alt="" />
             <div class="bg-white text-center p-4 flex flex-col justify-center">
                 <h3 class="font-semibold text-3xl p-2">Mark Zuckerberg</h3>
                 <p class="font-medium my-2.5 trunctuate p-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
@@ -91,7 +91,7 @@ const previews = {
         </div>`,
     heroSection: `
         <div>
-            <img src="mountain-banner.jpg" alt=""  class="relative"/>
+            <img src="/assets/mountain-banner.jpg" alt=""  class="relative h-[500px] w-full"/>
             <div class="absolute bg-gray-900 bg-opacity-50 top-0 h-[500px] w-full"></div>
             <div class="bg-white text-center p-4 flex flex-col justify-center absolute top-0 text-white bg-opacity-0">
                 <h3 class="font-semibold text-3xl p-2">Title</h3>

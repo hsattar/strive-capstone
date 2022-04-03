@@ -12,7 +12,7 @@ import CustomStylesSelectMenu from "./reusable/CustomStylesSelectMenu"
 import CustomEditSelectMenu from './reusable/CustomEditSelectMenu'
 import SVGIcon from "./reusable/CustomSVGIcon"
 import { ActionCreators } from 'redux-undo'
-import { displayOptions, flexDirections, flexItemss, flexJustifys } from '../data/tailwind-options/display'
+import { flexDirections, flexItemss, flexJustifys, gridCols, gridGaps } from '../data/tailwind-options/display'
 
 export default function EditWebsiteTopBar() {
 
@@ -39,6 +39,9 @@ export default function EditWebsiteTopBar() {
     const [flexDirection, setFlexDirection] = useState('Flex Direction')
     const [flexItems, setFlexItems] = useState('Flex Items')
     const [flexJustify, setFlexJustify] = useState('Flex Justify')
+
+    const [gridCol, setGridCol] = useState('Columns')
+    const [gridGap, setGridGap] = useState('Gap')
 
     const [textColor, setTextColor] = useState('Color')
     const [backgroundColor, setBackgroundColor] = useState('BG Color')
@@ -123,13 +126,21 @@ export default function EditWebsiteTopBar() {
                 setFlexDirection(value)
                 dispatch(changeElementClassNameAction(type, `flex-${value}`))
                 break
-                case 'flexJustify': 
+            case 'flexJustify': 
                 setFlexJustify(value)
                 dispatch(changeElementClassNameAction(type, `justify-${value}`))
                 break
-                case 'flexItems': 
+            case 'flexItems': 
                 setFlexItems(value)
                 dispatch(changeElementClassNameAction(type, `items-${value}`))
+                break
+            case 'gridCols':
+                setGridCol(value)
+                dispatch(changeElementClassNameAction(type, `grid-cols-${value}`))
+                break
+            case 'gridGap':
+                setGridGap(value)
+                dispatch(changeElementClassNameAction(type, `gap-${value}`))
                 break
             case 'bgColor': 
                 setBackgroundColor(value)
@@ -153,19 +164,25 @@ export default function EditWebsiteTopBar() {
     useEffect(() => {
         if (elementToEdit) {
             if (elementToEdit.type === 'element') {
-                setFontSelected(elementToEdit.code[0].font!.split('-')[1])
-                setTextSizeelected(elementToEdit.code[0].textSize!.split('-')[1])
-                setTextColor(elementToEdit.code[0].color!.split('text-')[1])
+                setFontSelected(elementToEdit.code[0].font!.split('-')[1] || 'Font')
+                setTextSizeelected(elementToEdit.code[0].textSize!.split('-')[1] || 'Size')
+                setTextColor(elementToEdit.code[0].color!.split('text-')[1] || 'Color')
                 setIsBold(elementToEdit.code[0].bold ? true : false)
                 setIsItalics(elementToEdit.code[0].italics ? true : false)
                 setIsUnderline(elementToEdit.code[0].underline ? true : false)
-                setBackgroundColor(elementToEdit.code[0].bgColor!.split('bg-')[1])
+                setBackgroundColor(elementToEdit.code[0].bgColor!.split('bg-')[1] || 'BG Color')
             }
-            if (elementToEdit.type === 'container') {
-                setFlexDirection(elementToEdit.code[0].flexDirection!.split('flex-')[1])
-                setFlexJustify(elementToEdit.code[0].flexJustify!.split('justify-')[1])
-                setFlexItems(elementToEdit.code[0].flexItems!.split('items-')[1])
-                setBackgroundColor(elementToEdit.code[0].bgColor!.split('bg-')[1])
+            if (elementToEdit.type === 'flexContainer') {
+                setFlexDirection(elementToEdit.code[0].flexDirection!.split('flex-')[1] || 'Direction')
+                setFlexJustify(elementToEdit.code[0].flexJustify!.split('justify-')[1] || 'Justify')
+                setFlexItems(elementToEdit.code[0].flexItems!.split('items-')[1] || 'Items')
+                setBackgroundColor(elementToEdit.code[0].bgColor!.split('bg-')[1] || 'BG Color')
+            }
+            if (elementToEdit.type === 'gridContainer') {
+                console.log(elementToEdit.code[0])
+                setGridCol(elementToEdit.code[0].gridCols!.split('grid-cols-')[1] || 'Columns')
+                setGridGap(elementToEdit.code[0].gridGap!.split('gap-')[1] || 'Gap')
+                setBackgroundColor(elementToEdit.code[0].bgColor!.split('bg-')[1] || 'BG Color')
             }
         }
     }, [elementToEdit])
@@ -241,7 +258,7 @@ export default function EditWebsiteTopBar() {
                     </div>
                     </div>
                 ) }
-                { (elementToEdit && elementToEdit.type === 'container') && (
+                { (elementToEdit && elementToEdit.type === 'flexContainer') && (
                     <div className="flex">
                         <CustomEditSelectMenu 
                             type="flexDirection"
@@ -272,6 +289,31 @@ export default function EditWebsiteTopBar() {
                             onClick={handleStyleChange}
                         />
                         </div>
+                ) }
+                { (elementToEdit && elementToEdit.type === 'gridContainer') && (
+                    <div className="flex">
+                        <CustomEditSelectMenu 
+                            type="gridCols"
+                            containerClass="w-[150px] relative mr-2"
+                            initialValue={gridCol}
+                            listOfValues={gridCols}
+                            onClick={handleStyleChange}
+                        />
+                        <CustomEditSelectMenu 
+                            type="gridGap"
+                            containerClass="w-[150px] relative mr-2"
+                            initialValue={gridGap}
+                            listOfValues={gridGaps}
+                            onClick={handleStyleChange}
+                        />
+                        <CustomEditSelectMenu 
+                            type="bgColor"
+                            containerClass="w-[150px] relative mr-2"
+                            initialValue={backgroundColor}
+                            listOfValues={colors}
+                            onClick={handleStyleChange}
+                        />
+                    </div>
                 ) }
                 </div>
 
