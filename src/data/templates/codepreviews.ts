@@ -70,6 +70,34 @@ const previews = {
                     <p class="font-medium my-2.5 trunctuate p-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
                 </div>
             </div>
+        </div>`,
+    layout_2x1: `
+        <div class="grid md:grid-cols-2 gap-4 pt-6 pb-6 pr-8 pl-8">
+            <img src="zuck.webp" alt="" />
+            <div class="bg-white text-center p-4 flex flex-col justify-center">
+                <h3 class="font-semibold text-3xl p-2">Mark Zuckerberg</h3>
+                <p class="font-medium my-2.5 trunctuate p-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                <p class="font-medium my-2.5 trunctuate p-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+            </div>
+        </div>`,
+    layout_1x2: `
+        <div>
+            <img src="mountain-banner.jpg" alt="" />
+            <div class="bg-white text-center p-4 flex flex-col justify-center">
+                <h3 class="font-semibold text-3xl p-2">Title</h3>
+                <p class="font-medium my-2.5 trunctuate p-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                <p class="font-medium my-2.5 trunctuate p-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+            </div>
+        </div>`,
+    heroSection: `
+        <div>
+            <img src="mountain-banner.jpg" alt=""  class="relative"/>
+            <div class="absolute bg-gray-900 bg-opacity-50 top-0 h-[500px] w-full"></div>
+            <div class="bg-white text-center p-4 flex flex-col justify-center absolute top-0 text-white bg-opacity-0">
+                <h3 class="font-semibold text-3xl p-2">Title</h3>
+                <p class="font-medium my-2.5 trunctuate p-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                <p class="font-medium my-2.5 trunctuate p-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+            </div>
         </div>`
 }
 

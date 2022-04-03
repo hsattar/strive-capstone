@@ -1,5 +1,5 @@
 import parse from 'html-react-parser'
-import { Dispatch, MouseEvent, SetStateAction, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, Dispatch, MouseEvent, SetStateAction, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
@@ -23,6 +23,7 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
     
     const [changesMade, setChangesMade] = useState(false)
     const [elementToEditText, setElementToEditText] = useState<string | undefined>('')
+    const [IFrameElement, setIFrameElement] = useState('')
 
     const [linkTo, setLinkTo] = useState('')
     const [pageSelected, setPageSelected] = useState(pages[0])
@@ -70,10 +71,24 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
                 dispatch(updateCodeAndCodeBlocksAction(updatedCode, updatedCodeBlocks))
             } 
             break
+            case 'iframe': {
+                const newElement = {...elementToEdit}
+                newElement.code[0].tag = `<div className="flex justify-center hover:border-2 hover:border-blue-300 hover:cursor-grab">  ${IFrameElement}  </div>`
+                const updatedCodeBlocks = codeBlocks.map(block => block.id === elementToEdit.id ? newElement : block)
+                const flatBlocks = updatedCodeBlocks.map(block => block.code).flat()
+                const updatedCode = createNewCode(flatBlocks)
+                dispatch(updateCodeAndCodeBlocksAction(updatedCode, updatedCodeBlocks))
+            }
+            break
             default: return
         }
         setChangesMade(false)
         setShowEditTextModal(false)
+    }
+
+    const handleChangeIframe = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        setIFrameElement(e.target.value)
+        !changesMade && setChangesMade(true)
     }
 
     const linkChange = (add: boolean) => {
@@ -108,6 +123,9 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
                 setElementLinked(false)
                 setElementToEditText(elementToEdit.code[1].text)
             }
+        }
+        if (elementToEdit!.type === 'iframe') {
+            setIFrameElement(elementToEdit!.code[0].tag!.split('  ')[1])
         }
     }, [elementToEdit])
 
@@ -174,6 +192,18 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
                         }) }
                     </div>
                 ) }
+                { elementToEdit!.type === 'iframe' && (
+                    <div className="relative z-0 mb-6 w-full group">
+                        <textarea 
+                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer resize-none"
+                            rows={4}
+                            value={IFrameElement}
+                            onChange={handleChangeIframe}
+                            autoFocus 
+                        />
+                        <label className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">IFrame</label>
+                    </div>
+                )}
                 <div className="flex justify-end mt-4">
                     { changesMade ? (
                         <button onClick={e => {
