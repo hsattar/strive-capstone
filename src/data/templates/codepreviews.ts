@@ -98,7 +98,16 @@ const previews = {
                 <p class="font-medium my-2.5 trunctuate p-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
                 <p class="font-medium my-2.5 trunctuate p-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
             </div>
-        </div>`
+        </div>`,
+    carousel: `
+    <div class="relative h-[600px]">
+        <img class="mySlides h-[600px] w-full" src="/assets/mountain-banner.jpg" alt="">
+        <img class="mySlides h-[600px] w-full" src="/assets/sunset.jpg" alt="">
+        <img class="mySlides h-[600px] w-full" src="/assets/theme-park.jpg" alt="">
+        <button class="cursor-pointer absolute left-5 top-50" onclick="plusSlides(-1)">&#10094;</button>
+        <button class="cursor-pointer absolute right-5" onclick="plusSlides(1)">&#10095;</button>
+    </div>`,
+    carouselScript: `/*  carousel */ let slideIndex = 1;showSlides(slideIndex);function plusSlides(n) {showSlides(slideIndex += n);}function currentSlide(n) {showSlides(slideIndex = n);}function showSlides(n) {let i;let slides = document.getElementsByClassName("mySlides");let dots = document.getElementsByClassName("dot");if (n > slides.length) {slideIndex = 1} if (n < 1) {slideIndex = slides.length}for (i = 0; i < slides.length; i++) {slides[i].style.display = "none";  }for (i = 0; i < dots.length; i++) {dots[i].className = dots[i].className.replace(" active", "");}slides[slideIndex-1].style.display = "block";  dots[slideIndex-1].className += " active";} /*  carousel */`
 }
 
 export default previews

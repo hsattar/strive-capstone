@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { toast, ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
 import { ActionCreators } from 'redux-undo'
+import CustomSelectDropdown from "../reusable/CustomSelectDropdown"
 
 interface IProps {
     pages: string[]
@@ -32,23 +33,35 @@ export default function EditWebsiteSidebarGeneral({ pages, setPages}: IProps) {
     const [pageToCopy, setPageToCopy] = useState(false)
     const [showCodeModal, setShowCodeModal] = useState(false)
     const [viewCode, setViewCode] = useState('')
+    const [viewCodeLanguage, setViewCodeLanguage] = useState('html')
 
     const openingHTML = `<!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta name="robots" content="index, follow">
-            <meta name="description" content="${websiteDescription}">
-            <script src="https://cdn.tailwindcss.com"></script>
-            <title>${websiteTitle}</title>
-        </head>
-        <body>\n`
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="${websiteDescription}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>${websiteTitle}</title>
+</head>
+<body>\n\t`
 
         const closingHTML = `
-        </body>
-        </html>`
+</body>
+</html>`
+
+        const openingReact = `import { Link } from 'react-router-dom'
+        
+export default function ${pageSelected}() {
+    return (
+        <>\n\t\t\t`
+
+        const closingReact = `
+        </>
+    )
+}`
 
     const handlePageToEditChange = (page: string) => {
         handleSaveWebsite()
@@ -143,7 +156,9 @@ export default function EditWebsiteSidebarGeneral({ pages, setPages}: IProps) {
     }
 
     const handleCopyCode = async () => {
-        navigator.clipboard.writeText(`${openingHTML}${viewCode}${closingHTML}`)
+        viewCodeLanguage === 'html'
+        ? navigator.clipboard.writeText(`${openingHTML}${viewCode}${closingHTML}`)
+        : navigator.clipboard.writeText(`${openingReact}${viewCode}${closingReact}`)
         toastNotification('Copied')
         setShowCodeModal(false)
     }
@@ -163,8 +178,10 @@ export default function EditWebsiteSidebarGeneral({ pages, setPages}: IProps) {
     }, [])
     
     useEffect(() => {
-        setViewCode(code.replaceAll('className', 'class').split('">').join('">\n').split('</').join('\n</').split('><').join('>\n<').split('">  ').join('">\n'))
-    }, [code])
+        viewCodeLanguage === 'html' 
+        ? setViewCode(code.replaceAll('className', 'class').split('">').join('">\n\t\t').split('</').join('\n\t</').split('><').join('>\n\t<').split('">  ').join('">\n'))
+        : setViewCode(code.replaceAll('<a href', '<Link to').replaceAll('</a>', '</Link>').split('">').join('">\n\t\t\t\t').split('</').join('\n\t\t\t</').split('><').join('>\n\t\t\t<').split('">  ').join('">\n\t\t\t'))
+    }, [code, viewCodeLanguage])
 
     useEffect(() => {
         fetchWebsiteDetails()
@@ -292,14 +309,28 @@ export default function EditWebsiteSidebarGeneral({ pages, setPages}: IProps) {
         ) }
         { showCodeModal && (
         <div onClick={() => setShowCodeModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-            <div onClick={e => e.stopPropagation()} className="relative top-10 mx-auto p-5 border w-[85%] shadow-lg rounded-md max-h-[85vh] overflow-y-scroll bg-white">
-            <pre>
+            <div onClick={e => e.stopPropagation()} className="relative top-10 mx-auto p-5 border w-[85%] shadow-lg rounded-md max-h-[85vh] overflow-hidden overflow-y-scroll bg-white">
+            <CustomSelectDropdown 
+                containerClass="w-full"
+                initialValue={viewCodeLanguage}
+                listOfValues={['html', 'react']}
+                onClick={value => setViewCodeLanguage(value)}
+            />
+            <pre className="bg-gray-900 text-gray-100 rounded-md mt-5 p-4 overflow-hidden overflow-x-scroll">
                 <code>
-                <p>
-                    { openingHTML }
-                    { viewCode }
-                    { closingHTML }
-                </p>
+                    { viewCodeLanguage === 'html' ? (
+                        <>
+                            { openingHTML }
+                            { viewCode }
+                            { closingHTML }
+                        </>
+                    ) : (
+                        <>
+                            { openingReact }
+                                { viewCode }
+                            { closingReact }
+                        </>
+                    ) }
                 </code>
             </pre>
             <button onClick={handleCopyCode} className="border-blue-500 border hover:bg-blue-500 py-1 px-5 rounded-md text-blue-500 hover:text-white mt-4 w-full">Copy</button>
