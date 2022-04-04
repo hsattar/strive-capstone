@@ -1,5 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { useParams } from "react-router-dom"
+import useAxios from "../hooks/useAxios"
 import { addOrRemoveElementLinkAction, createNewCode, updateCodeAndCodeBlocksAction } from "../redux/actions/actionCreators"
 import CustomSelectDropdown from "./reusable/CustomSelectDropdown"
 
@@ -14,6 +16,8 @@ interface IProps {
 export default function ContainerElement({ block, index, pages, changesMade, setChangesMade }: IProps) {
 
     const dispatch = useDispatch()
+    const axiosRequest = useAxios()
+    const { websiteName } = useParams()
     const elementToEdit = useSelector((state: IReduxStore) => state.misc.elementToEdit)
     const codeBlocks = useSelector((state: IReduxStore) => state.website.present.codeBlocks)
 
@@ -29,6 +33,9 @@ export default function ContainerElement({ block, index, pages, changesMade, set
     const [linkType, setLinkType] = useState('Link - Internal')
     const linkTypeOptions = ['Link - Internal', 'Link - External']
     const [elementLinked, setElementLinked] = useState(false)
+
+    const [editImageModal, setEditImageModal] = useState(false)
+    const [websiteImages, setWebsiteImages] = useState<string[]>([])
 
     const handleSave = () => {
         let newText = elementToEditText
@@ -51,6 +58,17 @@ export default function ContainerElement({ block, index, pages, changesMade, set
         setShowEditOptions(false)
     }
 
+    const fetchWebsiteImages = async () => {
+        try {
+            const response = await axiosRequest(`/images/${websiteName}/images`, 'GET')
+            if (response.status === 200) {
+                setWebsiteImages(response.data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const linkChange = (add: boolean) => {
         const highlighted = window.getSelection()?.toString()
         setElementLinked(prev => !prev)
@@ -71,6 +89,21 @@ export default function ContainerElement({ block, index, pages, changesMade, set
         }
         !changesMade && setChangesMade(true)
     }
+
+    const handleImageChange = (block: any, image: string) => {
+        if (!elementToEdit) return
+        const newImage = `<img src="${image}" className="${block.className}" />`
+        const newElement = {...elementToEdit}
+        newElement.code[index].tag = newImage
+        const updatedCodeBlocks = codeBlocks.map(block => block.id === elementToEdit.id ? newElement : block)
+        const flatBlocks = updatedCodeBlocks.map(block => block.code).flat()
+        const updatedCode = createNewCode(flatBlocks)
+        dispatch(updateCodeAndCodeBlocksAction(updatedCode, updatedCodeBlocks))
+    }
+
+    useEffect(() => {
+        fetchWebsiteImages()
+    }, [])
 
     useEffect(() => {
         if (block.text) {
@@ -149,7 +182,24 @@ export default function ContainerElement({ block, index, pages, changesMade, set
     } else if (block.tag?.startsWith(`<img`)) {
         return (
             <>
-                <p onClick={() => {}} className="my-2 cursor-pointer">{elementToEditImage}</p>
+                <p onClick={() => setEditImageModal(true)} className="my-2 cursor-pointer">{elementToEditImage}</p>
+                { editImageModal && (
+                    <>
+                    { websiteImages.length === 0 ? (
+                        <p className="text-center text-gray-400 my-4">You Have No Images Uploaded</p>
+                    ) : (
+                        <div className="grid grid-cols-4 justify-items-center gap-3 p-3">
+                        { websiteImages.map(image => <img key={image} className="cursor-pointer" onClick={() => handleImageChange(block, image)} src={image} alt="" />) }
+                        </div>
+                    ) }
+                    <div className="flex justify-end mt-4">
+                        <button onClick={e => {
+                            e.stopPropagation()
+                            setEditImageModal(false)
+                        }} className={`bg-blue-500 hover:bg-blue-600 py-1 px-5 mr-3 rounded-md text-white`}>Close</button>
+                    </div>
+                    </>
+                ) }
             </>
         )
     } else {

@@ -54,6 +54,7 @@ export default function EditWebsiteSidebarElements() {
                 <div>
                     <p onClick={() => handleAddCode(createElementTemplate('heading'))} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Heading</p>
                     <p onClick={() => handleAddCode(createElementTemplate('paragraph'))} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Paragraph</p>
+                    <p onClick={() => handleAddCode(createElementTemplate('button'))} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Button</p>
                 </div>
             </CustomSidebarDropdown>
             <CustomSidebarDropdown name="Media">
@@ -64,12 +65,11 @@ export default function EditWebsiteSidebarElements() {
             </CustomSidebarDropdown>
             <CustomSidebarDropdown name="Components">
                 <div>
-                    <p onClick={() => handleAddCode(createElementTemplate('button'))} className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">Button</p>
                     <p onClick={() => handleAddCode(createElementTemplate('navbar'))} className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Navbar</p>
                     <p onClick={() => handleAddCode(createElementTemplate('heroSection'))} className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Hero Section</p>
+                    <p onClick={() => setShowCardsModal(true)} className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Cards</p>
                     <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Accordian</p>
                     <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Form</p>
-                    <p onClick={() => setShowCardsModal(true)} className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Cards</p>
                 </div>
             </CustomSidebarDropdown>
             <CustomSidebarDropdown 
