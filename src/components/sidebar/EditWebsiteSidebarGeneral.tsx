@@ -53,7 +53,8 @@ export default function EditWebsiteSidebarGeneral({ pages, setPages}: IProps) {
 </html>`
 
         const openingReact = `import { Link } from 'react-router-dom'
-        
+// You will need to install Tailwind CSS - https://tailwindcss.com/docs/guides/create-react-app
+
 export default function ${pageSelected}() {
     return (
         <>\n\t\t\t`

@@ -9,11 +9,9 @@ import DraggableCodeBlock from "../components/DraggableCodeBlock"
 import EditBlockModal from "../components/EditBlockModal"
 import EditWebsiteTopBar from "../components/EditWebsiteTopBar"
 import Navbar from "../components/Navbar"
-// import EditWebsiteSidebarComponents from "../components/sidebar/EditWebsiteSidebarComponents"
 import EditWebsiteSidebarBlocks from "../components/sidebar/EditWebsiteSidebarBlocks"
 import EditWebsiteSidebarGeneral from "../components/sidebar/EditWebsiteSidebarGeneral"
 import EditWebsiteSidebarIcons from "../components/sidebar/EditWebsiteSidebarIcons"
-import EditWebsiteSidebarLayout from "../components/sidebar/EditWebsiteSidebarLayout"
 import EditWebsiteSidebarMedia from "../components/sidebar/EditWebsiteSidebarMedia"
 import EditWebsiteSidebarStyles from "../components/sidebar/EditWebsiteSidebarStyles"
 import useAxios from '../hooks/useAxios'
@@ -140,7 +138,6 @@ export default function EditWebsite() {
                 { sidebarTab === 'general' && <EditWebsiteSidebarGeneral pages={pages} setPages={setPages} /> }
                 { sidebarTab === 'media' && <EditWebsiteSidebarMedia /> }
                 { sidebarTab === 'styles' && <EditWebsiteSidebarStyles showEditTextModal={showEditTextModal} setShowEditTextModal={setShowEditTextModal} /> }
-                { sidebarTab === 'layout' && <EditWebsiteSidebarLayout /> }
                 { sidebarTab === 'blocks' && <EditWebsiteSidebarBlocks /> }
                 </div>
                 <div className="bg-gray-100 flex justify-center select-none overflow-hidden min-h-[88vh] max-h-[88vh]">

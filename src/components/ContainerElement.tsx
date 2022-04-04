@@ -42,9 +42,9 @@ export default function ContainerElement({ block, index, pages, changesMade, set
         if (elementLinked) {
             if (linkType === 'Link - Internal') {
                 console.log('internal')
-                newText = `<a href="/ws/test/${pageSelected}">  ${elementToEditText}  </a>`
+                newText = `<a href="/ws/${websiteName}/${pageSelected}">  ${elementToEditText}  </a>`
             } else {
-                newText = `<a href="/ws/test/${linkTo}" target="_blank">  ${elementToEditText}  </a>`
+                newText = `<a href="/ws/${websiteName}/${linkTo}" target="_blank">  ${elementToEditText}  </a>`
             }
         } 
 
@@ -72,18 +72,18 @@ export default function ContainerElement({ block, index, pages, changesMade, set
     const linkChange = (add: boolean) => {
         const highlighted = window.getSelection()?.toString()
         setElementLinked(prev => !prev)
-        if (!add) return dispatch(addOrRemoveElementLinkAction('', '', ''))
+        if (!add) return dispatch(addOrRemoveElementLinkAction('', '', '', ''))
         if (linkType === 'Link - Internal') {
             if (highlighted) {
-                dispatch(addOrRemoveElementLinkAction(linkType, pageSelected, highlighted))
+                dispatch(addOrRemoveElementLinkAction(linkType, pageSelected, highlighted, websiteName!))
             } else {
-                dispatch(addOrRemoveElementLinkAction(linkType, pageSelected, ''))
+                dispatch(addOrRemoveElementLinkAction(linkType, pageSelected, '', websiteName!))
             }
         } else {
             if (highlighted) {
-                dispatch(addOrRemoveElementLinkAction(linkType, linkTo, highlighted))
+                dispatch(addOrRemoveElementLinkAction(linkType, linkTo, highlighted, ''))
             } else {
-                dispatch(addOrRemoveElementLinkAction(linkType, linkTo, ''))
+                dispatch(addOrRemoveElementLinkAction(linkType, linkTo, '', ''))
             }
 
         }
@@ -99,6 +99,7 @@ export default function ContainerElement({ block, index, pages, changesMade, set
         const flatBlocks = updatedCodeBlocks.map(block => block.code).flat()
         const updatedCode = createNewCode(flatBlocks)
         dispatch(updateCodeAndCodeBlocksAction(updatedCode, updatedCodeBlocks))
+        setEditImageModal(false)
     }
 
     useEffect(() => {

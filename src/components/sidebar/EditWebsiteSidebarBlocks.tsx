@@ -61,7 +61,7 @@ export default function EditWebsiteSidebarElements() {
                 <div>
                     <p onClick={() => setShowIFrameModal(true)}className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">IFrame - YouTube/Map</p>
                     <p onClick={() => handleAddCode(createElementTemplate('imageGallery'))} className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Image Gallery</p>
-                    <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Carousel</p>
+                    <p onClick={() => handleAddCode(createElementTemplate('layout_2x1_1'))} className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Image + Text</p>
                 </div>
             </CustomSidebarDropdown>
             <CustomSidebarDropdown name="Components">
@@ -69,8 +69,6 @@ export default function EditWebsiteSidebarElements() {
                     <p onClick={() => handleAddCode(createElementTemplate('navbar'))} className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Navbar</p>
                     <p onClick={() => handleAddCode(createElementTemplate('heroSection'))} className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Hero Section</p>
                     <p onClick={() => setShowCardsModal(true)} className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Cards</p>
-                    <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Accordian</p>
-                    <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Form</p>
                 </div>
             </CustomSidebarDropdown>
         </div>

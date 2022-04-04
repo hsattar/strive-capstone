@@ -83,17 +83,6 @@ export default function EditWebsiteSidebarMedia() {
                 ) }
                 </>
             </CustomSidebarDropdown>
-            <CustomSidebarDropdown 
-                name="My Videos"
-                iconClassName="h-5 w-5 text-green-500 mr-2" 
-                iconPath="M12 4v16m8-8H4" 
-                iconStrokeWidth={2}
-                onClick={(e: MouseEvent) => e.stopPropagation()}
-            >
-                <>
-                <p className="text-center text-gray-400 my-4">You Have No Videos Uploaded</p>
-                </>
-            </CustomSidebarDropdown>
             <CustomSidebarDropdown name="Unsplash Images">
                 <>
                 <form onSubmit={handleSubmit} autoComplete="off" noValidate className="mt-0 text-center">

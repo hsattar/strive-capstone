@@ -31,10 +31,6 @@ export default function EditWebsiteSidebarIcons({ sidebarTab, setSidebarTab }: I
             <SVGIcon pathStrokeWidth={sidebarTab === 'media' ? 2 : 1} pathD="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
             <span className="sidebar-tooltip group-hover:scale-100">Media</span>
         </div>
-        <div className="sidebar-icon group" onClick={() => handleChangeSidebarTab('layout')}>
-            <SVGIcon pathStrokeWidth={sidebarTab === 'layout' ? 2 : 1} pathD="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-            <span className="sidebar-tooltip group-hover:scale-100">Layout</span>
-        </div>
         </div>
     )
 }

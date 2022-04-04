@@ -1,7 +1,7 @@
 import parse from 'html-react-parser'
 import { ChangeEvent, Dispatch, MouseEvent, SetStateAction, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 import { addElementsToCodeAction, addOrRemoveElementLinkAction, createNewCode, createNewEditableCode, updateCodeAndCodeBlocksAction } from '../redux/actions/actionCreators'
 import ContainerElement from './ContainerElement'
@@ -16,6 +16,7 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
 
     const dispatch = useDispatch()
     const { pathname } = useLocation()
+    const { websiteName } = useParams()
     const textAreaRef = useRef<HTMLTextAreaElement>(null)
     const codeBlocks = useSelector((state: IReduxStore) => state.website.present.codeBlocks)
     const elementToEdit = useSelector((state: IReduxStore) => state.misc.elementToEdit)
@@ -50,9 +51,9 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
         if (elementLinked) {
             if (linkType === 'Link - Internal') {
                 console.log('internal')
-                newText = `<a href="/ws/test/${pageSelected}">  ${elementToEditText}  </a>`
+                newText = `<a href="/ws/${websiteName}/${pageSelected}">  ${elementToEditText}  </a>`
             } else {
-                newText = `<a href="/ws/test/${linkTo}" target="_blank">  ${elementToEditText}  </a>`
+                newText = `<a href="/ws/${websiteName}/${linkTo}" target="_blank">  ${elementToEditText}  </a>`
             }
         } 
         switch (elementToEdit?.type) {
@@ -94,18 +95,18 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
     const linkChange = (add: boolean) => {
         const highlighted = window.getSelection()?.toString()
         setElementLinked(prev => !prev)
-        if (!add) return dispatch(addOrRemoveElementLinkAction('', '', ''))
+        if (!add) return dispatch(addOrRemoveElementLinkAction('', '', '', ''))
         if (linkType === 'Link - Internal') {
             if (highlighted) {
-                dispatch(addOrRemoveElementLinkAction(linkType, pageSelected, highlighted))
+                dispatch(addOrRemoveElementLinkAction(linkType, pageSelected, highlighted, websiteName!))
             } else {
-                dispatch(addOrRemoveElementLinkAction(linkType, pageSelected, ''))
+                dispatch(addOrRemoveElementLinkAction(linkType, pageSelected, '', websiteName!))
             }
         } else {
             if (highlighted) {
-                dispatch(addOrRemoveElementLinkAction(linkType, linkTo, highlighted))
+                dispatch(addOrRemoveElementLinkAction(linkType, linkTo, highlighted, ''))
             } else {
-                dispatch(addOrRemoveElementLinkAction(linkType, linkTo, ''))
+                dispatch(addOrRemoveElementLinkAction(linkType, linkTo, '', ''))
             }
 
         }
