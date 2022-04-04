@@ -120,6 +120,8 @@ export default function ContainerElement({ block, index, pages, changesMade, set
         }
     }, [block])
 
+    if (block.text?.includes('  undefined  ')) return <></>
+
     if (block.text) {
         return (
             <>
@@ -202,7 +204,5 @@ export default function ContainerElement({ block, index, pages, changesMade, set
                 ) }
             </>
         )
-    } else {
-        return <></>
-    }
+    } else return <></>
 }

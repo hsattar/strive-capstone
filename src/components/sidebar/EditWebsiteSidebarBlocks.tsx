@@ -60,6 +60,7 @@ export default function EditWebsiteSidebarElements() {
             <CustomSidebarDropdown name="Media">
                 <div>
                     <p onClick={() => setShowIFrameModal(true)}className="capitalize pl-8 py-1 cursor-pointer hover:bg-gray-100">YouTube</p>
+                    <p onClick={() => handleAddCode(createElementTemplate('imageGallery'))} className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Image Gallery</p>
                     <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Carousel</p>
                 </div>
             </CustomSidebarDropdown>

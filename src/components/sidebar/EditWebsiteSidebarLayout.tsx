@@ -21,7 +21,7 @@ export default function EditWebsiteSidebarLayout() {
         dispatch(setElementToEditAction(codeObject))
         dispatch(addElementsToCodeAction(codeObject))
     }
-
+    
     return (
         <div className="select-none overflow-y-scroll">
             <CustomSidebarDropdown name="Grid - Simple">
@@ -31,7 +31,7 @@ export default function EditWebsiteSidebarLayout() {
                     <img src="/assets/1x2.jpg" className="h-16 hover:border-2 hover:cursor-pointer p-2" alt="1x2" />
                     <img src="/assets/1x3.jpg" className="h-16 hover:border-2 hover:cursor-pointer p-2" alt="1x3" />
                     <img src="/assets/2x2.jpg" className="h-16 hover:border-2 hover:cursor-pointer p-2" alt="2x2" />
-                    <img src="/assets/3x3.jpg" className="h-16 hover:border-2 hover:cursor-pointer p-2" alt="3x3" />
+                    <img onClick={() => handleAddCode(createLayoutTemplate('imageGallery'))} src="/assets/3x2.jpg" className="h-16 hover:border-2 hover:cursor-pointer p-2" alt="3x2" />
                 </div>
             </CustomSidebarDropdown>
             <CustomSidebarDropdown name="Grid - Advanced">
