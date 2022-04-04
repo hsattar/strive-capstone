@@ -99,8 +99,8 @@ export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEdi
                 setPaddingB(elementToEdit.code[0]?.paddingB!.split('-')[1] || '0')
                 setPaddingL(elementToEdit.code[0]?.paddingL!.split('-')[1] || '0')
                 setBorderStyle(elementToEdit.code[0]?.borderStyle! || 'Style')
-                setBorderColor(elementToEdit.code[0]?.borderColor!.split('border-')[1])
-                setBorderWidth(elementToEdit.code[0]?.borderWidth!)
+                setBorderColor(elementToEdit.code[0]?.borderColor!.split('border-')[1] || 'Color')
+                setBorderWidth(elementToEdit.code[0]?.borderWidth! || 'Width')
                 setBorderRadius(elementToEdit.code[0]?.borderRadius! || 'Radius')
             }
         }

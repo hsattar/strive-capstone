@@ -30,7 +30,25 @@ export default function EditWebsiteSidebarGeneral({ pages, setPages}: IProps) {
     const [showAddNewPageModal, setShowAddNewPageModal] = useState(false)
     const [newPageName, setNewPageName] = useState('')
     const [pageToCopy, setPageToCopy] = useState(false)
+    const [showCodeModal, setShowCodeModal] = useState(false)
+    const [viewCode, setViewCode] = useState('')
 
+    const openingHTML = `<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="robots" content="index, follow">
+            <meta name="description" content="${websiteDescription}">
+            <script src="https://cdn.tailwindcss.com"></script>
+            <title>${websiteTitle}</title>
+        </head>
+        <body>\n`
+
+        const closingHTML = `
+        </body>
+        </html>`
 
     const handlePageToEditChange = (page: string) => {
         handleSaveWebsite()
@@ -124,6 +142,12 @@ export default function EditWebsiteSidebarGeneral({ pages, setPages}: IProps) {
         }
     }
 
+    const handleCopyCode = async () => {
+        navigator.clipboard.writeText(`${openingHTML}${viewCode}${closingHTML}`)
+        toastNotification('Copied')
+        setShowCodeModal(false)
+    }
+
     const toastNotification = (msg: string) => toast.success(msg, {
         position: "bottom-left",
         autoClose: 1000,
@@ -137,6 +161,10 @@ export default function EditWebsiteSidebarGeneral({ pages, setPages}: IProps) {
     useEffect(() => {
         setPageToEdit(pageSelected)
     }, [])
+    
+    useEffect(() => {
+        setViewCode(code.replaceAll('className', 'class').split('">').join('">\n').split('</').join('\n</').split('><').join('>\n<').split('">  ').join('">\n'))
+    }, [code])
 
     useEffect(() => {
         fetchWebsiteDetails()
@@ -206,7 +234,8 @@ export default function EditWebsiteSidebarGeneral({ pages, setPages}: IProps) {
             </CustomSidebarDropdown>
 
             <CustomSidebarDropdown name="Website Details">
-            <form onSubmit={updateWebsiteDetails} autoComplete="off" noValidate className="mt-0 text-center">
+            <div className="text-center">
+            <form onSubmit={updateWebsiteDetails} autoComplete="off" noValidate className="mt-0">
                 <div className="relative z-0 mb-4 group flex justify-center">
                     <input 
                         className="block py-2.5 px-0 text-sm w-5/6 text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -235,6 +264,8 @@ export default function EditWebsiteSidebarGeneral({ pages, setPages}: IProps) {
                 </div>
                 <button type="submit" className="border-green-500 border hover:bg-green-500 py-1 px-5 w-5/6 rounded-md text-green-500 hover:text-white">Update</button>
             </form>
+            <button onClick={() => setShowCodeModal(true)} className="border-blue-500 border hover:bg-blue-500 py-1 px-5 w-5/6 rounded-md text-blue-500 hover:text-white mt-4">View Code</button>
+            </div>
             </CustomSidebarDropdown>
         </div>
         { showAddNewPageModal && (
@@ -256,6 +287,22 @@ export default function EditWebsiteSidebarGeneral({ pages, setPages}: IProps) {
                     <button type="submit" onClick={e => e.stopPropagation()} className="bg-blue-500 hover:bg-blue-600 py-1 px-5 mr-3 rounded-md text-white">Add</button>
                     </div>
                 </form>
+            </div>
+        </div>
+        ) }
+        { showCodeModal && (
+        <div onClick={() => setShowCodeModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+            <div onClick={e => e.stopPropagation()} className="relative top-10 mx-auto p-5 border w-[85%] shadow-lg rounded-md max-h-[85vh] overflow-y-scroll bg-white">
+            <pre>
+                <code>
+                <p>
+                    { openingHTML }
+                    { viewCode }
+                    { closingHTML }
+                </p>
+                </code>
+            </pre>
+            <button onClick={handleCopyCode} className="border-blue-500 border hover:bg-blue-500 py-1 px-5 rounded-md text-blue-500 hover:text-white mt-4 w-full">Copy</button>
             </div>
         </div>
         ) }

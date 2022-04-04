@@ -288,7 +288,7 @@ export default function EditWebsiteTopBar() {
                             listOfValues={colors}
                             onClick={handleStyleChange}
                         />
-                        </div>
+                    </div>
                 ) }
                 { (elementToEdit && elementToEdit.type === 'gridContainer') && (
                     <div className="flex">

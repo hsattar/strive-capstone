@@ -73,20 +73,6 @@ export default function EditWebsiteSidebarElements() {
                     <p className="pl-8 py-1 cursor-pointer hover:bg-gray-100">Form</p>
                 </div>
             </CustomSidebarDropdown>
-            <CustomSidebarDropdown 
-                name="Custom Blocks" 
-                iconClassName="h-5 w-5 text-green-500 mr-2" 
-                iconPath="M12 4v16m8-8H4" 
-                iconStrokeWidth={2}
-                onClick={e => {
-                    e.stopPropagation()
-                    setShowNewBlockModal(true)
-                }}
-            >
-                <>
-                    <p className="text-center text-gray-400 my-4">You Have No Custom Blocks</p>
-                </>
-            </CustomSidebarDropdown>
         </div>
         { showIFrameModal && (
             <div onClick={() => setShowIFrameModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
@@ -110,7 +96,7 @@ export default function EditWebsiteSidebarElements() {
             </div>
         ) }
         { showCardsModal && (
-            <div onClick={() => setShowCardsModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+            <div onClick={() => setShowCardsModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
                 <div onClick={e => e.stopPropagation()} className="relative top-10 mx-auto p-5 border w-[85%] max-h-[90vh] overflow-y-scroll shadow-lg rounded-md bg-white">
                     <div className="mb-8 cursor-pointer" onClick={() => {
                         handleAddCode(createElementTemplate('pricingCards'))
