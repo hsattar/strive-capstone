@@ -373,7 +373,7 @@ const blockTemplates = {
         flexDirection: '',
         flexJustify: '',
         flexItems: '',
-        hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
+        hoverBorder: ``
     }, {
         name: 'h2 heading',
         tag: `<h2 className="text-2xl font-semibold">`,
@@ -595,7 +595,7 @@ const blockTemplates = {
         flexDirection: '',
         flexJustify: '',
         flexItems: '',
-        hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
+        hoverBorder: ``
     }, {
         name: 'h2 heading',
         tag: `<h2 className="text-2xl font-semibold">`,
@@ -817,7 +817,7 @@ const blockTemplates = {
         flexDirection: '',
         flexJustify: '',
         flexItems: '',
-        hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
+        hoverBorder: ``
     }, {
         name: 'h2 heading',
         tag: `<h2 className="text-2xl font-semibold">`,
@@ -1064,7 +1064,7 @@ const blockTemplates = {
         flexDirection: '',
         flexJustify: '',
         flexItems: '',
-        hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
+        hoverBorder: ``
     }, {
         type: 'container',
         name: `image container`,
@@ -1200,7 +1200,7 @@ const blockTemplates = {
         flexDirection: '',
         flexJustify: '',
         flexItems: '',
-        hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
+        hoverBorder: ``
     }, {
         type: 'container',
         name: `image container`,
@@ -1336,7 +1336,7 @@ const blockTemplates = {
         flexDirection: '',
         flexJustify: '',
         flexItems: '',
-        hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
+        hoverBorder: ``
     }, {
         type: 'container',
         name: `image container`,
@@ -1472,7 +1472,7 @@ const blockTemplates = {
         flexDirection: '',
         flexJustify: '',
         flexItems: '',
-        hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
+        hoverBorder: ``
     }, {
         type: 'container',
         name: `image container`,
@@ -1680,7 +1680,7 @@ const blockTemplates = {
         borderColor: ``,
         borderWidth: ``,
         borderRadius: ``,
-        hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
+        hoverBorder: ``
     }, {
         text: `Mark Zuckerberg`
     }, {
@@ -1860,7 +1860,7 @@ const blockTemplates = {
         borderColor: ``,
         borderWidth: ``,
         borderRadius: ``,
-        hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab`
+        hoverBorder: ``
     }, {
         text: `Title`
     }, {
