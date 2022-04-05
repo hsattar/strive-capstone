@@ -147,41 +147,49 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
                         }}
                         className="w-full p-2 mb-2 resize-none border-2 rounded outline-none"
                     /> 
-                    <div className="flex items-center">
-                    <CustomSelectDropdown 
-                        containerClass="w-[150px] relative z-50"
-                        initialValue={linkType}
-                        listOfValues={linkTypeOptions}
-                        onClick={value => setLinkType(value)}
-                    />
-                    { linkType === 'Link - Internal' ? (
-                      <CustomSelectDropdown 
-                            containerClass="w-[150px] relative z-50 ml-4"
-                            initialValue={pageSelected}
-                            listOfValues={pages}
-                            onClick={value => setPageSelected(value)}
-                        />  
-                    ) : (
-                        <input 
-                            type="url" 
-                            placeholder="URL" 
-                            value={linkTo}
-                            onChange={e => setLinkTo(e.target.value)}
-                            className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:border focus:outline-none ml-4 w-[50%] block py-1.5 px-2.5" 
-                        />
+                    <div className="flex justify-between items-center w-full mb-12">
+                        <div className="flex items-center">
+                            <CustomSelectDropdown 
+                                containerClass="w-[150px] relative"
+                                initialValue={linkType}
+                                listOfValues={linkTypeOptions}
+                                onClick={value => setLinkType(value)}
+                            />
+                            { linkType === 'Link - Internal' ? (
+                            <CustomSelectDropdown 
+                                    containerClass="w-[150px] relative ml-4"
+                                    initialValue={pageSelected}
+                                    listOfValues={pages}
+                                    onClick={value => setPageSelected(value)}
+                                />  
+                            ) : (
+                                <input 
+                                    type="url" 
+                                    placeholder="URL" 
+                                    value={linkTo}
+                                    onChange={e => setLinkTo(e.target.value)}
+                                    className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:border focus:outline-none ml-4 w-[50%] block py-1.5 px-2.5" 
+                                />
+                            ) }
+                            <div className="ml-4">
+                                { !elementLinked ? (
+                                    <button onClick={() => linkChange(true)} className="border-green-500 border hover:bg-green-500 py-1 px-5 mr-3 rounded-md text-green-500 hover:text-white">Add</button>
+                                ) : (   
+                                    <button onClick={() => linkChange(false)} className="border-red-500 border hover:bg-red-500 py-1 px-5 mr-3 rounded-md text-red-500 hover:text-white">Remove</button>
+                                ) }
+                            </div>
+                        </div>
+                    { changesMade && (
+                        <button onClick={e => {
+                            e.stopPropagation()
+                            handleSave()
+                        }} className="bg-green-500 hover:bg-green-600 py-1 px-5 mr-3 rounded-md text-white">Save</button>
                     ) }
-                    <div className="ml-auto">
-                        { !elementLinked ? (
-                            <button onClick={() => linkChange(true)} className="border-green-500 border hover:bg-green-500 py-1 px-5 mr-3 rounded-md text-green-500 hover:text-white">Add</button>
-                        ) : (   
-                            <button onClick={() => linkChange(false)} className="border-red-500 border hover:bg-red-500 py-1 px-5 mr-3 rounded-md text-red-500 hover:text-white">Remove</button>
-                        ) }
-                    </div>
                     </div>
                     </>
                 ) }
                 { (elementToEdit!.type === 'flexContainer' || elementToEdit!.type === 'gridContainer') && (
-                    <div className="flex flex-col items-center select-none">
+                    <div className="flex flex-col items-center select-none mb-12">
                     <div className="w-full mb-3">{ parse(code) }</div>
                         { elementToEdit?.code.map((block, index) => {
                             if (block.text || block.tag?.startsWith(`<img`) || block.tag?.startsWith(`<div`) || block.tag?.startsWith(`</div>`)) {
@@ -204,16 +212,6 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
                         <label className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">IFrame</label>
                     </div>
                 )}
-                <div className="flex justify-end mt-4">
-                    { changesMade ? (
-                        <button onClick={e => {
-                            e.stopPropagation()
-                            handleSave()
-                        }} className="bg-green-500 hover:bg-green-600 py-1 px-5 mr-3 rounded-md text-white">Save</button>
-                    ) : (
-                        <button onClick={handleDuplicateBlock} className="bg-blue-500 hover:bg-blue-600 py-1 px-5 mr-3 rounded-md text-white">Duplicate</button>
-                    ) }
-                </div>
             </div>
         </div>
     )

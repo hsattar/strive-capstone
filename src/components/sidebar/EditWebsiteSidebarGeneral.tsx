@@ -251,44 +251,44 @@ export default function ${pageSelected}() {
             </>
         </CustomSidebarDropdown>
 
-        <CustomSidebarDropdown name="Website Details">
-        <div className="text-center">
-        <form onSubmit={updateWebsiteDetails} autoComplete="off" noValidate className="mt-0">
-            <div className="relative z-0 mb-4 group flex justify-center">
-                <input 
-                    className="block py-2.5 px-0 text-sm w-5/6 text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                    value={websiteName}
-                    disabled 
-                />
+            <CustomSidebarDropdown name="Website Details">
+            <div className="text-center">
+            <form onSubmit={updateWebsiteDetails} autoComplete="off" noValidate className="mt-0">
+                <div className="relative z-0 mb-4 group flex justify-center">
+                    <input 
+                        className="block py-2.5 px-0 text-sm w-5/6 text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        value={websiteName}
+                        disabled 
+                    />
+                </div>
+                <div className="relative z-0 mb-6 group flex justify-center">
+                    <input 
+                        className="block py-2.5 px-0 text-sm w-5/6 text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        value={websiteTitle}
+                        onChange={e => setWebsiteTitle(e.target.value)}
+                        placeholder="Website Title"
+                        required 
+                    />
+                </div>
+                <div className="relative z-0 mb-6 group flex justify-center">
+                    <textarea 
+                        className="resize-none block py-2.5 px-0 text-sm w-5/6 text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        value={websiteDescription}
+                        onChange={e => setWebsiteDescription(e.target.value)}
+                        placeholder="Website Description"
+                        required 
+                        rows={4}
+                    />
+                </div>
+                <button type="submit" className="border-green-500 border hover:bg-green-500 py-1 px-5 w-5/6 rounded-md text-green-500 hover:text-white">Update</button>
+            </form>
+            <button onClick={() => setShowCodeModal(true)} className="border-blue-500 border hover:bg-blue-500 py-1 px-5 w-5/6 rounded-md text-blue-500 hover:text-white mt-4">View Code</button>
             </div>
-            <div className="relative z-0 mb-6 group flex justify-center">
-                <input 
-                    className="block py-2.5 px-0 text-sm w-5/6 text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                    value={websiteTitle}
-                    onChange={e => setWebsiteTitle(e.target.value)}
-                    placeholder="Website Title"
-                    required 
-                />
-            </div>
-            <div className="relative z-0 mb-6 group flex justify-center">
-                <textarea 
-                    className="resize-none block py-2.5 px-0 text-sm w-5/6 text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                    value={websiteDescription}
-                    onChange={e => setWebsiteDescription(e.target.value)}
-                    placeholder="Website Description"
-                    required 
-                    rows={4}
-                />
-            </div>
-            <button type="submit" className="border-green-500 border hover:bg-green-500 py-1 px-5 w-5/6 rounded-md text-green-500 hover:text-white">Update</button>
-        </form>
-        <button onClick={() => setShowCodeModal(true)} className="border-blue-500 border hover:bg-blue-500 py-1 px-5 w-5/6 rounded-md text-blue-500 hover:text-white mt-4">View Code</button>
-        </div>
-        </CustomSidebarDropdown>
+            </CustomSidebarDropdown>
         </div>
         { showAddNewPageModal && (
-        <div onClick={() => setShowAddNewPageModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
-            <div onClick={e => e.stopPropagation()} className="relative top-10 mx-auto p-5 border w-[50%] shadow-lg rounded-md bg-white">
+        <div onClick={() => setShowAddNewPageModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+            <div onClick={e => e.stopPropagation()} className="relative top-10 mx-auto p-5 border w-[50%] shadow-lg rounded-md bg-white z-50">
                 <form onSubmit={handleSubmit} autoComplete="off" noValidate className="mt-3">
                     <div className="relative z-0 mb-6 w-full group">
                         <input 

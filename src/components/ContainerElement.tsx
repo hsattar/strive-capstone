@@ -202,7 +202,7 @@ export default function ContainerElement({ block, index, pages, changesMade, set
                         e.stopPropagation()
                         handleSave()
                     }} className={`bg-green-500 hover:bg-green-600 py-1 px-5 mr-3 rounded-md text-white`}>Save</button>
-                    </div>
+                </div>
                 </>
             </CustomSidebarDropdown>
         )
