@@ -94,7 +94,6 @@ export default function EditWebsiteTopBar() {
 
     const handleSaveWebsite = async () => {
         try {
-            // const publicCode = handleSave(codeBlocks)
             const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/development`, 'PUT', { code, codeBlocks })
             if (response.status === 200) {
                 toastNotification('Saved')
@@ -112,7 +111,7 @@ export default function EditWebsiteTopBar() {
                 axiosRequest(`/websites/${websiteName}/${pageSelected}/production/publish`, 'PUT', { code })
             ])
             if ((response[0].status === 200) && (response[1].status === 200 || 201)) {
-                toastNotification('Published')
+                toastNotification(`Published`)
                 dispatch(clearHistory())
             }
         } catch (error) {
@@ -179,7 +178,6 @@ export default function EditWebsiteTopBar() {
                 setBackgroundColor(elementToEdit.code[0].bgColor!.split('bg-')[1] || 'BG Color')
             }
             if (elementToEdit.type === 'gridContainer') {
-                console.log(elementToEdit.code[0])
                 setGridCol(elementToEdit.code[0].gridCols!.split('grid-cols-')[1] || 'Columns')
                 setGridGap(elementToEdit.code[0].gridGap!.split('gap-')[1] || 'Gap')
                 setBackgroundColor(elementToEdit.code[0].bgColor!.split('bg-')[1] || 'BG Color')

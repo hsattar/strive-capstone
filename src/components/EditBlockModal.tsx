@@ -74,7 +74,7 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
             break
             case 'iframe': {
                 const newElement = {...elementToEdit}
-                newElement.code[0].tag = `<div className="flex justify-center hover:border-2 hover:border-blue-300 hover:cursor-grab">  ${IFrameElement}  </div>`
+                newElement.code[1].tag = IFrameElement
                 const updatedCodeBlocks = codeBlocks.map(block => block.id === elementToEdit.id ? newElement : block)
                 const flatBlocks = updatedCodeBlocks.map(block => block.code).flat()
                 const updatedCode = createNewCode(flatBlocks)
@@ -126,7 +126,7 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
             }
         }
         if (elementToEdit!.type === 'iframe') {
-            setIFrameElement(elementToEdit!.code[0].tag!.split('  ')[1])
+            setIFrameElement(elementToEdit!.code[1].tag!)
         }
     }, [elementToEdit])
 
@@ -184,7 +184,7 @@ export default function EditBlockModal({ pages, setShowEditTextModal }: IProps) 
                     <div className="flex flex-col items-center select-none">
                     <div className="w-full mb-3">{ parse(code) }</div>
                         { elementToEdit?.code.map((block, index) => {
-                            if (block.text || block.tag?.startsWith(`<img`)) {
+                            if (block.text || block.tag?.startsWith(`<img`) || block.tag?.startsWith(`<div`) || block.tag?.startsWith(`</div>`)) {
                                 return <ContainerElement key={index} index={index} block={block} pages={pages} changesMade={changesMade} setChangesMade={setChangesMade} />
                             } else {
                                 return
