@@ -28,6 +28,14 @@
         transition-all duration-100 scale-0 origin-left;
     }
 
+    .code-block-tooltip {
+        @apply absolute w-auto p-2 min-w-max top-0 right-0 rounded-sm shadow-md
+        text-gray-900 bg-white
+        z-50
+        text-xs font-bold 
+        transition-all duration-100 scale-0 origin-left;
+    }
+
 }
 
 body {

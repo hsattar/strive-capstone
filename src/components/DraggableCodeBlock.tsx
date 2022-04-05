@@ -1,8 +1,9 @@
-import { Dispatch, SetStateAction, useRef, useEffect } from "react"
+import { Dispatch, SetStateAction, useRef, useEffect, useState, MouseEvent } from "react"
 import { Draggable } from "react-beautiful-dnd"
 import parse from 'html-react-parser'
-import { createNewEditableCode, setElementToEditAction } from "../redux/actions/actionCreators"
-import { useDispatch } from "react-redux"
+import { addElementsToCodeAction, createNewEditableCode, setElementToEditAction } from "../redux/actions/actionCreators"
+import { useDispatch, useSelector } from "react-redux"
+import { v4 as uuid } from 'uuid'
 
 interface IProps {
     codeBlock: ICodeBlock
@@ -14,7 +15,6 @@ interface IProps {
 export default function DraggableCodeBlock({ codeBlock, index, setSidebarTab, setShowEditTextModal}: IProps) {
 
     const dispatch = useDispatch()
-    const firstBlockRef = useRef<HTMLDivElement>(null)
     const code = createNewEditableCode(codeBlock.code)
 
     const handleClick = () => {
@@ -22,35 +22,37 @@ export default function DraggableCodeBlock({ codeBlock, index, setSidebarTab, se
         setSidebarTab('styles')
     }
 
-    // useEffect(() => {
-    //     firstBlockRef.current && firstBlockRef.current.click()
-    // }, [firstBlockRef])
+    const handleDuplicateBlock = (e: MouseEvent<HTMLSpanElement>) => {
+        e.stopPropagation()
+        const id = uuid()
+        const newCodeArray = [...codeBlock.code]
+        const updatedCodeArray = newCodeArray.map(block => ({ ...block }))
+        const newElement = {
+            ...codeBlock,
+            id,
+            code: [...updatedCodeArray]
+        } as ICodeBlock
+        dispatch(addElementsToCodeAction(newElement))
+    }
 
     return (
-        <>
-        { index === 0 ? (
         <Draggable draggableId={codeBlock.id} index={index}>
             {(provided) => (
                 <div
-                {...provided.draggableProps}
-                ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    ref={provided.innerRef}
                 >
-                <div ref={firstBlockRef} onClick={handleClick} onDoubleClick={() => setShowEditTextModal(true)} {...provided.dragHandleProps}>{ parse(code) }</div>
+                    <div 
+                        onClick={handleClick} 
+                        onDoubleClick={() => setShowEditTextModal(true)} 
+                        {...provided.dragHandleProps}
+                        className="relative transition-all duration-200 ease-linear group"
+                    >
+                        { parse(code) }
+                        <span onClick={handleDuplicateBlock} className="code-block-tooltip group-hover:scale-100">Duplicate</span>
+                    </div>
                 </div>
             )}
         </Draggable>
-        ) : (
-        <Draggable draggableId={codeBlock.id} index={index}>
-            {(provided) => (
-                <div
-                {...provided.draggableProps}
-                ref={provided.innerRef}
-                >
-                <div onClick={handleClick} onDoubleClick={() => setShowEditTextModal(true)} {...provided.dragHandleProps}>{ parse(code) }</div>
-                </div>
-            )}
-        </Draggable>
-        ) }
-        </>
     )
 }

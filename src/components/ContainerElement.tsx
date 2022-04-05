@@ -23,7 +23,7 @@ export default function ContainerElement({ block, index, pages, changesMade, set
     const elementToEdit = useSelector((state: IReduxStore) => state.misc.elementToEdit)
     const codeBlocks = useSelector((state: IReduxStore) => state.website.present.codeBlocks)
 
-    const [showEditOptions, setShowEditOptions] = useState(true)
+    const [showEditOptions, setShowEditOptions] = useState(false)
 
     const textAreaRef = useRef<HTMLTextAreaElement>(null)
     
