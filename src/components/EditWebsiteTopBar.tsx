@@ -135,11 +135,11 @@ export default function EditWebsiteTopBar() {
                 break
             case 'gridCols':
                 setGridCol(value)
-                dispatch(changeElementClassNameAction(type, `grid-cols-${value}`))
+                dispatch(changeElementClassNameAction(type, `grid-${value}`))
                 break
             case 'gridGap':
                 setGridGap(value)
-                dispatch(changeElementClassNameAction(type, `gap-${value}`))
+                dispatch(changeElementClassNameAction(type, value))
                 break
             case 'bgColor': 
                 setBackgroundColor(value)
@@ -178,8 +178,8 @@ export default function EditWebsiteTopBar() {
                 setBackgroundColor(elementToEdit.code[0].bgColor!.split('bg-')[1] || 'BG Color')
             }
             if (elementToEdit.type === 'gridContainer') {
-                setGridCol(elementToEdit.code[0].gridCols!.split('grid-cols-')[1] || 'Columns')
-                setGridGap(elementToEdit.code[0].gridGap!.split('gap-')[1] || 'Gap')
+                setGridCol(elementToEdit.code[0].gridCols!.split('grid-')[1] || 'Columns')
+                setGridGap(elementToEdit.code[0].gridGap! || 'Gap')
                 setBackgroundColor(elementToEdit.code[0].bgColor!.split('bg-')[1] || 'BG Color')
             }
         }

@@ -192,99 +192,99 @@ export default function ${pageSelected}() {
         <>
         <div className="flex flex-col select-none">
         <CustomSidebarDropdown 
-                name={`pages - ${pageSelected}`}
-                iconClassName="h-5 w-5 text-green-500 mr-2" 
-                iconPath="M12 4v16m8-8H4" 
-                iconStrokeWidth={2}
-                onClick={(e: MouseEvent) => {
-                    e.stopPropagation()
-                    setShowAddNewPageModal(true)
-                }}
-            >
-                <>
-                    { pages.map(page => (
-                    <Fragment key={page}>
-                    { (page === 'home' && page !== pageSelected) && (
-                        <div className="flex justify-between items-center hover:bg-gray-100 py-1" onClick={e => handlePageToEditChange(page)}>
-                            <p className="capitalize ml-8 cursor-default">{page}</p>
+            name={`pages - ${pageSelected}`}
+            iconClassName="h-5 w-5 text-green-500 mr-2" 
+            iconPath="M12 4v16m8-8H4" 
+            iconStrokeWidth={2}
+            onClick={(e: MouseEvent) => {
+                e.stopPropagation()
+                setShowAddNewPageModal(true)
+            }}
+        >
+            <>
+                { pages.map(page => (
+                <Fragment key={page}>
+                { (page === 'home' && page !== pageSelected) && (
+                    <div className="flex justify-between items-center hover:bg-gray-100 py-1" onClick={e => handlePageToEditChange(page)}>
+                        <p className="capitalize ml-8 cursor-default">{page}</p>
+                        <button onClick={handleDuplicatePage}>
+                            <CustomSVGIcon svgClassName="text-blue-500 h-4 w-4 mr-2.5" pathD="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </button>
+                    </div>
+                ) }
+                { (page === 'home' && page === pageSelected) && (
+                    <div className="flex justify-between items-center bg-gray-100 py-1" onClick={e => handlePageToEditChange(page)}>
+                        <p className="capitalize ml-8 cursor-default">{page}</p>
+                        <button onClick={handleDuplicatePage}>
+                            <CustomSVGIcon svgClassName="text-blue-500 h-4 w-4 mr-2.5" pathD="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </button>
+                    </div>
+                ) }
+                { (page !== 'home' && page !== pageSelected) && (
+                    <div className="flex justify-between items-center hover:bg-gray-100 py-1" onClick={e => handlePageToEditChange(page)}>
+                        <p className="capitalize ml-8 cursor-default">{page}</p>
+                        <div>
                             <button onClick={handleDuplicatePage}>
                                 <CustomSVGIcon svgClassName="text-blue-500 h-4 w-4 mr-2.5" pathD="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                             </button>
+                            <button onClick={e => handleDeletePage(e, page)}>
+                                <CustomSVGIcon svgClassName="h-4 w-4 mr-2.5 text-red-500 cursor-pointer" pathD="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </button>
                         </div>
-                    ) }
-                    { (page === 'home' && page === pageSelected) && (
-                        <div className="flex justify-between items-center bg-gray-100 py-1" onClick={e => handlePageToEditChange(page)}>
-                            <p className="capitalize ml-8 cursor-default">{page}</p>
+                    </div>
+                ) }
+                { (page !== 'home' && page === pageSelected) && (
+                    <div className="flex justify-between items-center bg-gray-100 py-1" onClick={e => handlePageToEditChange(page)}>
+                        <p className="capitalize ml-8 cursor-default">{page}</p>
+                        <div>
                             <button onClick={handleDuplicatePage}>
                                 <CustomSVGIcon svgClassName="text-blue-500 h-4 w-4 mr-2.5" pathD="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                             </button>
+                            <button onClick={e => handleDeletePage(e, page)}>
+                                <CustomSVGIcon svgClassName="h-4 w-4 mr-2.5 text-red-500 cursor-pointer" pathD="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </button>
                         </div>
-                    ) }
-                    { (page !== 'home' && page !== pageSelected) && (
-                        <div className="flex justify-between items-center hover:bg-gray-100 py-1" onClick={e => handlePageToEditChange(page)}>
-                            <p className="capitalize ml-8 cursor-default">{page}</p>
-                            <div>
-                                <button onClick={handleDuplicatePage}>
-                                    <CustomSVGIcon svgClassName="text-blue-500 h-4 w-4 mr-2.5" pathD="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                </button>
-                                <button onClick={e => handleDeletePage(e, page)}>
-                                    <CustomSVGIcon svgClassName="h-4 w-4 mr-2.5 text-red-500 cursor-pointer" pathD="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                </button>
-                            </div>
-                        </div>
-                    ) }
-                    { (page !== 'home' && page === pageSelected) && (
-                        <div className="flex justify-between items-center bg-gray-100 py-1" onClick={e => handlePageToEditChange(page)}>
-                            <p className="capitalize ml-8 cursor-default">{page}</p>
-                            <div>
-                                <button onClick={handleDuplicatePage}>
-                                    <CustomSVGIcon svgClassName="text-blue-500 h-4 w-4 mr-2.5" pathD="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                </button>
-                                <button onClick={e => handleDeletePage(e, page)}>
-                                    <CustomSVGIcon svgClassName="h-4 w-4 mr-2.5 text-red-500 cursor-pointer" pathD="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                </button>
-                            </div>
-                        </div>
-                    ) }
-                    </Fragment>
-                    )) }
-                </>
-            </CustomSidebarDropdown>
+                    </div>
+                ) }
+                </Fragment>
+                )) }
+            </>
+        </CustomSidebarDropdown>
 
-            <CustomSidebarDropdown name="Website Details">
-            <div className="text-center">
-            <form onSubmit={updateWebsiteDetails} autoComplete="off" noValidate className="mt-0">
-                <div className="relative z-0 mb-4 group flex justify-center">
-                    <input 
-                        className="block py-2.5 px-0 text-sm w-5/6 text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        value={websiteName}
-                        disabled 
-                    />
-                </div>
-                <div className="relative z-0 mb-6 group flex justify-center">
-                    <input 
-                        className="block py-2.5 px-0 text-sm w-5/6 text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        value={websiteTitle}
-                        onChange={e => setWebsiteTitle(e.target.value)}
-                        placeholder="Website Title"
-                        required 
-                    />
-                </div>
-                <div className="relative z-0 mb-6 group flex justify-center">
-                    <textarea 
-                        className="resize-none block py-2.5 px-0 text-sm w-5/6 text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        value={websiteDescription}
-                        onChange={e => setWebsiteDescription(e.target.value)}
-                        placeholder="Website Description"
-                        required 
-                        rows={4}
-                    />
-                </div>
-                <button type="submit" className="border-green-500 border hover:bg-green-500 py-1 px-5 w-5/6 rounded-md text-green-500 hover:text-white">Update</button>
-            </form>
-            <button onClick={() => setShowCodeModal(true)} className="border-blue-500 border hover:bg-blue-500 py-1 px-5 w-5/6 rounded-md text-blue-500 hover:text-white mt-4">View Code</button>
+        <CustomSidebarDropdown name="Website Details">
+        <div className="text-center">
+        <form onSubmit={updateWebsiteDetails} autoComplete="off" noValidate className="mt-0">
+            <div className="relative z-0 mb-4 group flex justify-center">
+                <input 
+                    className="block py-2.5 px-0 text-sm w-5/6 text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    value={websiteName}
+                    disabled 
+                />
             </div>
-            </CustomSidebarDropdown>
+            <div className="relative z-0 mb-6 group flex justify-center">
+                <input 
+                    className="block py-2.5 px-0 text-sm w-5/6 text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    value={websiteTitle}
+                    onChange={e => setWebsiteTitle(e.target.value)}
+                    placeholder="Website Title"
+                    required 
+                />
+            </div>
+            <div className="relative z-0 mb-6 group flex justify-center">
+                <textarea 
+                    className="resize-none block py-2.5 px-0 text-sm w-5/6 text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    value={websiteDescription}
+                    onChange={e => setWebsiteDescription(e.target.value)}
+                    placeholder="Website Description"
+                    required 
+                    rows={4}
+                />
+            </div>
+            <button type="submit" className="border-green-500 border hover:bg-green-500 py-1 px-5 w-5/6 rounded-md text-green-500 hover:text-white">Update</button>
+        </form>
+        <button onClick={() => setShowCodeModal(true)} className="border-blue-500 border hover:bg-blue-500 py-1 px-5 w-5/6 rounded-md text-blue-500 hover:text-white mt-4">View Code</button>
+        </div>
+        </CustomSidebarDropdown>
         </div>
         { showAddNewPageModal && (
         <div onClick={() => setShowAddNewPageModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">

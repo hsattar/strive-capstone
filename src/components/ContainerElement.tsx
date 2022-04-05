@@ -1,7 +1,8 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useRef, useState, MouseEvent } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import useAxios from "../hooks/useAxios"
+import CustomSidebarDropdown from "./reusable/CustomSidebarDropdown"
 import { addOrRemoveElementLinkAction, createNewCode, updateCodeAndCodeBlocksAction } from "../redux/actions/actionCreators"
 import CustomSelectDropdown from "./reusable/CustomSelectDropdown"
 import CustomSVGIcon from "./reusable/CustomSVGIcon"
@@ -141,14 +142,24 @@ export default function ContainerElement({ block, index, pages, changesMade, set
     if (block.text) {
         return (
             <>
-            <div className="flex justify-between w-full">
+            <CustomSidebarDropdown 
+                name={block.text}
+                iconClassName="h-4 w-4 text-red-500 mr-2" 
+                iconPath="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" 
+                iconStrokeWidth={1}
+                open={false}
+                onClick={(e: MouseEvent<HTMLButtonElement>) => {
+                    e.stopPropagation()
+                    handleDeleteElement()
+                }}
+            >
+            {/* <div className="flex justify-between w-full">
                 <span></span>
                 <p onClick={() => setShowEditOptions(true)} className="my-2 cursor-pointer">{elementToEditText}</p>
                 <button onClick={handleDeleteElement}>
                     <CustomSVGIcon svgClassName="h-4 w-4 mr-2.5 text-red-500 cursor-pointer" pathD="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                 </button>
-            </div>
-            { showEditOptions && (
+            </div> */}
             <>
             <textarea
                 autoFocus
@@ -160,7 +171,7 @@ export default function ContainerElement({ block, index, pages, changesMade, set
                     setElementToEditText(e.target.value)
                     !changesMade && setChangesMade(true)
                 }}
-                className="w-full p-2 mb-2 resize-none border-2 rounded outline-none"
+                className="w-full p-2 my-2 resize-none border-2 rounded outline-none"
             /> 
             <div className="flex items-center">
                 <CustomSelectDropdown 
@@ -200,7 +211,7 @@ export default function ContainerElement({ block, index, pages, changesMade, set
                         }} className={`bg-green-500 hover:bg-green-600 py-1 px-5 mr-3 rounded-md text-white`}>Save</button>
                     </div>
                 </>
-                ) }
+                </CustomSidebarDropdown>
             </>
         )
     } else if (block.tag?.startsWith(`<img`)) {
@@ -235,7 +246,7 @@ export default function ContainerElement({ block, index, pages, changesMade, set
     } else if (block.tag?.startsWith(`</div>`)) {
         return (
             <>
-                <p>{block.tag}</p>
+                {/* <p>{block.tag}</p> */}
             </>
         )
     } else return <></>

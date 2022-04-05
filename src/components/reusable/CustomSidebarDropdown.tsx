@@ -1,4 +1,4 @@
-import { MouseEventHandler, useState } from "react"
+import { MouseEventHandler, useEffect, useState } from "react"
 import SVGIcon from "./CustomSVGIcon"
 
 interface IProps {
@@ -8,11 +8,16 @@ interface IProps {
     iconPath?: string
     iconStrokeWidth?: number
     onClick?: MouseEventHandler<HTMLButtonElement>
+    open?: boolean
 }
 
-export default function CustomSidebarDropdown({ name, children, iconClassName, iconPath, iconStrokeWidth, onClick }: IProps) {
+export default function CustomSidebarDropdown({ name, children, iconClassName, iconPath, iconStrokeWidth, onClick, open = true }: IProps) {
 
-    const [showChildren, setShowChildren] = useState(true)
+    const [showChildren, setShowChildren] = useState(false)
+
+    useEffect(() => {
+        open !== false && setShowChildren(true) 
+    }, [])
 
     return (
         <>

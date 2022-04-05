@@ -28,8 +28,6 @@ export default function SingleWebsiteImage({ image }: IProps) {
         dispatch(addElementsToCodeAction(codeObject))
     }
 
-    console.log(image)
-
     return (
         <img className="cursor-pointer" onClick={() => handleAddCode(createImageTemplate(image))} src={image} alt="" />
     )
