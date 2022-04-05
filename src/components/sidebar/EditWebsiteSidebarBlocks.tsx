@@ -75,7 +75,7 @@ export default function EditWebsiteSidebarElements() {
             </CustomSidebarDropdown>
         </div>
         { showIFrameModal && (
-            <div onClick={() => setShowIFrameModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+            <div onClick={() => setShowIFrameModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
                 <div onClick={e => e.stopPropagation()} className="relative top-10 mx-auto p-5 border w-[50%] shadow-lg rounded-md bg-white">
                     <form onSubmit={handleCreateIFrame} autoComplete="off" noValidate className="mt-3">
                         <div className="relative z-0 mb-6 w-full group">

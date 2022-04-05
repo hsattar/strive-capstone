@@ -231,9 +231,9 @@ const blockTemplates = {
     navbar: [{
         type: 'flexContainer',
         name: `navbar container`,
-        tag: `<div className="flex flex-row justify-between items-center p-2 bg-gray-200 hover:border-2 hover:border-blue-300 hover:cursor-grab">`,
-        className: `flex flex-row justify-between items-center pt-2 pr-2 pb-2 pl-2 bg-gray-200 hover:border-2 hover:border-blue-300 hover:cursor-grab`,
-        bgColor: `bg-gray-200`,
+        tag: `<div className="flex flex-row justify-between items-center p-2 bg-gray-100 hover:border-2 hover:border-blue-300 hover:cursor-grab">`,
+        className: `flex flex-row justify-between items-center pt-2 pr-2 pb-2 pl-2 bg-gray-100 hover:border-2 hover:border-blue-300 hover:cursor-grab`,
+        bgColor: `bg-gray-100`,
         marginT: ``,
         marginR: ``,
         marginB: ``,
