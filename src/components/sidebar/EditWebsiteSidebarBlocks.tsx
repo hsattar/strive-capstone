@@ -32,12 +32,14 @@ export default function EditWebsiteSidebarElements() {
     const handleAddCode = (elementsToAdd: any) => {
         const id = uuid()
         const codeObject = { id, name: elementsToAdd[0].name, type: elementsToAdd[0].type, code: elementsToAdd} as ICodeBlock
+        console.log(codeObject)
         dispatch(setElementToEditAction(codeObject))
         dispatch(addElementsToCodeAction(codeObject))
     }
 
     const handleCreateIFrame = () => {
-        const elementsToAdd = [{ name: 'youtube video', type: 'iframe', tag: `<div className="flex justify-center hover:border-2 hover:border-blue-300 hover:cursor-grab">  ${IFrameElement}  </div>` }]
+        const elementsToAdd = [{ name: 'iframe', type: 'iframe', tag: `<div className="flex justify-center hover:border-2 hover:border-blue-300 hover:cursor-grab">`, hoverBorder: `hover:border-2 hover:border-blue-300 hover:cursor-grab` }, { tag: IFrameElement }, { tag: `</div>`}]
+        console.log(elementsToAdd)
         handleAddCode(elementsToAdd)
         setIFrameElement('')
         setShowIFrameModal(false)

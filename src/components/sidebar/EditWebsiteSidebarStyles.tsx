@@ -89,7 +89,7 @@ export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEdi
 
     useEffect(() => {
         if (elementToEdit) {
-            if (elementToEdit.type === 'element') {
+            // if (elementToEdit.type === 'element') {
                 setMarginT(elementToEdit.code[0]?.marginT!.split('-')[1] || '0')
                 setMarginR(elementToEdit.code[0]?.marginR!.split('-')[1] || '0')
                 setMarginB(elementToEdit.code[0]?.marginB!.split('-')[1] || '0')
@@ -99,10 +99,10 @@ export default function EditWebsiteSidebarStyles({ showEditTextModal, setShowEdi
                 setPaddingB(elementToEdit.code[0]?.paddingB!.split('-')[1] || '0')
                 setPaddingL(elementToEdit.code[0]?.paddingL!.split('-')[1] || '0')
                 setBorderStyle(elementToEdit.code[0]?.borderStyle! || 'Style')
-                setBorderColor(elementToEdit.code[0]?.borderColor!.split('border-')[1] || 'Color')
+                setBorderColor(elementToEdit.code[0]?.borderColor!?.split('border-')[1] || 'Color')
                 setBorderWidth(elementToEdit.code[0]?.borderWidth! || 'Width')
                 setBorderRadius(elementToEdit.code[0]?.borderRadius! || 'Radius')
-            }
+            // }
         }
     }, [elementToEdit])
 
