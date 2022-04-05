@@ -25,13 +25,10 @@ export const createNewCode = (codeBlocks: IElement[]) =>
 
 export const addElementsToCodeAction = (elements: ICodeBlock) => 
 (dispatch: ThunkDispatch<Action, any, any>, getState: () => IReduxStore) => {
-    console.log(elements)
     const oldCodeBlock = getState().website.present.codeBlocks
     const newCodeBlocks = [...oldCodeBlock, elements]
     const newCodeBlockCode = newCodeBlocks.map(block => block.code).flat()
-    console.log(newCodeBlockCode)
     const newCode = createNewCode(newCodeBlockCode)
-    console.log(newCode)
     
     dispatch({ type: ACTIONS.ADD_ELEMENTS_TO_CODE, payload: { newCode, newCodeBlocks }})
 }

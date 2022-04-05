@@ -23,7 +23,7 @@ export default function ContainerElement({ block, index, pages, changesMade, set
     const elementToEdit = useSelector((state: IReduxStore) => state.misc.elementToEdit)
     const codeBlocks = useSelector((state: IReduxStore) => state.website.present.codeBlocks)
 
-    const [showEditOptions, setShowEditOptions] = useState(false)
+    const [showEditOptions, setShowEditOptions] = useState(true)
 
     const textAreaRef = useRef<HTMLTextAreaElement>(null)
     
@@ -141,25 +141,18 @@ export default function ContainerElement({ block, index, pages, changesMade, set
 
     if (block.text) {
         return (
-            <>
             <CustomSidebarDropdown 
                 name={block.text}
                 iconClassName="h-4 w-4 text-red-500 mr-2" 
                 iconPath="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" 
                 iconStrokeWidth={1}
-                open={false}
+                open={showEditOptions}
+                setOpen={(value) => setShowEditOptions(value)}
                 onClick={(e: MouseEvent<HTMLButtonElement>) => {
                     e.stopPropagation()
                     handleDeleteElement()
                 }}
             >
-            {/* <div className="flex justify-between w-full">
-                <span></span>
-                <p onClick={() => setShowEditOptions(true)} className="my-2 cursor-pointer">{elementToEditText}</p>
-                <button onClick={handleDeleteElement}>
-                    <CustomSVGIcon svgClassName="h-4 w-4 mr-2.5 text-red-500 cursor-pointer" pathD="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                </button>
-            </div> */}
             <>
             <textarea
                 autoFocus
@@ -173,7 +166,8 @@ export default function ContainerElement({ block, index, pages, changesMade, set
                 }}
                 className="w-full p-2 my-2 resize-none border-2 rounded outline-none"
             /> 
-            <div className="flex items-center">
+            <div className="flex justify-between items-center w-full mb-4">
+                <div className="flex items-center">
                 <CustomSelectDropdown 
                     containerClass="w-[150px] relative z-50"
                     initialValue={linkType}
@@ -204,44 +198,38 @@ export default function ContainerElement({ block, index, pages, changesMade, set
                         ) }
                     </div>
                     </div>
-                    <div className="flex justify-end mt-4">
-                        <button onClick={e => {
-                            e.stopPropagation()
-                            handleSave()
-                        }} className={`bg-green-500 hover:bg-green-600 py-1 px-5 mr-3 rounded-md text-white`}>Save</button>
+                    <button onClick={e => {
+                        e.stopPropagation()
+                        handleSave()
+                    }} className={`bg-green-500 hover:bg-green-600 py-1 px-5 mr-3 rounded-md text-white`}>Save</button>
                     </div>
                 </>
-                </CustomSidebarDropdown>
-            </>
+            </CustomSidebarDropdown>
         )
     } else if (block.tag?.startsWith(`<img`)) {
         return (
-            <>
-                <div className="flex justify-between w-full">
-                    <span></span>
-                    <p onClick={() => setEditImageModal(true)} className="my-2 cursor-pointer">{elementToEditImage}</p>
-                    <button onClick={handleDeleteElement}>
-                        <CustomSVGIcon svgClassName="h-4 w-4 mr-2.5 text-red-500 cursor-pointer" pathD="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </button>
-                </div>
-                { editImageModal && (
-                    <>
-                    { websiteImages.length === 0 ? (
-                        <p className="text-center text-gray-400 my-4">You Have No Images Uploaded</p>
-                    ) : (
-                        <div className="grid grid-cols-4 justify-items-center gap-3 p-3">
-                        { websiteImages.map(image => <img key={image} className="cursor-pointer" onClick={() => handleImageChange(block, image)} src={image} alt="" />) }
-                        </div>
-                    ) }
-                    <div className="flex justify-end mt-4">
-                        <button onClick={e => {
-                            e.stopPropagation()
-                            setEditImageModal(false)
-                        }} className={`bg-blue-500 hover:bg-blue-600 py-1 px-5 mr-3 rounded-md text-white`}>Close</button>
+            <CustomSidebarDropdown 
+                name={block.tag}
+                iconClassName="h-4 w-4 text-red-500 mr-2" 
+                iconPath="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" 
+                iconStrokeWidth={1}
+                open={editImageModal}
+                setOpen={(value) => setEditImageModal(value)}
+                onClick={(e: MouseEvent<HTMLButtonElement>) => {
+                    e.stopPropagation()
+                    handleDeleteElement()
+                }}
+            >
+                <>
+                { websiteImages.length === 0 ? (
+                    <p className="text-center text-gray-400 my-4">You Have No Images Uploaded</p>
+                ) : (
+                    <div className="grid grid-cols-4 justify-items-center gap-3 p-3">
+                    { websiteImages.map(image => <img key={image} className="cursor-pointer" onClick={() => handleImageChange(block, image)} src={image} alt="" />) }
                     </div>
-                    </>
                 ) }
-            </>
+                </>
+            </CustomSidebarDropdown>
         )
     } else if (block.tag?.startsWith(`</div>`)) {
         return (
