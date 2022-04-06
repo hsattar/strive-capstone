@@ -8,6 +8,10 @@ import { toast, ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
 import { ActionCreators } from 'redux-undo'
 import CustomSelectDropdown from "../reusable/CustomSelectDropdown"
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
+import markup from 'react-syntax-highlighter/dist/esm/languages/prism/markup'
+import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx'
+import vscDarkPlus from 'react-syntax-highlighter/dist/esm/styles/prism/vsc-dark-plus'
 
 interface IProps {
     pages: string[]
@@ -176,6 +180,8 @@ export default function ${pageSelected}() {
 
     useEffect(() => {
         setPageToEdit(pageSelected)
+        SyntaxHighlighter.registerLanguage('markup', markup)
+        SyntaxHighlighter.registerLanguage('jsx', jsx)
     }, [])
     
     useEffect(() => {
@@ -311,30 +317,22 @@ export default function ${pageSelected}() {
         { showCodeModal && (
         <div onClick={() => setShowCodeModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
             <div onClick={e => e.stopPropagation()} className="relative top-10 mx-auto p-5 border w-[85%] shadow-lg rounded-md max-h-[85vh] overflow-hidden overflow-y-scroll bg-white">
-            <CustomSelectDropdown 
-                containerClass="w-full"
-                initialValue={viewCodeLanguage}
-                listOfValues={['html', 'react']}
-                onClick={value => setViewCodeLanguage(value)}
-            />
-            <pre className="bg-gray-900 text-gray-100 rounded-md mt-5 p-4 overflow-hidden overflow-x-scroll">
-                <code>
-                    { viewCodeLanguage === 'html' ? (
-                        <>
-                            { openingHTML }
-                            { viewCode }
-                            { closingHTML }
-                        </>
-                    ) : (
-                        <>
-                            { openingReact }
-                                { viewCode }
-                            { closingReact }
-                        </>
-                    ) }
-                </code>
-            </pre>
-            <button onClick={handleCopyCode} className="border-blue-500 border hover:bg-blue-500 py-1 px-5 rounded-md text-blue-500 hover:text-white mt-4 w-full">Copy</button>
+                <CustomSelectDropdown 
+                    containerClass="w-full"
+                    initialValue={viewCodeLanguage}
+                    listOfValues={['html', 'react']}
+                    onClick={value => setViewCodeLanguage(value)}
+                />
+                { viewCodeLanguage === 'html' ? (
+                    <SyntaxHighlighter language="markup" style={vscDarkPlus} showLineNumbers={true}>
+                        { `${openingHTML}${viewCode}${closingHTML}` }
+                    </SyntaxHighlighter>
+                ) : (
+                    <SyntaxHighlighter language="jsx" style={vscDarkPlus} showLineNumbers={true}>
+                        { `${openingReact}${viewCode}${closingReact}` }
+                    </SyntaxHighlighter>
+                ) }
+                <button onClick={handleCopyCode} className="border-blue-500 border hover:bg-blue-500 py-1 px-5 rounded-md text-blue-500 hover:text-white mt-4 w-full">Copy</button>
             </div>
         </div>
         ) }
