@@ -80,7 +80,7 @@ export default function ${pageSelected}() {
         try {
             const response = await axiosRequest(`/websites/${websiteName}/${pageSelected}/details`, 'GET')
             if (response.status === 200) {
-                setWebsiteTitle(response.data.title)
+                setWebsiteTitle(`${response.data.title} - ${pageSelected}`)
                 setWebsiteDescription(response.data.description)
             }
         } catch (error) {
@@ -323,6 +323,7 @@ export default function ${pageSelected}() {
                     listOfValues={['html', 'react']}
                     onClick={value => setViewCodeLanguage(value)}
                 />
+                <button onClick={handleCopyCode} className="border-blue-500 border hover:bg-blue-500 my-2 px-5 py-1 rounded-md text-blue-500 hover:text-white w-full">Copy</button>
                 { viewCodeLanguage === 'html' ? (
                     <SyntaxHighlighter language="markup" style={vscDarkPlus} showLineNumbers={true}>
                         { `${openingHTML}${viewCode}${closingHTML}` }
@@ -332,7 +333,6 @@ export default function ${pageSelected}() {
                         { `${openingReact}${viewCode}${closingReact}` }
                     </SyntaxHighlighter>
                 ) }
-                <button onClick={handleCopyCode} className="border-blue-500 border hover:bg-blue-500 py-1 px-5 rounded-md text-blue-500 hover:text-white mt-4 w-full">Copy</button>
             </div>
         </div>
         ) }

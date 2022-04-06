@@ -224,7 +224,7 @@ export default function ContainerElement({ block, index, pages, changesMade, set
                 { websiteImages.length === 0 ? (
                     <p className="text-center text-gray-400 my-4">You Have No Images Uploaded</p>
                 ) : (
-                    <div className="grid grid-cols-4 justify-items-center gap-3 p-3">
+                    <div className="grid grid-cols-8 justify-items-center gap-3 p-3">
                     { websiteImages.map(image => <img key={image} className="cursor-pointer" onClick={() => handleImageChange(block, image)} src={image} alt="" />) }
                     </div>
                 ) }

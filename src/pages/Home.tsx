@@ -76,14 +76,14 @@ export default function Home() {
                 { myWebsites.length === 0 ? (
                     <p className="text-center py-12 text-xl">You Have No Websites</p>
                 ) : (
-                    <div>
-                    { myWebsites.map(website => <SingleWebsite key={website._id} website={website} handleDeleteWebsite={handleDeleteWebsite} />)}
+                    <div className="grid grid-cols-3 gap-4">
+                        { myWebsites.map(website => <SingleWebsite key={website._id} website={website} handleDeleteWebsite={handleDeleteWebsite} />)}
                     </div>
                 ) }
             </div>
         </div>
         { showNewWebsiteModal && (
-            <div onClick={() => setShowNewWebsiteModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+        <div onClick={() => setShowNewWebsiteModal(false)} className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
             <div onClick={e => e.stopPropagation()} className="relative top-10 mx-auto p-5 border w-[50%] shadow-lg rounded-md bg-white">
                 <form onSubmit={handleSubmit} autoComplete="off" noValidate className="mt-3">
                     <div className="relative z-0 mb-6 w-full group">
