@@ -38,13 +38,13 @@ export default function ViewWebsite() {
 
     useEffect(() => {
         fetchWebsiteCode()
-        fetchWebsiteDetails()
+        // fetchWebsiteDetails()
     }, [websiteName, pageSelected])
 
   return (
     <>
     <Helmet>
-      <title>{websiteTitle}</title>
+      <title>{websiteTitle || `${websiteName} - ${pageSelected}`}</title>
       <script src="https://cdn.tailwindcss.com"></script>
       <meta name="robots" content="index, follow"></meta>
       <meta name="viewport" content="width=device-width,initial-scale=1.0"></meta>

@@ -76,7 +76,7 @@ export default function Home() {
                 { myWebsites.length === 0 ? (
                     <p className="text-center py-12 text-xl">You Have No Websites</p>
                 ) : (
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-3 gap-6">
                         { myWebsites.map(website => <SingleWebsite key={website._id} website={website} handleDeleteWebsite={handleDeleteWebsite} />)}
                     </div>
                 ) }
